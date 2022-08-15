@@ -1,0 +1,3 @@
+# Ignore local data
+data/
+hosts.db
