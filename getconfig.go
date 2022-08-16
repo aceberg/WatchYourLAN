@@ -6,6 +6,11 @@ import (
 )
 
 func get_config(path string) (config Conf) {
+	viper.SetDefault("IFACE", "eth0")
+	viper.SetDefault("DBPATH", "data/db.sqlite")
+	viper.SetDefault("GUIIP", "localhost")
+	viper.SetDefault("GUIPORT", "8840")
+
     viper.SetConfigFile(path)
 	viper.SetConfigType("env")
     viper.ReadInConfig()
@@ -17,7 +22,7 @@ func get_config(path string) (config Conf) {
 	config.GuiIP = viper.Get("GUIIP").(string)
 	config.GuiPort = viper.Get("GUIPORT").(string)
 
-    // fmt.Println(viper.Get("GUIPORT"))
+    // fmt.Println(viper.Get("DBPATH"))
 
 	return config
 }

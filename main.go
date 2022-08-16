@@ -22,9 +22,6 @@ type Conf struct {
 }
 
 func main() {
-	// iface := "virbr-bw"
-    // db_path := "data/hosts.db"
-
     newConfig := get_config("./data/config")
 
     text := scan_iface(newConfig.Iface)
