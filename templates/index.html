@@ -1,27 +1,50 @@
 {{ define "index"}}
-<html>
-<head>
-    <title>Watch Your LAN</title>
-    <meta charset="utf-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.0/dist/spacelab/bootstrap.min.css" rel="stylesheet">
-</head>
+
+{{ template "header" }}
+
 <body>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Ip</th>
-            <th>Mac</th>
-            <th>Hardware</th>
-        </tr>
-        {{ range . }}
-        <tr>
-            <td>{{ .Name }}</td>
-            <td>{{ .Ip }}</td>
-            <td>{{ .Mac }}</td>
-            <td>{{ .Hw }}</td>
-        </tr>
-        {{ end }}
-    </table>
+    <div class="container mt-3">
+        <h2>Now online</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Ip</th>
+                <th>Mac</th>
+                <th>Hardware</th>
+                <th>Known</th>
+            </tr>
+            {{ range . }}
+            <tr>
+                <td>{{ .Name }}</td>
+                <td>{{ .Ip }}</td>
+                <td>{{ .Mac }}</td>
+                <td>{{ .Hw }}</td>
+                <td>{{ .Known }}</td>
+            </tr>
+            {{ end }}
+        </table>
+        <h2>Log</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Ip</th>
+                <th>Mac</th>
+                <th>Hardware</th>
+                <th>Date</th>
+                <th>Known</th>
+            </tr>
+            {{ range . }}
+            <tr>
+                <td>{{ .Name }}</td>
+                <td>{{ .Ip }}</td>
+                <td>{{ .Mac }}</td>
+                <td>{{ .Hw }}</td>
+                <td>{{ .Date }}</td>
+                <td>{{ .Known }}</td>
+            </tr>
+            {{ end }}
+        </table>
+    </div>
 </body>
 </html>
 {{ end }}

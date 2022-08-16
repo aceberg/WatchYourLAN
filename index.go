@@ -10,7 +10,7 @@ var FoundHosts []Host
 
 func index (w http.ResponseWriter, r *http.Request) {
 	fmt.Println(FoundHosts)
-	tmpl, _ := template.ParseFiles("templates/index.html")
+	tmpl, _ := template.ParseFiles("templates/index.html", "templates/header.html")
 	tmpl.ExecuteTemplate(w, "index", FoundHosts)
 }
 
