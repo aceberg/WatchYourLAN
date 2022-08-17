@@ -7,7 +7,7 @@ import (
 
 func get_config(path string) (config Conf) {
 	viper.SetDefault("IFACE", "eth0")
-	viper.SetDefault("DBPATH", "data/db.sqlite")
+	viper.SetDefault("DBPATH", "/data/db.sqlite")
 	viper.SetDefault("GUIIP", "localhost")
 	viper.SetDefault("GUIPORT", "8840")
 

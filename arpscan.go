@@ -9,7 +9,7 @@ import (
 )
 
 func scan_iface(iface string) (string) {
-    cmd, err := exec.Command("sudo", "arp-scan", "-l", "-N", "-x", "-I", iface).Output()
+    cmd, err := exec.Command("arp-scan", "-glNx", "-I", iface).Output()
     if err != nil {
         log.Fatal(err)
     }
