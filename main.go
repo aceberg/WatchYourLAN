@@ -12,6 +12,7 @@ type Host struct {
     Hw    string
     Date  string
     Known uint16
+    Now   uint16
 }
 
 type Conf struct {
@@ -24,13 +25,13 @@ type Conf struct {
 func main() {
     newConfig := get_config("./data/config")
 
-    text := scan_iface(newConfig.Iface)
-    foundHosts := parse_output(text)
+    foundHosts := parse_output(scan_iface(newConfig.Iface))
 
     fmt.Println(foundHosts)
 
     db_create(newConfig.DbPath)
 
-    fmt.Println("http://localhost:8840")
-    webgui(foundHosts)
+    fmt.Println(fmt.Sprintf("http://%s:%s", newConfig.GuiIP, newConfig.GuiPort))
+    
+    webgui(newConfig, foundHosts)
 }

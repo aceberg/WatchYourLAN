@@ -21,16 +21,18 @@ func db_create(dbPath string) {
 			"DATE"	TEXT,
 			"KNOWN"	INTEGER DEFAULT 0
 		);`
-    	db_exec(dbPath, sqlStatement)
+    	db_query(dbPath, sqlStatement)
     }
 }
 
-func db_exec (dbPath string, sqlStatement string) {
+func db_query (dbPath string, sqlStatement string) (*sql.Rows) {
 	db, _ := sql.Open("sqlite3", dbPath)
 	defer db.Close()
   
-	_, err := db.Exec(sqlStatement)
+	res, err := db.Query(sqlStatement)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	return res
 }

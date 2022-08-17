@@ -14,9 +14,11 @@ func index (w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "index", FoundHosts)
 }
 
-func webgui (hosts []Host) {
+func webgui (config Conf, hosts []Host) {
 	// fmt.Println(FoundHosts)
 	FoundHosts = hosts
+	address := config.GuiIP + ":" + config.GuiPort
+
 	http.HandleFunc("/", index)
-	http.ListenAndServe(":8840", nil)
+	http.ListenAndServe(address, nil)
 }
