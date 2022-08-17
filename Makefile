@@ -1,17 +1,20 @@
 DUSER=aceberg
 DNAME=watchyourlan
-DPORT=8840
+
 VERSION=0.4
 
 mod:
-	rm go.mod
-	go mod init $(DNAME)
+	cd src && \
+	rm go.mod && \
+	go mod init $(DNAME) && \
 	go mod tidy
 
 run:
+	cd src && \
 	sudo go run .
 
 go-build:
+	cd src && \
 	go build .
 
 docker-build:
@@ -26,7 +29,7 @@ docker-run:
 	$(DUSER)/$(DNAME):$(VERSION)
 
 clean:
-	rm $(DNAME) || true
+	rm src/$(DNAME) || true
 	docker rmi -f $(DUSER)/$(DNAME):latest $(DUSER)/$(DNAME):$(VERSION)
 
 dev: go-build docker-build docker-run

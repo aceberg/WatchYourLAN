@@ -27,9 +27,11 @@ func main() {
 
     foundHosts := parse_output(scan_iface(newConfig.Iface))
 
-    fmt.Println(foundHosts)
+    fmt.Println("Found hosts:", foundHosts)
 
     db_create(newConfig.DbPath)
+    db_insert(newConfig.DbPath, foundHosts[0])
+    db_select(newConfig.DbPath)
 
     fmt.Println(fmt.Sprintf("http://%s:%s", newConfig.GuiIP, newConfig.GuiPort))
     
