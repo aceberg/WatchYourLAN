@@ -4,7 +4,7 @@
 
 <body>
     <div class="container mt-3">
-        <h2>Now online</h2>
+        <h2>Online</h2>
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
@@ -20,7 +20,13 @@
                     <td>{{ .Ip }}</td>
                     <td>{{ .Mac }}</td>
                     <td>{{ .Hw }}</td>
-                    <td>{{ .Known }}</td>
+                    <td>
+                        {{ if eq .Known 1 }}
+                        <button type="button" class="btn btn-success" disabled>Yes</button>
+                        {{ else }}
+                        <button type="button" class="btn btn-warning" disabled>No</button>
+                        {{ end }}
+                    </td>
                 </tr>
                 {{ end }}
             {{ end }}
@@ -34,17 +40,31 @@
                 <th>Hardware</th>
                 <th>Last seen</th>
                 <th>Known</th>
+                <th> </th>
             </tr>
             {{ range . }}
                 {{ if eq .Now 0 }}
-                <tr>
-                    <td>{{ .Name }}</td>
-                    <td>{{ .Ip }}</td>
-                    <td>{{ .Mac }}</td>
-                    <td>{{ .Hw }}</td>
-                    <td>{{ .Date }}</td>
-                    <td>{{ .Known }}</td>
-                </tr>
+                <form action="/update_db/" method="post">
+                    <tr>
+                        <td>
+                            <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
+                        </td>
+                        <td>{{ .Ip }}</td>
+                        <td>{{ .Mac }}</td>
+                        <td>{{ .Hw }}</td>
+                        <td>{{ .Date }}</td>
+                        <td>
+                            {{ if eq .Known 1 }}
+                            <input class="form-check-input" type="checkbox" checked>
+                            {{ else }}
+                            <input class="form-check-input" type="checkbox">
+                            {{ end }}
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Ok</button>
+                        </td>
+                    </tr>
+                </form>
                 {{ end }}
             {{ end }}
         </table>
