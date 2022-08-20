@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"log"
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
@@ -31,7 +31,7 @@ func db_select(dbPath string) (dbHosts []Host) {
 	dbHosts = []Host{}
   	for res.Next() {
     	var oneHost Host
-    	err = res.Scan(&oneHost.Id, &oneHost.Name, &oneHost.Ip, &oneHost.Mac, &oneHost.Hw, &oneHost.Date, &oneHost.Known)
+    	err = res.Scan(&oneHost.Id, &oneHost.Name, &oneHost.Ip, &oneHost.Mac, &oneHost.Hw, &oneHost.Date, &oneHost.Known, &oneHost.Now)
     	if err != nil {
 			log.Fatal(err)
     	}
@@ -39,6 +39,6 @@ func db_select(dbPath string) (dbHosts []Host) {
     	dbHosts = append(dbHosts, oneHost)
   	}
 
-	fmt.Println("Select all:", dbHosts)
+	//fmt.Println("Select all:", dbHosts)
 	return dbHosts
 }

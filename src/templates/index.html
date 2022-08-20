@@ -14,13 +14,15 @@
                 <th>Known</th>
             </tr>
             {{ range . }}
-            <tr>
-                <td>{{ .Name }}</td>
-                <td>{{ .Ip }}</td>
-                <td>{{ .Mac }}</td>
-                <td>{{ .Hw }}</td>
-                <td>{{ .Known }}</td>
-            </tr>
+                {{ if eq .Now 1 }}
+                <tr>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .Ip }}</td>
+                    <td>{{ .Mac }}</td>
+                    <td>{{ .Hw }}</td>
+                    <td>{{ .Known }}</td>
+                </tr>
+                {{ end }}
             {{ end }}
         </table>
         <h2>Log</h2>
@@ -34,14 +36,16 @@
                 <th>Known</th>
             </tr>
             {{ range . }}
-            <tr>
-                <td>{{ .Name }}</td>
-                <td>{{ .Ip }}</td>
-                <td>{{ .Mac }}</td>
-                <td>{{ .Hw }}</td>
-                <td>{{ .Date }}</td>
-                <td>{{ .Known }}</td>
-            </tr>
+                {{ if eq .Now 0 }}
+                <tr>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .Ip }}</td>
+                    <td>{{ .Mac }}</td>
+                    <td>{{ .Hw }}</td>
+                    <td>{{ .Date }}</td>
+                    <td>{{ .Known }}</td>
+                </tr>
+                {{ end }}
             {{ end }}
         </table>
     </div>

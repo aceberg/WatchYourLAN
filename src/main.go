@@ -22,18 +22,26 @@ type Conf struct {
     GuiPort string
 }
 
+var AppConfig Conf
+
 func main() {
-    newConfig := get_config("./data/config")
+    AppConfig = get_config("./data/config")
 
-    foundHosts := parse_output(scan_iface(newConfig.Iface))
+    foundHosts := parse_output(scan_iface(AppConfig.Iface))
 
-    fmt.Println("Found hosts:", foundHosts)
+    //fmt.Println("Found hosts:", foundHosts)
 
-    db_create(newConfig.DbPath)
-    db_insert(newConfig.DbPath, foundHosts[0])
-    db_select(newConfig.DbPath)
+    db_create(AppConfig.DbPath)
+    dbHosts := db_select(AppConfig.DbPath)
 
-    fmt.Println(fmt.Sprintf("http://%s:%s", newConfig.GuiIP, newConfig.GuiPort))
+    //fmt.Println("DB hosts:", dbHosts)
+
+    db_compare(foundHosts, dbHosts)
+
+    dbHosts = db_select(AppConfig.DbPath)
+    allHosts := append(foundHosts,dbHosts...)
+
+    fmt.Println(fmt.Sprintf("http://%s:%s", AppConfig.GuiIP, AppConfig.GuiPort))
     
-    webgui(newConfig, foundHosts)
+    webgui(AppConfig, allHosts)
 }

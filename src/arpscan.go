@@ -32,6 +32,7 @@ func parse_output(text string) ([]Host) {
             oneHost.Mac = p[1]
             oneHost.Hw = p[2]
 			oneHost.Date = currentTime.Format("2006-01-02 15:04:05")
+            oneHost.Now = 1
             foundHosts = append(foundHosts, oneHost)
         }
     }
