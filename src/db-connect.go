@@ -7,8 +7,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func db_exec (dbPath string, sqlStatement string) {
-	db, _ := sql.Open("sqlite3", dbPath)
+func db_exec(sqlStatement string) {
+	db, _ := sql.Open("sqlite3", AppConfig.DbPath)
 	defer db.Close()
   
 	_, err := db.Exec(sqlStatement)
@@ -17,8 +17,8 @@ func db_exec (dbPath string, sqlStatement string) {
 	}
 }
 
-func db_select(dbPath string) (dbHosts []Host) {
-	db, _ := sql.Open("sqlite3", dbPath)
+func db_select() (dbHosts []Host) {
+	db, _ := sql.Open("sqlite3", AppConfig.DbPath)
 	defer db.Close()
 
 	sqlStatement := `SELECT * FROM "now"`

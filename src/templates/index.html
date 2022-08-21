@@ -43,8 +43,8 @@
                 <th> </th>
             </tr>
             {{ range . }}
-                {{ if eq .Now 0 }}
-                <form action="/update_db/" method="post">
+                <form action="/update_host/" method="post">
+                    <input name="id" type="hidden" class="form-control" value="{{ .Id }}">
                     <tr>
                         <td>
                             <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
@@ -55,9 +55,9 @@
                         <td>{{ .Date }}</td>
                         <td>
                             {{ if eq .Known 1 }}
-                            <input class="form-check-input" type="checkbox" checked>
+                            <input name="known" class="form-check-input" type="checkbox" checked>
                             {{ else }}
-                            <input class="form-check-input" type="checkbox">
+                            <input name="known" class="form-check-input" type="checkbox">
                             {{ end }}
                         </td>
                         <td>
@@ -65,7 +65,6 @@
                         </td>
                     </tr>
                 </form>
-                {{ end }}
             {{ end }}
         </table>
     </div>

@@ -1,8 +1,8 @@
 package main
 
-import (
-    "fmt"
-)
+// import (
+//     "fmt"
+// )
 
 type Host struct {
     Id    uint16
@@ -23,25 +23,18 @@ type Conf struct {
 }
 
 var AppConfig Conf
+var AllHosts []Host
 
 func main() {
     AppConfig = get_config("./data/config")
+    db_create()
 
     foundHosts := parse_output(scan_iface(AppConfig.Iface))
-
-    //fmt.Println("Found hosts:", foundHosts)
-
-    db_create(AppConfig.DbPath)
-    dbHosts := db_select(AppConfig.DbPath)
-
-    //fmt.Println("DB hosts:", dbHosts)
-
+    dbHosts := db_select()
+    db_setnow()
     db_compare(foundHosts, dbHosts)
 
-    dbHosts = db_select(AppConfig.DbPath)
-    allHosts := append(foundHosts,dbHosts...)
-
-    fmt.Println(fmt.Sprintf("http://%s:%s", AppConfig.GuiIP, AppConfig.GuiPort))
+    AllHosts = db_select()
     
-    webgui(AppConfig, allHosts)
+    webgui()
 }
