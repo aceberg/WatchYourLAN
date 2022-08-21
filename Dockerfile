@@ -1,10 +1,17 @@
-FROM ubuntu:20.04
+FROM golang:alpine AS builder
 
-RUN apt update && apt install -y arp-scan && apt clean \
+RUN apk add build-base
+COPY src /src
+RUN cd /src && go build .
+
+
+FROM alpine
+
+RUN apk add arp-scan \
     && mkdir /data
 
 COPY src/templates /app/templates
-COPY src/watchyourlan /app/
+COPY --from=builder /src/watchyourlan /app/
 
 EXPOSE 8840
 

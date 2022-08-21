@@ -16,7 +16,7 @@ func host_in_db(host Host, dbHosts []Host) bool {
 	return false
 }
 
-func db_compare(foundHosts []Host, dbHosts []Host) {
+func hosts_compare(foundHosts []Host, dbHosts []Host) {
 	// fmt.Println("Found hosts:", foundHosts)
 	// fmt.Println("DB hosts:", dbHosts)
 

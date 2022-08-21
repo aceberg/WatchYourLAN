@@ -1,7 +1,7 @@
 DUSER=aceberg
 DNAME=watchyourlan
 
-VERSION=0.4
+VERSION=0.5
 
 mod:
 	cd src && \
