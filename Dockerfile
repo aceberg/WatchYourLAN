@@ -7,13 +7,11 @@ RUN cd /src && go build .
 
 FROM alpine
 
-RUN apk add arp-scan \
+RUN apk add --no-cache tzdata arp-scan \
     && mkdir /data
 
 COPY src/templates /app/templates
 COPY --from=builder /src/watchyourlan /app/
-
-EXPOSE 8840
 
 WORKDIR /app
 

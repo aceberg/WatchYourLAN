@@ -24,6 +24,7 @@ docker-run:
 	docker rm wyl || true
 	docker run --name wyl \
 	-e "IFACE=virbr-bw" \
+	-e "TZ=Asia/Novosibirsk" \
 	--network="host" \
 	-v ~/.dockerdata/wyl:/data \
 	$(DUSER)/$(DNAME):$(VERSION)
@@ -32,4 +33,8 @@ clean:
 	rm src/$(DNAME) || true
 	docker rmi -f $(DUSER)/$(DNAME):latest $(DUSER)/$(DNAME):$(VERSION)
 
-dev: go-build docker-build docker-run
+dev: docker-build docker-run
+
+docker-push:
+	docker push $(DUSER)/$(DNAME):latest
+	docker push $(DUSER)/$(DNAME):$(VERSION)
