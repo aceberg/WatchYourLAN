@@ -5,14 +5,16 @@ on:
     branches: [ "main" ]
     paths-ignore:
     - '**.md'
+    - 'Makefile'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
     - '**.md'
+    - 'Makefile'
 
 env:
   IMAGE_NAME: watchyourlan
-  TAGS: v0.5
+  TAGS: latest, v0.5
 
 
 jobs:
@@ -28,7 +30,6 @@ jobs:
         with:
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.TAGS }}
-          addLatest: true
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
@@ -38,7 +39,6 @@ jobs:
         with:
           image: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
           tags: ${{ env.TAGS }}
-          addLatest: true
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
