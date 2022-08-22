@@ -2,7 +2,6 @@ package main
 
 import (
     // "fmt"
-    "log"
     "os/exec"
     "strings"
 	"time"
@@ -11,11 +10,10 @@ import (
 func scan_iface(iface string) (string) {
     cmd, err := exec.Command("arp-scan", "-glNx", "-I", iface).Output()
     if err != nil {
-        log.Fatal(err)
+        return string("")
+    } else {
+        return string(cmd)
     }
-
-    return string(cmd)
-    // fmt.Println(text)
 }
 
 func parse_output(text string) ([]Host) {    
@@ -24,10 +22,10 @@ func parse_output(text string) ([]Host) {
     perString := strings.Split(text, "\n")
 	currentTime := time.Now()
 
-    for _, v := range perString {
-        if v != "" {
+    for _, host := range perString {
+        if host != "" {
             var oneHost Host
-            p := strings.Split(v, "	")
+            p := strings.Split(host, "	")
             oneHost.Ip = p[0]
             oneHost.Mac = p[1]
             oneHost.Hw = p[2]
@@ -38,5 +36,18 @@ func parse_output(text string) ([]Host) {
     }
 
     return foundHosts
-    // fmt.Println(foundHosts)
+}
+
+func arp_scan() ([]Host) {
+    var text string
+    var foundHosts = []Host{}
+
+    perString := strings.Split(AppConfig.Iface, " ")
+
+    for _, iface := range perString {
+        text = scan_iface(iface)
+        foundHosts = append(foundHosts, parse_output(text)...)
+    }
+
+    return foundHosts
 }

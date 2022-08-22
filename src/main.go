@@ -27,9 +27,9 @@ type Conf struct {
 var AppConfig Conf
 var AllHosts []Host
 
-func scan() {
+func scan_and_compare() {
     for {
-        foundHosts := parse_output(scan_iface(AppConfig.Iface))
+        foundHosts := arp_scan()
         dbHosts := db_select()
         db_setnow()
         hosts_compare(foundHosts, dbHosts)
@@ -45,8 +45,7 @@ func main() {
     AppConfig = get_config("./data/config")
     db_create()
     
-    // fmt.Println("Timeout: ", AppConfig.Timeout)
-    go scan()
+    go scan_and_compare()
 
     webgui()
 }
