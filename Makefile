@@ -1,8 +1,6 @@
 DUSER=aceberg
 DNAME=watchyourlan
 
-VERSION=0.5
-
 mod:
 	cd src && \
 	rm go.mod && \
@@ -18,7 +16,7 @@ go-build:
 	go build .
 
 docker-build:
-	docker build -t $(DUSER)/$(DNAME):latest -t $(DUSER)/$(DNAME):$(VERSION) .
+	docker build -t $(DUSER)/$(DNAME) .
 
 docker-run:
 	docker rm wyl || true
@@ -27,14 +25,10 @@ docker-run:
 	-e "TZ=Asia/Novosibirsk" \
 	--network="host" \
 	-v ~/.dockerdata/wyl:/data \
-	$(DUSER)/$(DNAME):$(VERSION)
+	$(DUSER)/$(DNAME)
 
 clean:
 	rm src/$(DNAME) || true
-	docker rmi -f $(DUSER)/$(DNAME):latest $(DUSER)/$(DNAME):$(VERSION)
+	docker rmi -f $(DUSER)/$(DNAME)
 
 dev: docker-build docker-run
-
-docker-push:
-	docker push $(DUSER)/$(DNAME):latest
-	docker push $(DUSER)/$(DNAME):$(VERSION)

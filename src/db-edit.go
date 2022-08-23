@@ -2,12 +2,13 @@ package main
 
 import (
 	"os"
+	"log"
 	"fmt"
 )
 
 func db_create() {
 	if _, err := os.Stat(AppConfig.DbPath); err == nil {
-        fmt.Println("DB exists")
+        log.Println("INFO: DB exists")
     } else {
 		sqlStatement := `CREATE TABLE "now" (
 			"ID"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -20,7 +21,7 @@ func db_create() {
 			"NOW"	INTEGER DEFAULT 0
 		);`
     	db_exec(sqlStatement)
-		fmt.Println("Table created!")
+		log.Println("INFO: Table created!")
     }
 }
 

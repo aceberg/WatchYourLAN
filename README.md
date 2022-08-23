@@ -3,7 +3,7 @@
 [![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/docker-publish.yml)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)
 
-Lightweight local network IP scanner with web gui
+Lightweight network IP scanner with web GUI 
 
 ## Quick start
 
@@ -45,7 +45,7 @@ Configuration can be done through config file or environment variables
 ## Config file
 
 Config file path is `/data/config`.
-All variables could be set there. Exmple:
+All variables could be set there. Example:
 ```sh
 IFACE="enp2s0 wg0"
 DBPATH="/data/hosts.db"

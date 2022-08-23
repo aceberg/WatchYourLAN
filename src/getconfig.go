@@ -1,12 +1,11 @@
 package main
 
 import (
-    // "fmt"
 	"github.com/spf13/viper"
 )
 
 func get_config(path string) (config Conf) {
-	viper.SetDefault("IFACE", "eth0")
+	viper.SetDefault("IFACE", "enp1s0")
 	viper.SetDefault("DBPATH", "/data/db.sqlite")
 	viper.SetDefault("GUIIP", "localhost")
 	viper.SetDefault("GUIPORT", "8840")
@@ -23,8 +22,6 @@ func get_config(path string) (config Conf) {
 	config.GuiIP = viper.Get("GUIIP").(string)
 	config.GuiPort = viper.Get("GUIPORT").(string)
 	config.Timeout = viper.GetInt("TIMEOUT")
-
-    // fmt.Println(viper.Get("DBPATH"))
 
 	return config
 }

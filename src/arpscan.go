@@ -1,7 +1,7 @@
 package main
 
 import (
-    // "fmt"
+    "log"
     "os/exec"
     "strings"
 	"time"
@@ -45,7 +45,9 @@ func arp_scan() ([]Host) {
     perString := strings.Split(AppConfig.Iface, " ")
 
     for _, iface := range perString {
+        log.Println("INFO: scanning interface", iface)
         text = scan_iface(iface)
+        log.Println("INFO: found IPs:", text)
         foundHosts = append(foundHosts, parse_output(text)...)
     }
 
