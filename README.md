@@ -3,7 +3,10 @@
 [![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/docker-publish.yml)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)
 
-Lightweight network IP scanner with web GUI 
+Lightweight network IP scanner with web GUI  
+https://github.com/aceberg/WatchYourLAN  
+
+![Screenshot_v0.6](assets/Screenshot_v0.6.png)  
 
 ## Quick start
 
