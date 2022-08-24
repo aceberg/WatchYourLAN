@@ -6,7 +6,7 @@
 Lightweight network IP scanner with web GUI  
 https://github.com/aceberg/WatchYourLAN  
 
-![Screenshot_v0.6](assets/Screenshot_v0.6.png)  
+![Screenshot_v0.6](https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/Screenshot_v0.6.png)  
 
 ## Quick start
 
