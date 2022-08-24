@@ -3,14 +3,14 @@ name: Docker
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-    - '**.md'
-    - 'Makefile'
+    paths:
+    - 'Dockerfile'
+    - 'scr/**'
   pull_request:
     branches: [ "main" ]
-    paths-ignore:
-    - '**.md'
-    - 'Makefile'
+    paths:
+    - 'Dockerfile'
+    - 'scr/**'
 
 env:
   IMAGE_NAME: watchyourlan

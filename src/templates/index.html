@@ -5,6 +5,7 @@
 <body>
     <div class="container mt-3">
         <h2>Online</h2>
+        <p>Scanning interface: {{ .Config.Iface }}</p>
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
@@ -13,7 +14,7 @@
                 <th>Hardware</th>
                 <th>Known</th>
             </tr>
-            {{ range . }}
+            {{ range .Hosts }}
                 {{ if eq .Now 1 }}
                 <tr>
                     <td>{{ .Name }}</td>
@@ -41,7 +42,7 @@
                 <th>Last seen</th>
                 <th>Known</th>
             </tr>
-            {{ range . }}
+            {{ range .Hosts }}
                 <form action="/update_host/" method="post">
                     <input name="id" type="hidden" class="form-control" value="{{ .Id }}">
                     <tr>

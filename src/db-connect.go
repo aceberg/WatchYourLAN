@@ -21,7 +21,7 @@ func db_select() (dbHosts []Host) {
 	db, _ := sql.Open("sqlite3", AppConfig.DbPath)
 	defer db.Close()
 
-	sqlStatement := `SELECT * FROM "now"`
+	sqlStatement := `SELECT * FROM "now" ORDER BY DATE DESC`
 
 	res, err := db.Query(sqlStatement)
 	if err != nil {

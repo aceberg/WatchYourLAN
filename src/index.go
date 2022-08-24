@@ -8,9 +8,16 @@ import (
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
-	//fmt.Println(AllHosts)
+	type allData struct {
+		Config Conf
+		Hosts []Host
+	}
+	var guiData allData
+	guiData.Config = AppConfig
+	guiData.Hosts = AllHosts
+
 	tmpl, _ := template.ParseFiles("templates/index.html", "templates/header.html")
-	tmpl.ExecuteTemplate(w, "index", AllHosts)
+	tmpl.ExecuteTemplate(w, "index", guiData)
 }
 
 func update_host(w http.ResponseWriter, r *http.Request) {
