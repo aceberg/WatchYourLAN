@@ -44,7 +44,9 @@ func webgui() {
 	// fmt.Println(FoundHosts)
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
 
-	fmt.Println(fmt.Sprintf("http://%s", address))
+	fmt.Println("\n=================================== ")
+	fmt.Println(fmt.Sprintf("Web GUI at http://%s", address))
+	fmt.Println("=================================== \n")
 
 	http.HandleFunc("/", index)
 	http.HandleFunc("/update_host/", update_host)

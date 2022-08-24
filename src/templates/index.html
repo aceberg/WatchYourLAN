@@ -40,7 +40,6 @@
                 <th>Hardware</th>
                 <th>Last seen</th>
                 <th>Known</th>
-                <th> </th>
             </tr>
             {{ range . }}
                 <form action="/update_host/" method="post">
@@ -55,13 +54,10 @@
                         <td>{{ .Date }}</td>
                         <td>
                             {{ if eq .Known 1 }}
-                            <input name="known" class="form-check-input" type="checkbox" checked>
+                            <button value="off" name="known" type="submit" class="btn btn-success">Yes</button>
                             {{ else }}
-                            <input name="known" class="form-check-input" type="checkbox">
+                            <button value="on" name="known" type="submit" class="btn btn-warning">No</button>
                             {{ end }}
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Ok</button>
                         </td>
                     </tr>
                 </form>

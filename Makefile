@@ -1,6 +1,9 @@
 DUSER=aceberg
 DNAME=watchyourlan
 
+IFACE=virbr-bw
+DBPATH=data/hosts.db
+
 mod:
 	cd src && \
 	rm go.mod && \
@@ -9,7 +12,9 @@ mod:
 
 run:
 	cd src && \
-	sudo go run .
+	sudo \
+	env IFACE=$(IFACE) DBPATH=$(DBPATH) \
+	go run .
 
 go-build:
 	cd src && \
@@ -21,7 +26,7 @@ docker-build:
 docker-run:
 	docker rm wyl || true
 	docker run --name wyl \
-	-e "IFACE=virbr-bw" \
+	-e "IFACE=$(IFACE)" \
 	-e "TZ=Asia/Novosibirsk" \
 	--network="host" \
 	-v ~/.dockerdata/wyl:/data \
