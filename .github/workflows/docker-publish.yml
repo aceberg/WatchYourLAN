@@ -5,12 +5,12 @@ on:
     branches: [ "main" ]
     paths:
     - 'Dockerfile'
-    - 'scr/**'
+    - 'src/**'
   pull_request:
     branches: [ "main" ]
     paths:
     - 'Dockerfile'
-    - 'scr/**'
+    - 'src/**'
 
 env:
   IMAGE_NAME: watchyourlan
