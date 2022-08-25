@@ -3,6 +3,7 @@ DNAME=watchyourlan
 
 IFACE=virbr-bw
 DBPATH=data/hosts.db
+SHOUTRRR_URL=gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes
 
 mod:
 	cd src && \
@@ -14,6 +15,7 @@ run:
 	cd src && \
 	sudo \
 	env IFACE=$(IFACE) DBPATH=$(DBPATH) \
+	SHOUTRRR_URL=$(SHOUTRRR_URL) \
 	go run .
 
 go-build:
@@ -27,6 +29,7 @@ docker-run:
 	docker rm wyl || true
 	docker run --name wyl \
 	-e "IFACE=$(IFACE)" \
+	-e "SHOUTRRR_URL=$(SHOUTRRR_URL)" \
 	-e "TZ=Asia/Novosibirsk" \
 	--network="host" \
 	-v ~/.dockerdata/wyl:/data \

@@ -10,6 +10,7 @@ func get_config(path string) (config Conf) {
 	viper.SetDefault("GUIIP", "localhost")
 	viper.SetDefault("GUIPORT", "8840")
 	viper.SetDefault("TIMEOUT", "60")
+	viper.SetDefault("SHOUTRRR_URL", "")
 
     viper.SetConfigFile(path)
 	viper.SetConfigType("env")
@@ -22,6 +23,7 @@ func get_config(path string) (config Conf) {
 	config.GuiIP = viper.Get("GUIIP").(string)
 	config.GuiPort = viper.Get("GUIPORT").(string)
 	config.Timeout = viper.GetInt("TIMEOUT")
+	config.ShoutUrl = viper.Get("SHOUTRRR_URL").(string)
 
 	return config
 }

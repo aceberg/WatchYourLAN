@@ -1,8 +1,9 @@
 package main
 
-// import (
-// 	"fmt"
-// )
+import (
+	"fmt"
+	"log"
+)
 
 func host_in_db(host Host, dbHosts []Host) bool {
 	for _, oneHost := range dbHosts {
@@ -22,8 +23,10 @@ func hosts_compare(foundHosts []Host, dbHosts []Host) {
 
 	for _, oneHost := range foundHosts {
 		if !(host_in_db(oneHost, dbHosts)) {
-			//fmt.Println("No such host!")
 			oneHost.Now = 1
+			msg := fmt.Sprintf("UNKNOWN HOST IP: '%s', MAC: '%s', Hw: '%s'", oneHost.Ip, oneHost.Mac, oneHost.Hw)
+			log.Println("WARN:", msg)
+			shoutr_notify(msg)
 			db_insert(oneHost)
 		}
 	}

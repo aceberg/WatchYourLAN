@@ -16,11 +16,12 @@ type Host struct {
 }
 
 type Conf struct {
-    Iface   string
-    DbPath  string
-    GuiIP   string
-    GuiPort string
-    Timeout int
+    Iface    string
+    DbPath   string
+    GuiIP    string
+    GuiPort  string
+    Timeout  int
+    ShoutUrl string
 }
 
 var AppConfig Conf
@@ -46,7 +47,7 @@ func main() {
 
     db_create() // Check if DB exists. Create if not
     
-    go scan_and_compare() 
+    go scan_and_compare()
 
     webgui() // Start web GUI
 }
