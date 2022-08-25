@@ -43,7 +43,8 @@ Configuration can be done through config file or environment variables
 | DBPATH    | Path to Database | /data/db.sqlite |
 | GUIIP     | Address for web GUI | localhost (127.0.0.1) |
 | GUIPORT   | Port for web GUI | 8840 |
-| TIMEOUT   | Time between scans (seconds) | 60 (1 minute)|
+| TIMEOUT   | Time between scans (seconds) | 60 (1 minute) |
+| SHOUTRRR_URL | Url to any notification service supported by https://github.com/containrrr/shoutrrr | "" |
 
 ## Config file
 
@@ -52,7 +53,8 @@ All variables could be set there. Example:
 ```sh
 IFACE="enp2s0 wg0"
 DBPATH="/data/hosts.db"
-GUIIP="192.168.2.1"     # To access from LAN
+GUIIP="192.168.2.1"     		# To access from LAN
 GUIPORT="8840"
-TIMEOUT="300"           # 5 minutes
+TIMEOUT="300"           		# 5 minutes
+SHOUTRRR_URL="gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes"	# Url to notify
 ```
