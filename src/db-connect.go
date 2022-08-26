@@ -13,7 +13,7 @@ func db_exec(sqlStatement string) {
   
 	_, err := db.Exec(sqlStatement)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR: db_exec: ", err)
 	}
 }
 
@@ -25,7 +25,7 @@ func db_select() (dbHosts []Host) {
 
 	res, err := db.Query(sqlStatement)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR: db_select: ", err)
 	}
 
 	dbHosts = []Host{}
@@ -35,7 +35,7 @@ func db_select() (dbHosts []Host) {
     	if err != nil {
 			log.Fatal(err)
     	}
-
+		oneHost.Name = unquote_str(oneHost.Name)
     	dbHosts = append(dbHosts, oneHost)
   	}
 

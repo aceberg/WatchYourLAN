@@ -15,7 +15,6 @@ run:
 	cd src && \
 	sudo \
 	env IFACE=$(IFACE) DBPATH=$(DBPATH) \
-	SHOUTRRR_URL=$(SHOUTRRR_URL) \
 	go run .
 
 go-build:
