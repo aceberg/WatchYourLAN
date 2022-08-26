@@ -26,19 +26,23 @@ func db_create() {
 }
 
 func db_insert(oneHost Host) {
+	oneHost.Name = quote_str(oneHost.Name)
+	oneHost.Hw = quote_str(oneHost.Hw)
 	sqlStatement := `INSERT INTO "now" (NAME, IP, MAC, HW, DATE, KNOWN, NOW) 
 		VALUES ('%s','%s','%s','%s','%s','%d','%d');`
-  	sqlStatement = fmt.Sprintf(sqlStatement, quote_str(oneHost.Name), oneHost.Ip, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now)
+  	sqlStatement = fmt.Sprintf(sqlStatement, oneHost.Name, oneHost.Ip, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now)
 	//fmt.Println("Insert statement:", sqlStatement)
     db_exec(sqlStatement)
 }
 
 func db_update(oneHost Host) {
+	oneHost.Name = quote_str(oneHost.Name)
+	oneHost.Hw = quote_str(oneHost.Hw)
 	sqlStatement := `UPDATE "now" set 
 		NAME = '%s', IP = '%s', MAC = '%s', HW = '%s', DATE = '%s', 
 		KNOWN = '%d', NOW = '%d' 
 		WHERE ID = '%d';`
-  	sqlStatement = fmt.Sprintf(sqlStatement, quote_str(oneHost.Name), oneHost.Ip, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now, oneHost.Id)
+  	sqlStatement = fmt.Sprintf(sqlStatement, oneHost.Name, oneHost.Ip, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now, oneHost.Id)
 	//fmt.Println("Update statement:", sqlStatement)
     db_exec(sqlStatement)
 }

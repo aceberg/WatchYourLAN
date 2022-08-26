@@ -36,6 +36,7 @@ func db_select() (dbHosts []Host) {
 			log.Fatal(err)
     	}
 		oneHost.Name = unquote_str(oneHost.Name)
+		oneHost.Hw = unquote_str(oneHost.Hw)
     	dbHosts = append(dbHosts, oneHost)
   	}
 
