@@ -18,5 +18,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Issue #2
-- Issue #5
+- [Issue #2](https://github.com/aceberg/WatchYourLAN/issues/2)
+- [Issue #5](https://github.com/aceberg/WatchYourLAN/issues/5)
