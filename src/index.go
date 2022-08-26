@@ -16,7 +16,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	guiData.Config = AppConfig
 	guiData.Hosts = AllHosts
 
-	tmpl, _ := template.ParseFiles("templates/index.html", "templates/header.html")
+	tmpl, _ := template.ParseFiles("templates/index.html", "templates/header.html", "templates/footer.html")
 	tmpl.ExecuteTemplate(w, "index", guiData)
 }
 

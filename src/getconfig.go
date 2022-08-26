@@ -11,6 +11,7 @@ func get_config(path string) (config Conf) {
 	viper.SetDefault("GUIPORT", "8840")
 	viper.SetDefault("TIMEOUT", "60")
 	viper.SetDefault("SHOUTRRR_URL", "")
+	viper.SetDefault("THEME", "solar")
 
     viper.SetConfigFile(path)
 	viper.SetConfigType("env")
@@ -24,6 +25,7 @@ func get_config(path string) (config Conf) {
 	config.GuiPort = viper.Get("GUIPORT").(string)
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.ShoutUrl = viper.Get("SHOUTRRR_URL").(string)
+	config.Theme = viper.Get("THEME").(string)
 
 	return config
 }

@@ -4,6 +4,7 @@ DNAME=watchyourlan
 IFACE=virbr-bw
 DBPATH=data/hosts.db
 SHOUTRRR_URL=gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes
+THEME=darkly
 
 mod:
 	cd src && \
@@ -14,7 +15,7 @@ mod:
 run:
 	cd src && \
 	sudo \
-	env IFACE=$(IFACE) DBPATH=$(DBPATH) \
+	env IFACE=$(IFACE) DBPATH=$(DBPATH) THEME=$(THEME) \
 	go run .
 
 go-build:

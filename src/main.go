@@ -22,6 +22,7 @@ type Conf struct {
     GuiPort  string
     Timeout  int
     ShoutUrl string
+    Theme    string
 }
 
 var AppConfig Conf

@@ -45,6 +45,7 @@ Configuration can be done through config file or environment variables
 | GUIPORT   | Port for web GUI | 8840 |
 | TIMEOUT   | Time between scans (seconds) | 60 (1 minute) |
 | SHOUTRRR_URL | Url to any notification service supported by https://github.com/containrrr/shoutrrr | "" |
+| THEME | Any theme name from https://bootswatch.com in lowcase | solar |
 
 ## Config file
 
@@ -57,4 +58,5 @@ GUIIP="192.168.2.1"     		# To access from LAN
 GUIPORT="8840"
 TIMEOUT="300"           		# 5 minutes
 SHOUTRRR_URL="gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes"	# Url to notify
+THEME="darkly"
 ```
