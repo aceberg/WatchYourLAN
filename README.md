@@ -1,3 +1,11 @@
+<div align="center">
+
+<a href="https://github.com/aceberg/WatchYourLAN">
+    <img src="https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/logo.png" width="200" />
+</a>
+</div>
+<br/>
+
 # WatchYourLAN
 
 [![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/docker-publish.yml)
@@ -60,3 +68,9 @@ TIMEOUT="300"           		# 5 minutes
 SHOUTRRR_URL="gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes"	# Url to notify
 THEME="darkly"
 ```
+
+## Thanks
+- All go packages listed in [dependencies](https://github.com/aceberg/WatchYourLAN/network/dependencies)
+- Favicon and logo: [Access point icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/access-point)
+- [Bootstrap](https://getbootstrap.com/)
+- Themes: [Free themes for Bootstrap](https://bootswatch.com)
