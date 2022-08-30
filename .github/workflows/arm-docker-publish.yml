@@ -14,7 +14,7 @@ on:
 
 env:
   IMAGE_NAME: watchyourlan
-  TAGS: arm, arm-latest, arm-v0.7.2
+  TAGS: latest, v0.7.2
 
 
 jobs:
@@ -52,7 +52,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           # list of Docker images to use as base name for tags
-          images: ${{ github.actor }}/${{ env.IMAGE_NAME }}
+          images: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
           # Docker tags based on the following events/attributes
           tags: ${{ env.TAGS }}
 
@@ -62,5 +62,5 @@ jobs:
           context: .
           platforms: linux/arm/v7
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta1.outputs.tags }}
+          tags: ${{ env.TAGS }}
           labels: ${{ steps.meta1.outputs.labels }}
