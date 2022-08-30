@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker meta
-        id: meta # you'll use this in the next step
+        id: meta1 # you'll use this in the next step
         uses: docker/metadata-action@v4
         with:
           # list of Docker images to use as base name for tags
@@ -62,5 +62,5 @@ jobs:
           context: .
           platforms: linux/arm/v7
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta1.outputs.tags }}
+          labels: ${{ steps.meta1.outputs.labels }}
