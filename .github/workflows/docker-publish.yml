@@ -3,14 +3,14 @@ name: Docker
 on:
   push:
     branches: [ "main" ]
-    paths:
-    - 'Dockerfile'
-    - 'src/**'
+    # paths:
+    # - 'Dockerfile'
+    # - 'src/**'
   pull_request:
     branches: [ "main" ]
-    paths:
-    - 'Dockerfile'
-    - 'src/**'
+    # paths:
+    # - 'Dockerfile'
+    # - 'src/**'
 
 env:
   IMAGE_NAME: watchyourlan

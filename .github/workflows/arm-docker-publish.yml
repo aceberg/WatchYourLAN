@@ -14,7 +14,7 @@ on:
 
 env:
   IMAGE_NAME: watchyourlan
-  TAGS: latest, v0.7.2
+  TAGS: arm-latest, arm-v0.7.2
 
 
 jobs:
@@ -54,12 +54,15 @@ jobs:
           # list of Docker images to use as base name for tags
           images: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
           # Docker tags based on the following events/attributes
-          tags: ${{ env.TAGS }}
+          tags: |
+            arm-latest
+            arm-v0.7.2
 
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
-          platforms: linux/arm/v6,linux/arm/v7,linux/arm64
+          # platforms: linux/arm/v6,linux/arm/v7,linux/arm64
+          platforms: linux/arm/v7
           push: true
           tags: ${{ steps.meta1.outputs.tags }}
