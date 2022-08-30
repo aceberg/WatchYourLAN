@@ -1,0 +1,36 @@
+name: Build ARM image
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+    - 'Dockerfile'
+    - 'src/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+    - 'Dockerfile'
+    - 'src/**'
+
+env:
+  IMAGE_NAME: watchyourlan
+  TAGS: latest, v0.7.2
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
