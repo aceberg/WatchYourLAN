@@ -1,0 +1,44 @@
+name: Publish to ghcr.io
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+    - 'Dockerfile'
+    - 'src/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+    - 'Dockerfile'
+    - 'src/**'
+
+env:
+  IMAGE_NAME: watchyourlan
+  TAGS: latest, v0.7.3
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build and Push Docker Image to ghcr.io
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: ${{ env.TAGS }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Build and Push Docker Image to docker.io
+      #   uses: mr-smithers-excellent/docker-build-push@v5
+      #   with:
+      #     image: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
+      #     tags: ${{ env.TAGS }}
+      #     registry: docker.io
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
