@@ -14,7 +14,7 @@ on:
 
 env:
   IMAGE_NAME: watchyourlan
-  TAGS: latest, v0.7.2
+  TAGS: latest, v0.7.3
 
 
 jobs:
@@ -25,9 +25,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Build and Push Docker Image to ghcr.io
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
+          platform: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.TAGS }}
           registry: ghcr.io
@@ -37,6 +42,7 @@ jobs:
       - name: Build and Push Docker Image to docker.io
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
+          platform: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           image: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
           tags: ${{ env.TAGS }}
           registry: docker.io
