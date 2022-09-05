@@ -1,0 +1,35 @@
+name: Dev-to-docker.io
+
+on:
+  push:
+    branches: [ "dev" ]
+    paths:
+    - 'Dockerfile'
+    - 'src/**'
+  pull_request:
+    branches: [ "dev" ]
+    paths:
+    - 'Dockerfile'
+    - 'src/**'
+
+env:
+  IMAGE_NAME: watchyourlan
+  TAGS: dev
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build and Push Docker Image to docker.io
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
+          tags: ${{ env.TAGS }}
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
