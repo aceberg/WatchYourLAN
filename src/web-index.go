@@ -2,6 +2,7 @@ package main
 
 import (
   "fmt"
+  "log"
   "net/http"
   "html/template"
   "strconv"
@@ -51,9 +52,9 @@ func webgui() {
 	// fmt.Println(FoundHosts)
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
 
-	fmt.Println("\n=================================== ")
-	fmt.Println(fmt.Sprintf("Web GUI at http://%s", address))
-	fmt.Println("=================================== \n")
+	log.Println("=================================== ")
+	log.Println(fmt.Sprintf("Web GUI at http://%s", address))
+	log.Println("=================================== ")
 
 	http.HandleFunc("/", index)
 	http.HandleFunc("/home/", home)
