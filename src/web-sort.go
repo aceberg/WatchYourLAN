@@ -46,5 +46,5 @@ func sort_hosts(w http.ResponseWriter, r *http.Request) {
 		AllHosts = db_select()
 	}
 
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, r.Header.Get("Referer"), 302)
 }

@@ -44,7 +44,7 @@ func update_host(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, r.Header.Get("Referer"), 302)
 }
 
 func webgui() {
@@ -56,8 +56,10 @@ func webgui() {
 	fmt.Println("=================================== \n")
 
 	http.HandleFunc("/", index)
+	http.HandleFunc("/home/", home)
 	http.HandleFunc("/offline/", offline)
 	http.HandleFunc("/online/", online)
+	http.HandleFunc("/search_hosts/", search_hosts)
 	http.HandleFunc("/sort_hosts/", sort_hosts)
 	http.HandleFunc("/theme/", theme)
 	http.HandleFunc("/update_host/", update_host)

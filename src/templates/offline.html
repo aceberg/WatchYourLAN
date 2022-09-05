@@ -8,14 +8,14 @@
 </head>
 <body>
     <div class="container mt-3">
-        <h2>Offline</h2>
         <table class="table table-striped">
             <tr>
+            <form action="/sort_hosts/" method="post">
                 <th>Name<br>
-                    <button type="submit" name="sort_method" value="date-up" class="btn btn-primary btn-sm">
+                    <button type="submit" name="sort_method" value="name-up" class="btn btn-primary btn-sm">
                         <i class="bi bi-caret-up"></i>
                     </button>
-                    <button type="submit" name="sort_method" value="date-down" class="btn btn-primary btn-sm">
+                    <button type="submit" name="sort_method" value="name-down" class="btn btn-primary btn-sm">
                         <i class="bi bi-caret-down"></i>
                     </button>
                 </th>
@@ -45,6 +45,7 @@
                         <i class="bi bi-caret-down"></i>
                     </button>
                 </th>
+            </form>
             </tr>
             {{ range .Hosts }}
                 <form action="/update_host/" method="post">
@@ -53,7 +54,7 @@
                         <td>
                             <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
                         </td>
-                        <td>{{ .Ip }}</td>
+                        <td><a href="http://{{ .Ip }}" target="_blank">{{ .Ip }}</a></td>
                         <td>{{ .Mac }}</td>
                         <td>{{ .Hw }}</td>
                         <td>{{ .Date }}</td>
