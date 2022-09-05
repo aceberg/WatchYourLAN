@@ -4,7 +4,9 @@ import (
 	"github.com/spf13/viper"
 )
 
-func get_config(path string) (config Conf) {
+const configPath = "/data/config"
+
+func get_config() (config Conf) {
 	viper.SetDefault("IFACE", "enp1s0")
 	viper.SetDefault("DBPATH", "/data/db.sqlite")
 	viper.SetDefault("GUIIP", "localhost")
@@ -13,7 +15,7 @@ func get_config(path string) (config Conf) {
 	viper.SetDefault("SHOUTRRR_URL", "")
 	viper.SetDefault("THEME", "solar")
 
-    viper.SetConfigFile(path)
+    viper.SetConfigFile(configPath)
 	viper.SetConfigType("env")
     viper.ReadInConfig()
 
@@ -28,4 +30,11 @@ func get_config(path string) (config Conf) {
 	config.Theme = viper.Get("THEME").(string)
 
 	return config
+}
+
+func write_config() {
+	viper.SetConfigFile(configPath)
+	viper.SetConfigType("env")
+	viper.Set("THEME", AppConfig.Theme)
+	viper.WriteConfig()
 }

@@ -44,7 +44,7 @@ func scan_and_compare() {
 
 func main() {
     AllHosts = []Host{}
-    AppConfig = get_config("/data/config") // Get config from Defaults, Config file, Env
+    AppConfig = get_config() // Get config from Defaults, Config file, Env
 
     db_create() // Check if DB exists. Create if not
     

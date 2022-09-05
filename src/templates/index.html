@@ -22,7 +22,7 @@
                 {{ if eq .Now 1 }}
                 <tr>
                     <td>{{ .Name }}</td>
-                    <td>{{ .Ip }}</td>
+                    <td><a href="http://{{ .Ip }}" target="_blank">{{ .Ip }}</a></td>
                     <td>{{ .Mac }}</td>
                     <td>{{ .Hw }}</td>
                     <td>

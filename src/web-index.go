@@ -56,6 +56,10 @@ func webgui() {
 	fmt.Println("=================================== \n")
 
 	http.HandleFunc("/", index)
+	http.HandleFunc("/offline/", offline)
+	http.HandleFunc("/online/", online)
+	http.HandleFunc("/sort_hosts/", sort_hosts)
+	http.HandleFunc("/theme/", theme)
 	http.HandleFunc("/update_host/", update_host)
 	http.ListenAndServe(address, nil)
 }
