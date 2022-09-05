@@ -1,17 +1,15 @@
-name: Docker-dev
+name: Docker
 
 on:
   push:
     branches: [ "main" ]
     paths:
     - 'Dockerfile'
-    - '.version'
     - 'src/**'
   pull_request:
     branches: [ "main" ]
     paths:
     - 'Dockerfile'
-    - '.version'
     - 'src/**'
 
 env:
@@ -57,7 +55,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:dev
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:dev-${{ env.VERSION }}
-            ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:dev
-            ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:dev-${{ env.VERSION }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+            ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
