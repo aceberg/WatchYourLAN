@@ -8,7 +8,7 @@
 
 # WatchYourLAN
 
-[![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/arm-docker-publish.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/arm-docker-publish.yml)
+[![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)
 
 Lightweight network IP scanner with web GUI  
