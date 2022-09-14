@@ -1,12 +1,8 @@
 name: Docker
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "main" ]
-    paths:
-    - 'Dockerfile'
-    - 'src/**'
-  pull_request:
     branches: [ "main" ]
     paths:
     - 'Dockerfile'
