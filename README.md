@@ -69,6 +69,22 @@ SHOUTRRR_URL="gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host dete
 THEME="darkly"
 ```
 
+## Releases
+WatchYourLAN uses goreleaser to generate multi-platform releases.
+
+Generate a token here: https://github.com/settings/tokens/new
+
+Add as an environment variable:
+```shell
+export GITHUB_TOKEN=<TOKEN GOES HERE>
+```
+
+Run goreleaser:
+```
+curl -sfL https://goreleaser.com/static/run | bash -s -- release
+```
+
+
 ## Thanks
 - All go packages listed in [dependencies](https://github.com/aceberg/WatchYourLAN/network/dependencies)
 - Favicon and logo: [Access point icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/access-point)

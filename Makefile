@@ -39,4 +39,7 @@ clean:
 	rm src/$(DNAME) || true
 	docker rmi -f $(DUSER)/$(DNAME)
 
+release:
+	cd src; curl -sfL https://goreleaser.com/static/run | bash -s -- release
+
 dev: docker-build docker-run
