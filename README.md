@@ -51,6 +51,7 @@ Configuration can be done through config file or environment variables
 | DBPATH    | Path to Database | /data/db.sqlite |
 | GUIIP     | Address for web GUI | localhost (127.0.0.1) |
 | GUIPORT   | Port for web GUI | 8840 |
+| GUIAUTH   | Basic auth credentials for web GUI, e.g.: GUIAUTH=user:pass  | (empty - no auth) |
 | TIMEOUT   | Time between scans (seconds) | 60 (1 minute) |
 | SHOUTRRR_URL | Url to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr/tree/main/docs/services) (gotify, email, telegram and others) | "" |
 | THEME | Any theme name from https://bootswatch.com in lowcase | solar |

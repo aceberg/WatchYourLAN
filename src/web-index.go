@@ -1,17 +1,17 @@
 package main
 
 import (
-  "fmt"
-  "log"
-  "net/http"
-  "html/template"
-  "strconv"
+	"fmt"
+	"html/template"
+	"log"
+	"net/http"
+	"strconv"
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
 	type allData struct {
 		Config Conf
-		Hosts []Host
+		Hosts  []Host
 	}
 	var guiData allData
 	guiData.Config = AppConfig
@@ -48,6 +48,27 @@ func update_host(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, r.Header.Get("Referer"), 302)
 }
 
+func basicAuth(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if AppConfig.GuiAuth == "" {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		username, password, ok := r.BasicAuth()
+		if ok {
+			userCredentials := fmt.Sprintf(`%s:%s`, username, password)
+			if userCredentials == AppConfig.GuiAuth {
+				next.ServeHTTP(w, r)
+				return
+			}
+		}
+
+		w.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+	}
+}
+
 func webgui() {
 	// fmt.Println(FoundHosts)
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
@@ -56,13 +77,13 @@ func webgui() {
 	log.Println(fmt.Sprintf("Web GUI at http://%s", address))
 	log.Println("=================================== ")
 
-	http.HandleFunc("/", index)
-	http.HandleFunc("/home/", home)
-	http.HandleFunc("/offline/", offline)
-	http.HandleFunc("/online/", online)
-	http.HandleFunc("/search_hosts/", search_hosts)
-	http.HandleFunc("/sort_hosts/", sort_hosts)
-	http.HandleFunc("/theme/", theme)
-	http.HandleFunc("/update_host/", update_host)
+	http.HandleFunc("/", basicAuth(index))
+	http.HandleFunc("/home/", basicAuth(home))
+	http.HandleFunc("/offline/", basicAuth(offline))
+	http.HandleFunc("/online/", basicAuth(online))
+	http.HandleFunc("/search_hosts/", basicAuth(search_hosts))
+	http.HandleFunc("/sort_hosts/", basicAuth(sort_hosts))
+	http.HandleFunc("/theme/", basicAuth(theme))
+	http.HandleFunc("/update_host/", basicAuth(update_host))
 	http.ListenAndServe(address, nil)
 }

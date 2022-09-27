@@ -11,13 +11,14 @@ func get_config() (config Conf) {
 	viper.SetDefault("DBPATH", "/data/db.sqlite")
 	viper.SetDefault("GUIIP", "localhost")
 	viper.SetDefault("GUIPORT", "8840")
+	viper.SetDefault("GUIAUTH", "")
 	viper.SetDefault("TIMEOUT", "60")
 	viper.SetDefault("SHOUTRRR_URL", "")
 	viper.SetDefault("THEME", "solar")
 
-    viper.SetConfigFile(configPath)
+	viper.SetConfigFile(configPath)
 	viper.SetConfigType("env")
-    viper.ReadInConfig()
+	viper.ReadInConfig()
 
 	viper.AutomaticEnv() // Get ENVIRONMENT variables
 
@@ -25,6 +26,7 @@ func get_config() (config Conf) {
 	config.DbPath = viper.Get("DBPATH").(string)
 	config.GuiIP = viper.Get("GUIIP").(string)
 	config.GuiPort = viper.Get("GUIPORT").(string)
+	config.GuiAuth = viper.Get("GUIAUTH").(string)
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.ShoutUrl = viper.Get("SHOUTRRR_URL").(string)
 	config.Theme = viper.Get("THEME").(string)
