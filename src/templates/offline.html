@@ -1,15 +1,16 @@
 {{ define "offline"}}
 
 {{ template "header" }}
-    <!--Auto refresh (seconds)-->
-    <!-- <meta http-equiv="refresh" content="{{ .Config.Timeout }}"> -->
-    <!--Bootstrap theme-->
-    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.0/dist/{{ .Config.Theme }}/bootstrap.min.css" rel="stylesheet">
+<!--Auto refresh (seconds)-->
+<!-- <meta http-equiv="refresh" content="{{ .Config.Timeout }}"> -->
+<!--Bootstrap theme-->
+<link href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.0/dist/{{ .Config.Theme }}/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-3">
-        <table class="table table-striped">
-            <tr>
+<div class="container mt-3">
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
             <form action="/sort_hosts/" method="post">
                 <th>Name<br>
                     <button type="submit" name="sort_method" value="name-up" class="btn btn-primary btn-sm">
@@ -46,30 +47,30 @@
                     </button>
                 </th>
             </form>
+        </tr>
+        {{ range .Hosts }}
+        <form action="/update_host/" method="post">
+            <input name="id" type="hidden" class="form-control" value="{{ .Id }}">
+            <tr>
+                <td class="row-index"></td>
+                <td>
+                    <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
+                </td>
+                <td><a href="http://{{ .Ip }}" target="_blank">{{ .Ip }}</a></td>
+                <td>{{ .Mac }}</td>
+                <td>{{ .Hw }}</td>
+                <td>{{ .Date }}</td>
+                <td>
+                    {{ if eq .Known 1 }}
+                    <button value="off" name="known" type="submit" class="btn btn-success">Yes</button>
+                    {{ else }}
+                    <button value="on" name="known" type="submit" class="btn btn-warning">No</button>
+                    {{ end }}
+                </td>
             </tr>
-            {{ range .Hosts }}
-                <form action="/update_host/" method="post">
-                    <input name="id" type="hidden" class="form-control" value="{{ .Id }}">
-                    <tr>
-                        <td>
-                            <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
-                        </td>
-                        <td><a href="http://{{ .Ip }}" target="_blank">{{ .Ip }}</a></td>
-                        <td>{{ .Mac }}</td>
-                        <td>{{ .Hw }}</td>
-                        <td>{{ .Date }}</td>
-                        <td>
-                            {{ if eq .Known 1 }}
-                            <button value="off" name="known" type="submit" class="btn btn-success">Yes</button>
-                            {{ else }}
-                            <button value="on" name="known" type="submit" class="btn btn-warning">No</button>
-                            {{ end }}
-                        </td>
-                    </tr>
-                </form>
-            {{ end }}
-        </table>
-    </div>
-
+        </form>
+        {{ end }}
+    </table>
+</div>
 {{ template "footer" }}
 {{ end }}
