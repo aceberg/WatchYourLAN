@@ -6,12 +6,24 @@ import (
 )
 
 func host_in_db(host Host, dbHosts []Host) bool { // Check if host is already in DB
-	for _, oneHost := range dbHosts {
-		if host.Ip == oneHost.Ip && host.Mac == oneHost.Mac && host.Hw == oneHost.Hw {
-			oneHost.Date = host.Date
-			oneHost.Now = 1
-			db_update(oneHost)
-			return true
+	
+	if AppConfig.OnlyCompareMac {
+		for _, oneHost := range dbHosts {
+			if host.Mac == oneHost.Mac {
+				oneHost.Date = host.Date
+				oneHost.Now = 1
+				db_update(oneHost)
+				return true
+			}
+		}
+	} else {
+		for _, oneHost := range dbHosts {
+			if host.Ip == oneHost.Ip && host.Mac == oneHost.Mac && host.Hw == oneHost.Hw {
+				oneHost.Date = host.Date
+				oneHost.Now = 1
+				db_update(oneHost)
+				return true
+			}
 		}
 	}
 	return false
