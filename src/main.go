@@ -23,7 +23,6 @@ type Conf struct {
     Timeout  int
     ShoutUrl string
     Theme    string
-    OnlyCompareMac bool
 }
 
 var AppConfig Conf

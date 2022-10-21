@@ -14,11 +14,10 @@ func get_config() (config Conf) {
 	viper.SetDefault("TIMEOUT", "60")
 	viper.SetDefault("SHOUTRRR_URL", "")
 	viper.SetDefault("THEME", "solar")
-	viper.SetDefault("ONLY_COMPARE_MAC", false)
 
-	viper.SetConfigFile(configPath)
+    viper.SetConfigFile(configPath)
 	viper.SetConfigType("env")
-	viper.ReadInConfig()
+    viper.ReadInConfig()
 
 	viper.AutomaticEnv() // Get ENVIRONMENT variables
 
@@ -29,7 +28,6 @@ func get_config() (config Conf) {
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.ShoutUrl = viper.Get("SHOUTRRR_URL").(string)
 	config.Theme = viper.Get("THEME").(string)
-	config.OnlyCompareMac = viper.GetBool("ONLY_COMPARE_MAC")
 
 	return config
 }
