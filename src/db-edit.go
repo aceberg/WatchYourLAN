@@ -47,6 +47,14 @@ func db_update(oneHost Host) {
     db_exec(sqlStatement)
 }
 
+func db_delete(hostId int) {
+	sqlStatement := `DELETE FROM "now" WHERE ID = '%d';`
+  	sqlStatement = fmt.Sprintf(sqlStatement, hostId)
+	//fmt.Println("Delete statement:", sqlStatement)
+    db_exec(sqlStatement)
+}
+
+
 func db_setnow() {
 	sqlStatement := `UPDATE "now" set NOW = '0';`
     db_exec(sqlStatement)

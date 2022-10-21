@@ -37,9 +37,13 @@ func scan_and_compare() {
         db_setnow()                        // Mark hosts in DB as offline
         hosts_compare(foundHosts, dbHosts) // Compare hosts online and in DB
                                            // and add them to DB
-        AllHosts = db_select()
+	update_all_hosts()
         time.Sleep(time.Duration(AppConfig.Timeout) * time.Second) // Timeout
     }
+}
+
+func update_all_hosts(){
+    AllHosts = db_select() 
 }
 
 func main() {

@@ -48,6 +48,19 @@ func update_host(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, r.Header.Get("Referer"), 302)
 }
 
+func delete_host( w http.ResponseWriter, r *http.Request) {
+	
+	idStr := r.FormValue("id")
+	if idStr == "" {
+	      fmt.Fprintf(w, "No data!")
+	} else {
+	      id, _ := strconv.Atoi(idStr)
+	      db_delete(id)
+	      update_all_hosts()
+	}
+
+	http.Redirect(w, r, r.Header.Get("Referer"), 302)
+}
 func webgui() {
 	// fmt.Println(FoundHosts)
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
@@ -64,5 +77,6 @@ func webgui() {
 	http.HandleFunc("/sort_hosts/", sort_hosts)
 	http.HandleFunc("/theme/", theme)
 	http.HandleFunc("/update_host/", update_host)
+	http.HandleFunc("/delete_host/", delete_host)
 	http.ListenAndServe(address, nil)
 }

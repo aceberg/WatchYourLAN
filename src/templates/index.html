@@ -45,6 +45,7 @@
                 <th>Hardware</th>
                 <th>Last seen</th>
                 <th>Known</th>
+		<th>Delete</th>
             </tr>
             {{ range .Hosts }}
                 <form action="/update_host/" method="post">
@@ -63,6 +64,7 @@
                             {{ else }}
                             <button value="on" name="known" type="submit" class="btn btn-warning">No</button>
                             {{ end }}
+			<td> <button name="delete" type="submit" class="btn btn-warning" formaction="/delete_host/" method="post">Delete</button>
                         </td>
                     </tr>
                 </form>
