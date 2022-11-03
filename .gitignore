@@ -2,3 +2,9 @@
 data/
 watchyourlan
 tmp/
+/src/db.sqlite
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/WatchYourLAN.iml
+/.idea/.gitignore
+/.idea/golinter.xml
