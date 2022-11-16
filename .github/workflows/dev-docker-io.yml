@@ -1,12 +1,7 @@
-name: Dev-to-docker.io
+name: Dev-to-docker
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "dev" ]
-    paths:
-    - 'Dockerfile'
-    - 'src/**'
 
 env:
   IMAGE_NAME: watchyourlan

@@ -7,9 +7,9 @@ SHOUTRRR_URL=gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detec
 THEME=darkly
 
 mod:
-	cd src && \
-	rm go.mod && \
-	go mod init $(DNAME) && \
+	rm go.mod || true && \
+	rm go.sum || true && \
+	go mod init github.com/aceberg/WatchYourLAN && \
 	go mod tidy
 
 run:
@@ -18,8 +18,14 @@ run:
 	env IFACE=$(IFACE) DBPATH=$(DBPATH) THEME=$(THEME) \
 	go run .
 
+fmt:
+	go fmt ./...
+
+lint:
+	golangci-lint run
+
 go-build:
-	cd src && \
+	cd cmd/WatchYourLAN/ && \
 	go build .
 
 docker-build:
