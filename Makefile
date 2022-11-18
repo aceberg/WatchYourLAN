@@ -2,7 +2,7 @@ DUSER=aceberg
 DNAME=watchyourlan
 
 IFACE=virbr-bw
-DBPATH=data/hosts.db
+DBPATH=/data/hosts.db
 SHOUTRRR_URL=gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes
 THEME=darkly
 
@@ -13,7 +13,7 @@ mod:
 	go mod tidy
 
 run:
-	cd src && \
+	cd cmd/WatchYourLAN/ && \
 	sudo \
 	env IFACE=$(IFACE) DBPATH=$(DBPATH) THEME=$(THEME) \
 	go run .

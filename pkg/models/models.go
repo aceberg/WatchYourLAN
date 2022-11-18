@@ -20,3 +20,8 @@ type Conf struct {
 	ShoutUrl string
 	Theme    string
 }
+
+type GuiData struct {
+	Config Conf
+	Hosts  []Host
+}

@@ -4,11 +4,12 @@ import (
 	"fmt"
 	// "time"
 	"github.com/aceberg/WatchYourLAN/pkg/conf"
-	. "github.com/aceberg/WatchYourLAN/pkg/models"
+	"github.com/aceberg/WatchYourLAN/pkg/db"
+	"github.com/aceberg/WatchYourLAN/pkg/web"
+	// . "github.com/aceberg/WatchYourLAN/pkg/models"
 )
 
-var AppConfig Conf
-
+// var AppConfig Conf
 // var AllHosts []Host
 
 // func scan_and_compare() {
@@ -26,14 +27,13 @@ var AppConfig Conf
 // }
 
 func main() {
-	// AllHosts = []Host{}
-	AppConfig = conf.GetConfig() // Get config from Defaults, Config file, Env
+	appConfig := conf.GetConfig() // Get config from Defaults, Config file, Env
 
-	fmt.Println("CONF =", AppConfig)
+	fmt.Println("CONF =", appConfig)
 
-	// db_create() // Check if DB exists. Create if not
+	db.CreateDB(appConfig.DbPath) // Check if DB exists. Create if not
 
 	// go scan_and_compare()
 
-	// webgui() // Start web GUI
+	web.Webgui(appConfig) // Start web GUI
 }

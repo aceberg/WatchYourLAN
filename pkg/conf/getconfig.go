@@ -33,9 +33,9 @@ func GetConfig() (config Conf) {
 	return config
 }
 
-func WriteConfig() {
+func WriteConfig(theme string) {
 	viper.SetConfigFile(configPath)
 	viper.SetConfigType("env")
-	viper.Set("THEME", AppConfig.Theme)
+	viper.Set("THEME", theme)
 	viper.WriteConfig()
 }

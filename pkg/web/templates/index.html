@@ -1,0 +1,74 @@
+{{ define "index"}}
+
+{{ template "header" }}
+    <!--Auto refresh (seconds)-->
+    <meta http-equiv="refresh" content="{{ .Config.Timeout }}">
+    <!--Bootstrap theme-->
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.0/dist/{{ .Config.Theme }}/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-3">
+        <h2>Online</h2>
+        <p>Scanning interfaces: {{ .Config.Iface }}</p>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Ip</th>
+                <th>Mac</th>
+                <th>Hardware</th>
+                <th>Known</th>
+            </tr>
+            {{ range .Hosts }}
+                {{ if eq .Now 1 }}
+                <tr>
+                    <td>{{ .Name }}</td>
+                    <td><a href="http://{{ .Ip }}" target="_blank">{{ .Ip }}</a></td>
+                    <td>{{ .Mac }}</td>
+                    <td>{{ .Hw }}</td>
+                    <td>
+                        {{ if eq .Known 1 }}
+                        <button type="button" class="btn btn-success" disabled>Yes</button>
+                        {{ else }}
+                        <button type="button" class="btn btn-warning" disabled>No</button>
+                        {{ end }}
+                    </td>
+                </tr>
+                {{ end }}
+            {{ end }}
+        </table>
+        <h2>Log</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Ip</th>
+                <th>Mac</th>
+                <th>Hardware</th>
+                <th>Last seen</th>
+                <th>Known</th>
+            </tr>
+            {{ range .Hosts }}
+                <form action="/update_host/" method="post">
+                    <input name="id" type="hidden" class="form-control" value="{{ .Id }}">
+                    <tr>
+                        <td>
+                            <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
+                        </td>
+                        <td>{{ .Ip }}</td>
+                        <td>{{ .Mac }}</td>
+                        <td>{{ .Hw }}</td>
+                        <td>{{ .Date }}</td>
+                        <td>
+                            {{ if eq .Known 1 }}
+                            <button value="off" name="known" type="submit" class="btn btn-success">Yes</button>
+                            {{ else }}
+                            <button value="on" name="known" type="submit" class="btn btn-warning">No</button>
+                            {{ end }}
+                        </td>
+                    </tr>
+                </form>
+            {{ end }}
+        </table>
+    </div>
+
+{{ template "footer" }}
+{{ end }}
