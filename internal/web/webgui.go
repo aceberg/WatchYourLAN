@@ -1,21 +1,28 @@
 package web
 
 import (
-	"embed"
+	// "embed"
 	"fmt"
-	. "github.com/aceberg/WatchYourLAN/pkg/models"
 	"log"
 	"net/http"
+
+	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
-var AppConfig Conf
+var (
+	AppConfig models.Conf
+
+	TemplPath string
+)
 
 // var AllHosts []Host
 
-//go:embed templates/*
-var TemplHTML embed.FS
+////go:embed templates/*
+// var TemplHTML embed.FS
 
-func Webgui(appConfig Conf) {
+func Webgui(appConfig models.Conf) {
+
+	TemplPath = "../../internal/web/templates/"
 
 	AppConfig = appConfig
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort

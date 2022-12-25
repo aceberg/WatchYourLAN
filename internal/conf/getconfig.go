@@ -1,13 +1,11 @@
 package conf
 
 import (
-	. "github.com/aceberg/WatchYourLAN/pkg/models"
+	. "github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/spf13/viper"
 )
 
-const configPath = "/data/config"
-
-func GetConfig() (config Conf) {
+func GetConfig(path string) (config Conf) {
 	viper.SetDefault("IFACE", "enp1s0")
 	viper.SetDefault("DBPATH", "/data/db.sqlite")
 	viper.SetDefault("GUIIP", "localhost")
@@ -16,7 +14,7 @@ func GetConfig() (config Conf) {
 	viper.SetDefault("SHOUTRRR_URL", "")
 	viper.SetDefault("THEME", "solar")
 
-	viper.SetConfigFile(configPath)
+	viper.SetConfigFile(path)
 	viper.SetConfigType("env")
 	viper.ReadInConfig()
 
@@ -33,8 +31,8 @@ func GetConfig() (config Conf) {
 	return config
 }
 
-func WriteConfig(theme string) {
-	viper.SetConfigFile(configPath)
+func WriteConfig(path, theme string) {
+	viper.SetConfigFile(path)
 	viper.SetConfigType("env")
 	viper.Set("THEME", theme)
 	viper.WriteConfig()

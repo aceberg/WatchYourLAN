@@ -2,11 +2,11 @@ name: Docker
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
-    paths:
-    - 'Dockerfile'
-    - 'src/**'
+  # push:
+  #   branches: [ "main" ]
+  #   paths:
+  #   - 'Dockerfile'
+  #   - 'src/**'
 
 env:
   IMAGE_NAME: watchyourlan

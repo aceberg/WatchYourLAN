@@ -23,6 +23,9 @@ fmt:
 
 lint:
 	golangci-lint run
+	golint ./...
+
+check: fmt lint
 
 go-build:
 	cd cmd/WatchYourLAN/ && \
