@@ -11,11 +11,11 @@ import (
 const configPath = "/data/config"
 
 func main() {
-	appConfig := conf.GetConfig(configPath) // Get config from Defaults, Config file, Env
+	appConfig := conf.Get(configPath) // Get config from Defaults, Config file, Env
 
 	fmt.Println("CONF =", appConfig)
 
-	db.CreateDB(appConfig.DbPath) // Check if DB exists. Create if not
+	db.Create(appConfig.DbPath) // Check if DB exists. Create if not
 
-	web.Webgui(appConfig) // Start web GUI
+	web.Gui(appConfig) // Start web GUI
 }

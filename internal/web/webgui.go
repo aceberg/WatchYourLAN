@@ -2,7 +2,6 @@ package web
 
 import (
 	// "embed"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -10,8 +9,10 @@ import (
 )
 
 var (
+	// AppConfig - app config
 	AppConfig models.Conf
 
+	// TemplPath - path to html templates
 	TemplPath string
 )
 
@@ -20,7 +21,8 @@ var (
 ////go:embed templates/*
 // var TemplHTML embed.FS
 
-func Webgui(appConfig models.Conf) {
+// Gui - start web GUI
+func Gui(appConfig models.Conf) {
 
 	TemplPath = "../../internal/web/templates/"
 
@@ -28,7 +30,7 @@ func Webgui(appConfig models.Conf) {
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
 
 	log.Println("=================================== ")
-	log.Println(fmt.Sprintf("Web GUI at http://%s", address))
+	log.Printf("Web GUI at http://%s", address)
 	log.Println("=================================== ")
 
 	http.HandleFunc("/", index)

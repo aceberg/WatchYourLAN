@@ -1,9 +1,10 @@
 package models
 
+// Host - one host
 type Host struct {
-	Id    uint16
+	ID    uint16
 	Name  string
-	Ip    string
+	IP    string
 	Mac   string
 	Hw    string
 	Date  string
@@ -11,16 +12,18 @@ type Host struct {
 	Now   uint16
 }
 
+// Conf - app config
 type Conf struct {
 	Iface    string
 	DbPath   string
 	GuiIP    string
 	GuiPort  string
 	Timeout  int
-	ShoutUrl string
+	ShoutURL string
 	Theme    string
 }
 
+// GuiData - all data sent to html page
 type GuiData struct {
 	Config Conf
 	Hosts  []Host
