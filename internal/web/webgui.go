@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -41,5 +42,6 @@ func Gui(appConfig models.Conf) {
 	// http.HandleFunc("/sort_hosts/", sort_hosts)
 	// http.HandleFunc("/theme/", theme)
 	// http.HandleFunc("/update_host/", update_host)
-	http.ListenAndServe(address, nil)
+	err := http.ListenAndServe(address, nil)
+	check.IfError(err)
 }

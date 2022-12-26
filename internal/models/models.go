@@ -27,4 +27,6 @@ type Conf struct {
 type GuiData struct {
 	Config Conf
 	Hosts  []Host
+	Icon   string
+	Themes []string
 }

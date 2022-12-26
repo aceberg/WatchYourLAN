@@ -3,6 +3,7 @@ package conf
 import (
 	"github.com/spf13/viper"
 
+	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -18,7 +19,8 @@ func Get(path string) (config models.Conf) {
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("env")
-	viper.ReadInConfig()
+	err := viper.ReadInConfig()
+	check.IfError(err)
 
 	viper.AutomaticEnv() // Get ENVIRONMENT variables
 
@@ -33,10 +35,10 @@ func Get(path string) (config models.Conf) {
 	return config
 }
 
-// Write - write config to file
-func Write(path, theme string) {
-	viper.SetConfigFile(path)
-	viper.SetConfigType("env")
-	viper.Set("THEME", theme)
-	viper.WriteConfig()
-}
+// // Write - write config to file
+// func Write(path, theme string) {
+// 	viper.SetConfigFile(path)
+// 	viper.SetConfigType("env")
+// 	viper.Set("THEME", theme)
+// 	viper.WriteConfig()
+// }

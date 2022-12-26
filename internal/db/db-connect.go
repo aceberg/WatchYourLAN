@@ -1,18 +1,19 @@
 package db
 
 import (
-	//"fmt"
 	"database/sql"
-	_ "github.com/mattn/go-sqlite3"
-	"log"
+	
+	// Import sqlite module
+	_ "modernc.org/sqlite"
+
+	"github.com/aceberg/WatchYourLAN/internal/check"
 )
 
 func dbExec(path, sqlStatement string) {
-	db, _ := sql.Open("sqlite3", path)
+	db, err := sql.Open("sqlite", path)
+	check.IfError(err)
 	defer db.Close()
 
-	_, err := db.Exec(sqlStatement)
-	if err != nil {
-		log.Fatal("ERROR: db_exec: ", err)
-	}
+	_, err = db.Exec(sqlStatement)
+	check.IfError(err)
 }

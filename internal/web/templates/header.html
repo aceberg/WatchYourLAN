@@ -4,13 +4,15 @@
     <title>Watch Your LAN</title>
     <meta charset="utf-8">
     <!--Favicon-->
-    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/6k7AP+uSQD/z50A7urjAD85MgAAOO8AWlpaAADIawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADEREQAAAAAzEREREQAAAzEREREREAAzFxEREVERADN3d3VVVREDM3d3dYVlERMzd3d1VVUREzM3ERESERETMzcRESERERMzNxESMREREzM3ESNEQREwMzcSMxEREwAzNyM0REQzAAMzMzMzMzAAADMzMzMzAAAAADMzMwAAD4HwAA4AcAAMADAACAAQAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAACAAQAAwAMAAOAHAAD4HwAA" rel="icon" type="image/x-icon" />
+    <link href="data:image/x-icon;base64,{{ .Icon }}" rel="icon" type="image/x-icon" />
+    <!--Auto refresh (seconds)-->
+    <!-- <meta http-equiv="refresh" content="{{ .Config.Timeout }}"> -->
     <!-- Bootstrap and theme -->
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.0/dist/{{ .Config.Theme }}/bootstrap.min.css" rel="stylesheet">
     <!-- Font for icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script> -->
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
@@ -24,36 +26,6 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" href="/offline/">Offline</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Theme</a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/theme/cerulean">Cerulean</a></li>
-                      <li><a class="dropdown-item" href="/theme/cosmo">Cosmo</a></li>
-                      <li><a class="dropdown-item" href="/theme/cyborg">Cyborg</a></li>
-                      <li><a class="dropdown-item" href="/theme/darkly">Darkly</a></li>
-                      <li><a class="dropdown-item" href="/theme/flatly">Flatly</a></li>
-                      <li><a class="dropdown-item" href="/theme/journal">Journal</a></li>
-                      <li><a class="dropdown-item" href="/theme/litera">Litera</a></li>
-                      <li><a class="dropdown-item" href="/theme/lumen">Lumen</a></li>
-                      <li><a class="dropdown-item" href="/theme/lux">Lux</a></li>
-                      <li><a class="dropdown-item" href="/theme/materia">Materia</a></li>
-                      <li><a class="dropdown-item" href="/theme/minty">Minty</a></li>
-                      <li><a class="dropdown-item" href="/theme/morph">Morph</a></li>
-                      <li><a class="dropdown-item" href="/theme/pulse">Pulse</a></li>
-                      <li><a class="dropdown-item" href="/theme/quartz">Quartz</a></li>
-                      <li><a class="dropdown-item" href="/theme/sandstone">Sandstone</a></li>
-                      <li><a class="dropdown-item" href="/theme/simplex">Simplex</a></li>
-                      <li><a class="dropdown-item" href="/theme/sketchy">Sketchy</a></li>
-                      <li><a class="dropdown-item" href="/theme/slate">Slate</a></li>
-                      <li><a class="dropdown-item" href="/theme/solar">Solar</a></li>
-                      <li><a class="dropdown-item" href="/theme/spacelab">Spacelab</a></li>
-                      <li><a class="dropdown-item" href="/theme/superhero">Superhero</a></li>
-                      <li><a class="dropdown-item" href="/theme/united">United</a></li>
-                      <li><a class="dropdown-item" href="/theme/vapor">Vapor</a></li>
-                      <li><a class="dropdown-item" href="/theme/yeti">Yeti</a></li>
-                      <li><a class="dropdown-item" href="/theme/zephyr">Zephyr</a></li>
-                    </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

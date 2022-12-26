@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 
+	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -12,7 +13,11 @@ func index(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 	guiData.Config = AppConfig
 	guiData.Hosts = []models.Host{}
+	guiData.Icon = Icon
 
 	tmpl, _ := template.ParseFiles(TemplPath+"index.html", TemplPath+"header.html", TemplPath+"footer.html")
-	tmpl.ExecuteTemplate(w, "index", guiData)
+	err := tmpl.ExecuteTemplate(w, "header", guiData)
+	check.IfError(err)
+	err = tmpl.ExecuteTemplate(w, "index", guiData)
+	check.IfError(err)
 }
