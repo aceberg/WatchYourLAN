@@ -7,28 +7,29 @@ import (
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/models"
+	"github.com/aceberg/WatchYourLAN/internal/scan"
 )
 
 var (
 	// AppConfig - app config
 	AppConfig models.Conf
 
-	// TemplPath - path to html templates
-	TemplPath string
+	// AllHosts - all hosts from DB
+	AllHosts []models.Host
 )
-
-// var AllHosts []Host
 
 ////go:embed templates/*
 // var TemplHTML embed.FS
 
+// TemplPath - path to html templates
+const TemplPath = "../../internal/web/templates/"
+
 // Gui - start web GUI
 func Gui(appConfig models.Conf) {
-
-	TemplPath = "../../internal/web/templates/"
-
 	AppConfig = appConfig
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
+
+	go scan.Start(AppConfig)
 
 	log.Println("=================================== ")
 	log.Printf("Web GUI at http://%s", address)

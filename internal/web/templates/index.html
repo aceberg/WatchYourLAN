@@ -9,7 +9,7 @@
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
-                <th>Ip</th>
+                <th>IP</th>
                 <th>Mac</th>
                 <th>Hardware</th>
                 <th>Known</th>
@@ -18,7 +18,7 @@
                 {{ if eq .Now 1 }}
                 <tr>
                     <td>{{ .Name }}</td>
-                    <td><a href="http://{{ .Ip }}" target="_blank">{{ .Ip }}</a></td>
+                    <td><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
                     <td>{{ .Mac }}</td>
                     <td>{{ .Hw }}</td>
                     <td>
@@ -44,12 +44,12 @@
             </tr>
             {{ range .Hosts }}
                 <form action="/update_host/" method="post">
-                    <input name="id" type="hidden" class="form-control" value="{{ .Id }}">
+                    <input name="id" type="hidden" class="form-control" value="{{ .ID }}">
                     <tr>
                         <td>
                             <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
                         </td>
-                        <td>{{ .Ip }}</td>
+                        <td>{{ .IP }}</td>
                         <td>{{ .Mac }}</td>
                         <td>{{ .Hw }}</td>
                         <td>{{ .Date }}</td>

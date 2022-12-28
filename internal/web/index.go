@@ -11,8 +11,9 @@ import (
 
 func index(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
+
 	guiData.Config = AppConfig
-	guiData.Hosts = []models.Host{}
+	guiData.Hosts = AllHosts
 	guiData.Icon = Icon
 
 	tmpl, _ := template.ParseFiles(TemplPath+"index.html", TemplPath+"header.html", TemplPath+"footer.html")

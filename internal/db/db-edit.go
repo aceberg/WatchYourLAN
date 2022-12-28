@@ -25,3 +25,8 @@ func Create(path string) {
 		log.Println("INFO: Table created!")
 	}
 }
+
+func SetNow(path string) {
+	sqlStatement := `UPDATE "now" set NOW = '0';`
+	dbExec(path, sqlStatement)
+}
