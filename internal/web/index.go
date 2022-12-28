@@ -17,7 +17,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	guiData.Hosts = AllHosts
 	guiData.Icon = Icon
 
-	tmpl, _ := template.ParseFiles(TemplPath+"index.html", TemplPath+"header.html", TemplPath+"footer.html")
+	// tmpl, _ := template.ParseFiles(TemplPath+"index.html", TemplPath+"header.html", TemplPath+"footer.html")
+	tmpl, _ := template.ParseFS(TemplHTML, TemplPath+"index.html", TemplPath+"header.html", TemplPath+"footer.html")
 	err := tmpl.ExecuteTemplate(w, "header", guiData)
 	check.IfError(err)
 	err = tmpl.ExecuteTemplate(w, "index", guiData)

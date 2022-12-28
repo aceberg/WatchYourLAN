@@ -1,8 +1,8 @@
 FROM golang:alpine AS builder
 
 RUN apk add build-base
-COPY src /src
-RUN cd /src && go build .
+COPY . /src
+RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -o /WatchYourLAN .
 
 
 FROM alpine
@@ -12,7 +12,6 @@ WORKDIR /app
 RUN apk add --no-cache tzdata arp-scan \
     && mkdir /data
 
-COPY src/templates /app/templates
-COPY --from=builder /src/watchyourlan /app/
+COPY --from=builder /WatchYourLAN /app/
 
-ENTRYPOINT ["./watchyourlan"]
+ENTRYPOINT ["./WatchYourLAN"]

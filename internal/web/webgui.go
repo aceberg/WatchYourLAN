@@ -1,7 +1,7 @@
 package web
 
 import (
-	// "embed"
+	"embed"
 	"log"
 	"net/http"
 
@@ -19,11 +19,15 @@ var (
 	AllHosts []models.Host
 )
 
-////go:embed templates/*
-// var TemplHTML embed.FS
+// TemplHTML - embed templates
+//
+//go:embed templates/*
+var TemplHTML embed.FS
 
 // TemplPath - path to html templates
-const TemplPath = "../../internal/web/templates/"
+const TemplPath = "templates/"
+
+// const TemplPath = "../../internal/web/templates/"
 
 // Gui - start web GUI
 func Gui(appConfig models.Conf) {
