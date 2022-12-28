@@ -1,9 +1,11 @@
 package db
 
 import (
+	"fmt"
 	"log"
 	"os"
-	// "fmt"
+
+	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
 // Create - create DB if not exists
@@ -26,7 +28,32 @@ func Create(path string) {
 	}
 }
 
+// SetNow - mark all hosts as offline
 func SetNow(path string) {
 	sqlStatement := `UPDATE "now" set NOW = '0';`
+	dbExec(path, sqlStatement)
+}
+
+// Insert - insert host into table
+func Insert(path string, oneHost models.Host) {
+	oneHost.Name = quoteStr(oneHost.Name)
+	oneHost.Hw = quoteStr(oneHost.Hw)
+	sqlStatement := `INSERT INTO "now" (NAME, IP, MAC, HW, DATE, KNOWN, NOW) 
+		VALUES ('%s','%s','%s','%s','%s','%d','%d');`
+	sqlStatement = fmt.Sprintf(sqlStatement, oneHost.Name, oneHost.IP, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now)
+	//fmt.Println("Insert statement:", sqlStatement)
+	dbExec(path, sqlStatement)
+}
+
+// Update - update host
+func Update(path string, oneHost models.Host) {
+	oneHost.Name = quoteStr(oneHost.Name)
+	oneHost.Hw = quoteStr(oneHost.Hw)
+	sqlStatement := `UPDATE "now" set 
+		NAME = '%s', IP = '%s', MAC = '%s', HW = '%s', DATE = '%s', 
+		KNOWN = '%d', NOW = '%d' 
+		WHERE ID = '%d';`
+	sqlStatement = fmt.Sprintf(sqlStatement, oneHost.Name, oneHost.IP, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now, oneHost.ID)
+	//fmt.Println("Update statement:", sqlStatement)
 	dbExec(path, sqlStatement)
 }

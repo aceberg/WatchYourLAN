@@ -20,6 +20,7 @@ func dbExec(path, sqlStatement string) {
 	check.IfError(err)
 }
 
+// Select - select all hosts
 func Select(path string) (dbHosts []models.Host) {
 	db, _ := sql.Open("sqlite", path)
 	defer db.Close()
@@ -38,8 +39,8 @@ func Select(path string) (dbHosts []models.Host) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		// oneHost.Name = unquote_str(oneHost.Name)
-		// oneHost.Hw = unquote_str(oneHost.Hw)
+		oneHost.Name = unquoteStr(oneHost.Name)
+		oneHost.Hw = unquoteStr(oneHost.Hw)
 		dbHosts = append(dbHosts, oneHost)
 	}
 
