@@ -13,8 +13,6 @@ import (
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 
-	AllHosts = db.Select(AppConfig.DbPath)
-
 	guiData.Config = AppConfig
 	guiData.Hosts = AllHosts
 	guiData.Icon = Icon
@@ -24,4 +22,9 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	check.IfError(err)
 	err = tmpl.ExecuteTemplate(w, "index", guiData)
 	check.IfError(err)
+}
+
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	AllHosts = db.Select(AppConfig.DbPath)
+	http.Redirect(w, r, "/", 302)
 }

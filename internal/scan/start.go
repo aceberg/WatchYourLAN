@@ -15,7 +15,7 @@ func Start(appConfig models.Conf) {
 		foundHosts = arpScan(appConfig.Iface)                      // Scan interfaces
 		dbHosts = db.Select(appConfig.DbPath)                      // Select everything from DB
 		db.SetNow(appConfig.DbPath)                                // Mark hosts in DB as offline
-		hostsCompare(appConfig.DbPath, foundHosts, dbHosts)        // Compare hosts online and in DB and add them to DB
+		hostsCompare(appConfig, foundHosts, dbHosts)               // Compare hosts online and in DB and add them to DB
 		time.Sleep(time.Duration(appConfig.Timeout) * time.Second) // Timeout
 	}
 }

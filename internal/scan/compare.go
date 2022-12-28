@@ -6,6 +6,7 @@ import (
 
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
+	"github.com/aceberg/WatchYourLAN/internal/notify"
 )
 
 func hostInDB(path string, host models.Host, dbHosts []models.Host) bool { // Check if host is already in DB
@@ -20,14 +21,14 @@ func hostInDB(path string, host models.Host, dbHosts []models.Host) bool { // Ch
 	return false
 }
 
-func hostsCompare(path string, foundHosts, dbHosts []models.Host) {
+func hostsCompare(appConfig models.Conf, foundHosts, dbHosts []models.Host) {
 	for _, oneHost := range foundHosts {
-		if !(hostInDB(path, oneHost, dbHosts)) {
+		if !(hostInDB(appConfig.DbPath, oneHost, dbHosts)) {
 			oneHost.Now = 1 // Mark host online
 			msg := fmt.Sprintf("UNKNOWN HOST IP: '%s', MAC: '%s', Hw: '%s'", oneHost.IP, oneHost.Mac, oneHost.Hw)
 			log.Println("WARN:", msg)
-			// shoutr_notify(msg) // Notify through Shoutrrr
-			db.Insert(path, oneHost)
+			notify.Shoutrrr(msg, appConfig.ShoutURL) // Notify through Shoutrrr
+			db.Insert(appConfig.DbPath, oneHost)
 		}
 	}
 }

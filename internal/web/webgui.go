@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
+	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/scan"
 )
@@ -35,11 +36,13 @@ func Gui(appConfig models.Conf) {
 	log.Printf("Web GUI at http://%s", address)
 	log.Println("=================================== ")
 
+	AllHosts = db.Select(AppConfig.DbPath)
+
 	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/home/", indexHandler)
+	http.HandleFunc("/home/", homeHandler)
 	http.HandleFunc("/offline/", offlineHandler)
 	http.HandleFunc("/online/", onlineHandler)
-	// http.HandleFunc("/search_hosts/", search_hosts)
+	http.HandleFunc("/search_hosts/", searchHandler)
 	http.HandleFunc("/sort_hosts/", sortHandler)
 	// http.HandleFunc("/theme/", theme)
 	http.HandleFunc("/update_host/", updateHandler)
