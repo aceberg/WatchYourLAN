@@ -35,10 +35,19 @@ func Get(path string) (config models.Conf) {
 	return config
 }
 
-// // Write - write config to file
-// func Write(path, theme string) {
-// 	viper.SetConfigFile(path)
-// 	viper.SetConfigType("env")
-// 	viper.Set("THEME", theme)
-// 	viper.WriteConfig()
-// }
+// Write - write config to file
+func Write(path string, config models.Conf) {
+
+	viper.SetConfigFile(path)
+	viper.SetConfigType("env")
+
+	viper.Set("IFACE", config.Iface)
+	viper.Set("GUIIP", config.GuiIP)
+	viper.Set("GUIPORT", config.GuiPort)
+	viper.Set("TIMEOUT", config.Timeout)
+	viper.Set("SHOUTRRR_URL", config.ShoutURL)
+	viper.Set("THEME", config.Theme)
+
+	err := viper.WriteConfig()
+	check.IfError(err)
+}

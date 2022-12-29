@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.8.1] - 2022-12-29
+### Changed
+- Full code refactoring
+
+### Added
+- Embed templates
+- GUI config page
+
 ## [v0.7.5] - 2022-09-14
 ### Fixed
 - Sort by IP [Issue #4](https://github.com/aceberg/WatchYourLAN/issues/4), [Issue #14](https://github.com/aceberg/WatchYourLAN/issues/14)

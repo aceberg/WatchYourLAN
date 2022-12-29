@@ -21,7 +21,6 @@ func offlineHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// tmpl, _ := template.ParseFiles(TemplPath+"offline.html", TemplPath+"header.html", TemplPath+"footer.html")
 	tmpl, _ := template.ParseFS(TemplHTML, TemplPath+"offline.html", TemplPath+"header.html", TemplPath+"footer.html")
 	err := tmpl.ExecuteTemplate(w, "header", guiData)
 	check.IfError(err)
@@ -42,7 +41,6 @@ func onlineHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// tmpl, _ := template.ParseFiles(TemplPath+"offline.html", TemplPath+"header.html", TemplPath+"footer.html")
 	tmpl, _ := template.ParseFS(TemplHTML, TemplPath+"offline.html", TemplPath+"header.html", TemplPath+"footer.html")
 	err := tmpl.ExecuteTemplate(w, "header", guiData)
 	check.IfError(err)

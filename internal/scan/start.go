@@ -8,14 +8,29 @@ import (
 )
 
 // Start - start arp-scan goroutine
-func Start(appConfig models.Conf) {
+func Start(appConfig models.Conf, quit chan bool) {
 	var foundHosts []models.Host
 	var dbHosts []models.Host
-	for { // Endless
-		foundHosts = arpScan(appConfig.Iface)                      // Scan interfaces
-		dbHosts = db.Select(appConfig.DbPath)                      // Select everything from DB
-		db.SetNow(appConfig.DbPath)                                // Mark hosts in DB as offline
-		hostsCompare(appConfig, foundHosts, dbHosts)               // Compare hosts online and in DB and add them to DB
-		time.Sleep(time.Duration(appConfig.Timeout) * time.Second) // Timeout
+	var lastDate time.Time
+
+	for {
+		select {
+		case <-quit:
+			return
+		default:
+			nowDate := time.Now()
+			plusDate := lastDate.Add(time.Duration(appConfig.Timeout) * time.Second)
+
+			if nowDate.After(plusDate) {
+				foundHosts = arpScan(appConfig.Iface)
+				dbHosts = db.Select(appConfig.DbPath)
+				db.SetNow(appConfig.DbPath)
+				hostsCompare(appConfig, foundHosts, dbHosts)
+
+				lastDate = time.Now()
+			}
+
+			time.Sleep(time.Duration(1) * time.Second)
+		}
 	}
 }
