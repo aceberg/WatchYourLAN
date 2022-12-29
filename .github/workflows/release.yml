@@ -1,0 +1,32 @@
+name: Binary-release
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  generate:
+    name: Create release-artifacts
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@master
+
+      - name: Get version tag from env file
+        uses: c-py/action-dotenv-to-setenv@v2
+        with:
+          env-file: .version
+
+      - name: Build and archive
+        run: build/ci/build.sh ${{ env.VERSION }}
+
+      - name: Build .deb package
+        run: build/ci/build-deb.sh ${{ env.VERSION }}
+
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: 'watchyourlan-*'
