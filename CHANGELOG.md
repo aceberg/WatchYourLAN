@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Embed templates
 - GUI config page
+- Binary and Dep package
 
 ## [v0.7.5] - 2022-09-14
 ### Fixed
