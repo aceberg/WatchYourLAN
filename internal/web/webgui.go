@@ -56,7 +56,9 @@ func Gui(configPath string) {
 
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/config/", configHandler)
+	http.HandleFunc("/del_host/", delHandler)
 	http.HandleFunc("/home/", homeHandler)
+	http.HandleFunc("/host/", hostHandler)
 	http.HandleFunc("/offline/", offlineHandler)
 	http.HandleFunc("/online/", onlineHandler)
 	http.HandleFunc("/save_config/", saveConfigHandler)

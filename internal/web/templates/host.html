@@ -1,0 +1,81 @@
+{{ define "host" }}
+
+<body>
+    <div class="container mt-5">
+    <div class="row">
+        <div class="col">
+        <table class="table">
+            {{ range .Hosts }}
+                <tr>
+                    <td>ID</td>
+                    <td>{{ .ID }}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ .Name }}</td>
+                </tr>
+                <tr>
+                    <td>IP</td>
+                    <td><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
+                </tr>
+                <tr>
+                    <td>Mac</td>
+                    <td>{{ .Mac }}</td>
+                </tr>
+                <tr>
+                    <td>Hw</td>
+                    <td>{{ .Hw }}</td>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td>{{ .Date }}</td>
+                </tr>
+                <tr>
+                    <td>Known</td>
+                    <td>
+                        {{ if eq .Known 1 }}
+                            Yes
+                        {{ else }}
+                            No
+                        {{ end }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Now</td>
+                    <td>
+                        {{ if eq .Now 1 }}
+                            Online
+                        {{ else }}
+                            Offline
+                        {{ end }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <form action="/del_host/" method="post">
+                        <input name="id" type="hidden" class="form-control" value="{{ .ID }}"><button type="submit" class="btn btn-danger">Delete host</button>
+                    </form>
+                    </td>
+                    <td></td>
+                </tr>
+            {{ end }}
+        </table>
+        </div>
+        <div class="col">
+            <table class="table">
+            <tr>
+                <td>Domain name</td>
+                <td>
+                {{ range .Themes }}
+                    {{ . }}
+                {{ end }}
+                </td>
+            </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+        
+
+{{ template "footer" }}
+{{ end }}

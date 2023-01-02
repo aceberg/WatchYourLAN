@@ -57,3 +57,10 @@ func Update(path string, oneHost models.Host) {
 	//fmt.Println("Update statement:", sqlStatement)
 	dbExec(path, sqlStatement)
 }
+
+// Delete - delete host from DB
+func Delete(path string, id uint16) {
+	sqlStatement := `DELETE FROM "now" WHERE ID='%d';`
+	sqlStatement = fmt.Sprintf(sqlStatement, id)
+	dbExec(path, sqlStatement)
+}
