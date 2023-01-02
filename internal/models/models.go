@@ -21,6 +21,7 @@ type Conf struct {
 	Timeout  int
 	ShoutURL string
 	Theme    string
+	IgnoreIP string
 }
 
 // GuiData - all data sent to html page

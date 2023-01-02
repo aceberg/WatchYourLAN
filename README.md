@@ -57,6 +57,7 @@ Configuration can be done through config file or environment variables
 | TIMEOUT   | Time between scans (seconds) | 60 (1 minute) |
 | SHOUTRRR_URL | Url to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr) (gotify, email, telegram and others) | "" |
 | THEME | Any theme name from https://bootswatch.com in lowcase | solar |
+| IGNOREIP | If you want to detect unknown hosts by MAC only, set this wariable to "yes" | no |
 
 ## Config file
 

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.8.2] - 2023-01-02
+### Added
+- Option to ignore IP change [Issue #25](https://github.com/aceberg/WatchYourLAN/issues/25)
+
+
 ## [v0.8.1] - 2022-12-29
 ### Changed
 - Full code refactoring

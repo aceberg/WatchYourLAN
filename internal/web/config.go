@@ -35,6 +35,7 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	AppConfig.GuiPort = r.FormValue("port")
 	AppConfig.ShoutURL = r.FormValue("shout")
 	AppConfig.Theme = r.FormValue("theme")
+	AppConfig.IgnoreIP = r.FormValue("ignoreip")
 
 	timeout := r.FormValue("timeout")
 	AppConfig.Timeout, err = strconv.Atoi(timeout)

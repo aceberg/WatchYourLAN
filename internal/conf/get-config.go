@@ -16,6 +16,7 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("TIMEOUT", "60")
 	viper.SetDefault("SHOUTRRR_URL", "")
 	viper.SetDefault("THEME", "solar")
+	viper.SetDefault("IGNOREIP", "no")
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("env")
@@ -31,6 +32,7 @@ func Get(path string) (config models.Conf) {
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.ShoutURL = viper.Get("SHOUTRRR_URL").(string)
 	config.Theme = viper.Get("THEME").(string)
+	config.IgnoreIP = viper.Get("IGNOREIP").(string)
 
 	return config
 }
@@ -47,6 +49,7 @@ func Write(path string, config models.Conf) {
 	viper.Set("TIMEOUT", config.Timeout)
 	viper.Set("SHOUTRRR_URL", config.ShoutURL)
 	viper.Set("THEME", config.Theme)
+	viper.Set("IGNOREIP", config.IgnoreIP)
 
 	err := viper.WriteConfig()
 	check.IfError(err)
