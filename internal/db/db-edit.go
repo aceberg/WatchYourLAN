@@ -64,3 +64,9 @@ func Delete(path string, id uint16) {
 	sqlStatement = fmt.Sprintf(sqlStatement, id)
 	dbExec(path, sqlStatement)
 }
+
+// Clear - delete all hosts from table
+func Clear(path string) {
+	sqlStatement := `DELETE FROM "now";`
+	dbExec(path, sqlStatement)
+}

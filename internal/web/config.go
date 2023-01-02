@@ -2,11 +2,13 @@ package web
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
+	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/scan"
 )
@@ -47,6 +49,15 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 
 	QuitScan = make(chan bool)
 	go scan.Start(AppConfig, QuitScan)
+
+	http.Redirect(w, r, r.Header.Get("Referer"), 302)
+}
+
+func clearHandler(w http.ResponseWriter, r *http.Request) {
+
+	log.Println("INFO: delting all hosts from DB")
+
+	db.Clear(AppConfig.DbPath)
 
 	http.Redirect(w, r, r.Header.Get("Referer"), 302)
 }

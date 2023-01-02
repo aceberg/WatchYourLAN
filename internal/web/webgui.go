@@ -55,6 +55,7 @@ func Gui(configPath string) {
 	log.Println("=================================== ")
 
 	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/clear/", clearHandler)
 	http.HandleFunc("/config/", configHandler)
 	http.HandleFunc("/del_host/", delHandler)
 	http.HandleFunc("/home/", homeHandler)
