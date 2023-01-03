@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.8.3] - 2023-01-03
+### Added
+- Clear table button (Config page)
+- Delete host button
+- Host name from DNS (Click on MAC to see host page)
+- Sort buttons for all fields
+
+
 ## [v0.8.2] - 2023-01-02
 ### Added
 - Option to ignore IP change [Issue #25](https://github.com/aceberg/WatchYourLAN/issues/25)

@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"net"
 	"net/http"
+	"reflect"
 	"sort"
+	"strconv"
 
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
@@ -47,36 +49,69 @@ func sortHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch sortMethod {
 	case "name-up":
-		sort.SliceStable(AllHosts, func(i, j int) bool {
-			return AllHosts[i].Name < AllHosts[j].Name
-		})
+		sortByField("asc", "Name")
 	case "name-down":
-		sort.SliceStable(AllHosts, func(i, j int) bool {
-			return AllHosts[i].Name > AllHosts[j].Name
-		})
+		sortByField("desc", "Name")
 	case "ip-up":
 		sortByIPs("asc")
 	case "ip-down":
 		sortByIPs("desc")
+	case "mac-up":
+		sortByField("asc", "Mac")
+	case "mac-down":
+		sortByField("desc", "Mac")
+	case "hw-up":
+		sortByField("asc", "Hw")
+	case "hw-down":
+		sortByField("desc", "Hw")
 	case "date-up":
-		sort.SliceStable(AllHosts, func(i, j int) bool {
-			return AllHosts[i].Date < AllHosts[j].Date
-		})
+		sortByField("asc", "Date")
 	case "date-down":
-		sort.SliceStable(AllHosts, func(i, j int) bool {
-			return AllHosts[i].Date > AllHosts[j].Date
-		})
+		sortByField("desc", "Date")
 	case "known-up":
-		sort.SliceStable(AllHosts, func(i, j int) bool {
-			return AllHosts[i].Known < AllHosts[j].Known
-		})
+		sortByField("asc", "Known")
 	case "known-down":
-		sort.SliceStable(AllHosts, func(i, j int) bool {
-			return AllHosts[i].Known > AllHosts[j].Known
-		})
+		sortByField("desc", "Known")
 	default:
 		AllHosts = db.Select(AppConfig.DbPath)
 	}
 
 	http.Redirect(w, r, r.Header.Get("Referer"), 302)
+}
+
+func sortByField(method string, field string) {
+	type fieldHost struct {
+		Host models.Host
+		F    string
+	}
+	toSort := []fieldHost{}
+	var oneSort fieldHost
+
+	for _, host := range AllHosts {
+		oneSort.Host = host
+		r := reflect.ValueOf(&host)
+		f := reflect.Indirect(r).FieldByName(field)
+		if field == "Known" {
+			oneSort.F = strconv.FormatUint(f.Uint(), 10)
+		} else {
+			oneSort.F = f.String()
+		}
+		toSort = append(toSort, oneSort)
+	}
+
+	switch method {
+	case "asc":
+		sort.Slice(toSort, func(i, j int) bool {
+			return toSort[i].F < toSort[j].F
+		})
+	case "desc":
+		sort.Slice(toSort, func(i, j int) bool {
+			return toSort[i].F > toSort[j].F
+		})
+	}
+
+	AllHosts = []models.Host{}
+	for _, oneSort := range toSort {
+		AllHosts = append(AllHosts, oneSort.Host)
+	}
 }

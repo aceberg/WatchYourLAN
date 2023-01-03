@@ -49,7 +49,7 @@
                         <td>
                             <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
                         </td>
-                        <td>{{ .IP }}</td>
+                        <td><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
                         <td><a href="/host?id={{ .ID }}">{{ .Mac }}</a></td>
                         <td>{{ .Hw }}</td>
                         <td>{{ .Date }}</td>
