@@ -12,15 +12,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 	foundHosts := []models.Host{}
 	for _, oneHost := range AllHosts {
-		if inString(oneHost.Name, search) {
-			foundHosts = append(foundHosts, oneHost)
-		} else if inString(oneHost.IP, search) {
-			foundHosts = append(foundHosts, oneHost)
-		} else if inString(oneHost.Mac, search) {
-			foundHosts = append(foundHosts, oneHost)
-		} else if inString(oneHost.Date, search) {
-			foundHosts = append(foundHosts, oneHost)
-		} else if inString(oneHost.Hw, search) {
+		if inString(oneHost.Name, search) || inString(oneHost.IP, search) || inString(oneHost.Mac, search) || inString(oneHost.Hw, search) || inString(oneHost.Date, search) {
 			foundHosts = append(foundHosts, oneHost)
 		}
 	}

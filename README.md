@@ -11,7 +11,7 @@
 [![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml)
 [![Binary-release](https://github.com/aceberg/WatchYourLAN/actions/workflows/release.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/release.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/aceberg/WatchYourLAN)](https://goreportcard.com/report/github.com/aceberg/WatchYourLAN)
-![GitHub](https://img.shields.io/github/license/aceberg/WatchYourLAN)
+[![Maintainability](https://api.codeclimate.com/v1/badges/46b17f99edc1726b5d7d/maintainability)](https://codeclimate.com/github/aceberg/WatchYourLAN/maintainability)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)
 
 Lightweight network IP scanner with web GUI  
