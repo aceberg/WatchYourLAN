@@ -33,6 +33,7 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 
 	AppConfig.Iface = r.FormValue("iface")
+	AppConfig.DbPath = r.FormValue("dbpath")
 	AppConfig.GuiIP = r.FormValue("host")
 	AppConfig.GuiPort = r.FormValue("port")
 	AppConfig.ShoutURL = r.FormValue("shout")

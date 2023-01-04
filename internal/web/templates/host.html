@@ -72,6 +72,30 @@
                 </td>
             </tr>
             </table>
+            <br>
+            <br>
+            {{ range .Hosts }}
+            {{ if eq .Now 1 }}
+            <p>Scan for open TCP ports (may take some time)</p>
+            <table class="table">
+                <form action="/port_scan/" method="post">
+                    <input name="ip" type="hidden" class="form-control" value="{{ .IP }}">
+                    <tr>
+                        <td>Start port</td>
+                        <td><input name="begin" type="text" class="form-control" placeholder="1"></td>
+                    </tr>
+                    <tr>
+                        <td>End port</td>
+                        <td><input name="end" type="text" class="form-control" placeholder="65535"></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" class="btn btn-success">Scan host</button></td>
+                        <td></td>
+                    </tr>
+                </form>
+            </table>
+            {{ end }}
+            {{ end }}
         </div>
     </div>
     </div>
