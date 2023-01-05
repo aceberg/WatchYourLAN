@@ -1,7 +1,6 @@
 package web
 
 import (
-	"html/template"
 	"log"
 	"net"
 	"net/http"
@@ -53,10 +52,5 @@ func hostHandler(w http.ResponseWriter, r *http.Request) {
 
 	guiData.Themes = addr
 
-	tmpl, err := template.ParseFS(TemplHTML, TemplPath+"host.html", TemplPath+"header.html", TemplPath+"footer.html")
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "header", guiData)
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "host", guiData)
-	check.IfError(err)
+	execTemplate(w, "host", guiData)
 }

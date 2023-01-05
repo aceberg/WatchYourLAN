@@ -1,7 +1,6 @@
 package web
 
 import (
-	"html/template"
 	"net/http"
 	"strconv"
 
@@ -26,12 +25,7 @@ func portHandler(w http.ResponseWriter, r *http.Request) {
 	end, err := strconv.Atoi(endStr)
 	check.IfError(err)
 
-	guiData.Themes = port.Scan(ip, begin, end)
+	guiData.Themes = port.Scan(ip, "tcp", begin, end)
 
-	tmpl, err := template.ParseFS(TemplHTML, TemplPath+"port.html", TemplPath+"header.html", TemplPath+"footer.html")
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "header", guiData)
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "port", guiData)
-	check.IfError(err)
+	execTemplate(w, "port", guiData)
 }

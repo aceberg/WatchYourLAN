@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-func isOpen(host string, port int) bool {
+func isOpen(host, proto string, port int) bool {
 
 	timeout := 3 * time.Second
 	target := fmt.Sprintf("%s:%d", host, port)
 
-	conn, err := net.DialTimeout("tcp", target, timeout)
+	conn, err := net.DialTimeout(proto, target, timeout)
 	if err != nil {
 		return false
 	}
@@ -25,14 +25,14 @@ func isOpen(host string, port int) bool {
 }
 
 // Scan - scan all TCP ports of a host
-func Scan(host string, begin, end int) []string {
+func Scan(host, proto string, begin, end int) []string {
 	var onePort string
 	var ports []string
 
 	ports = []string{}
 
-	for i := begin; i < end; i++ {
-		if isOpen(host, i) {
+	for i := begin; i < end+1; i++ {
+		if isOpen(host, proto, i) {
 			onePort = fmt.Sprintf("%s:%d", host, i)
 			ports = append(ports, onePort)
 		}

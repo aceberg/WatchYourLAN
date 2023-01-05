@@ -1,11 +1,8 @@
 package web
 
 import (
-	//   "fmt"
-	"html/template"
 	"net/http"
 
-	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
@@ -17,12 +14,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	guiData.Hosts = AllHosts
 	guiData.Icon = Icon
 
-	tmpl, err := template.ParseFS(TemplHTML, TemplPath+"index.html", TemplPath+"header.html", TemplPath+"footer.html")
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "header", guiData)
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "index", guiData)
-	check.IfError(err)
+	execTemplate(w, "index", guiData)
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {

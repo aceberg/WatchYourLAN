@@ -1,7 +1,6 @@
 package web
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 	"strconv"
@@ -21,12 +20,7 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 
 	guiData.Themes = []string{"cerulean", "cosmo", "cyborg", "darkly", "flatly", "journal", "litera", "lumen", "lux", "materia", "minty", "morph", "pulse", "quartz", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "vapor", "yeti", "zephyr"}
 
-	tmpl, err := template.ParseFS(TemplHTML, TemplPath+"config.html", TemplPath+"header.html", TemplPath+"footer.html")
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "header", guiData)
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "config", guiData)
-	check.IfError(err)
+	execTemplate(w, "config", guiData)
 }
 
 func saveConfigHandler(w http.ResponseWriter, r *http.Request) {

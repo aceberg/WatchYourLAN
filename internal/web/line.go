@@ -1,10 +1,8 @@
 package web
 
 import (
-	"html/template"
 	"net/http"
 
-	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -26,9 +24,5 @@ func lineHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	tmpl, _ := template.ParseFS(TemplHTML, TemplPath+"line.html", TemplPath+"header.html", TemplPath+"footer.html")
-	err := tmpl.ExecuteTemplate(w, "header", guiData)
-	check.IfError(err)
-	err = tmpl.ExecuteTemplate(w, "line", guiData)
-	check.IfError(err)
+	execTemplate(w, "line", guiData)
 }
