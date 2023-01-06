@@ -18,6 +18,11 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 	guiData.Config = AppConfig
 	guiData.Icon = Icon
 
+	file, err := TemplHTML.ReadFile(TemplPath + "version")
+	check.IfError(err)
+
+	guiData.Version = string(file)
+
 	guiData.Themes = []string{"cerulean", "cosmo", "cyborg", "darkly", "flatly", "journal", "litera", "lumen", "lux", "materia", "minty", "morph", "pulse", "quartz", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "vapor", "yeti", "zephyr"}
 
 	execTemplate(w, "config", guiData)

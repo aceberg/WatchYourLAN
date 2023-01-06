@@ -26,8 +26,9 @@ type Conf struct {
 
 // GuiData - all data sent to html page
 type GuiData struct {
-	Config Conf
-	Hosts  []Host
-	Icon   string
-	Themes []string
+	Config  Conf
+	Hosts   []Host
+	Icon    string
+	Themes  []string
+	Version string
 }
