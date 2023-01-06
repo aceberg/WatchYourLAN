@@ -13,7 +13,6 @@ func portHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 
 	guiData.Config = AppConfig
-	guiData.Icon = Icon
 
 	ip := r.FormValue("ip")
 	beginStr := r.FormValue("begin")

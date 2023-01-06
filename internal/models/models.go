@@ -22,13 +22,14 @@ type Conf struct {
 	ShoutURL string
 	Theme    string
 	IgnoreIP string
+	BootPath string
+	Icon     string
 }
 
 // GuiData - all data sent to html page
 type GuiData struct {
 	Config  Conf
 	Hosts   []Host
-	Icon    string
 	Themes  []string
 	Version string
 }

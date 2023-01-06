@@ -29,7 +29,6 @@ func hostHandler(w http.ResponseWriter, r *http.Request) {
 	var host models.Host
 
 	guiData.Config = AppConfig
-	guiData.Icon = Icon
 
 	idStr := r.URL.Query().Get("id")
 

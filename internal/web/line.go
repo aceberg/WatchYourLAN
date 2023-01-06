@@ -11,7 +11,6 @@ func lineHandler(w http.ResponseWriter, r *http.Request) {
 
 	guiData.Config = AppConfig
 	guiData.Hosts = []models.Host{}
-	guiData.Icon = Icon
 
 	state := r.URL.Query().Get("state")
 

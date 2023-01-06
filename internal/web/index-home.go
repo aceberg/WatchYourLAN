@@ -12,7 +12,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 	guiData.Config = AppConfig
 	guiData.Hosts = AllHosts
-	guiData.Icon = Icon
 
 	execTemplate(w, "index", guiData)
 }

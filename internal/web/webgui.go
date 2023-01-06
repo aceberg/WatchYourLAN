@@ -11,10 +11,12 @@ import (
 )
 
 // Gui - start web GUI
-func Gui(configPath string) {
+func Gui(configPath, bootPath string) {
 
 	ConfigPath = configPath
 	AppConfig = conf.Get(ConfigPath)
+	AppConfig.BootPath = bootPath
+	AppConfig.Icon = Icon
 
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
 

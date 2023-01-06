@@ -16,7 +16,6 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 
 	guiData.Config = AppConfig
-	guiData.Icon = Icon
 
 	file, err := TemplHTML.ReadFile(TemplPath + "version")
 	check.IfError(err)

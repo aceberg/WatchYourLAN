@@ -44,6 +44,7 @@ func Write(path string, config models.Conf) {
 	viper.SetConfigType("env")
 
 	viper.Set("IFACE", config.Iface)
+	viper.Set("DBPATH", config.DbPath)
 	viper.Set("GUIIP", config.GuiIP)
 	viper.Set("GUIPORT", config.GuiPort)
 	viper.Set("TIMEOUT", config.Timeout)
