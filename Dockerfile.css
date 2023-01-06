@@ -1,10 +1,11 @@
-FROM golang:alpine AS builder
+FROM golang:bullseye AS builder
 
-RUN apk add build-base npm
 COPY . /src
-RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -o /WatchYourLAN .
+
+RUN apt update && apt install npm
 RUN cd / && npm i bootswatch && npm i bootstrap-icons
-    
+
+RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -o /WatchYourLAN .    
 
 
 FROM alpine
