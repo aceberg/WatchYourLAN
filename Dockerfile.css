@@ -3,7 +3,8 @@ FROM golang:bullseye AS builder
 COPY . /src
 
 RUN apt update && apt install -y npm
-RUN cd / && npm i bootswatch && npm i bootstrap-icons
+RUN cd / && npm i bootswatch > /dev/null 2>&1 \
+    && npm i bootstrap-icons > /dev/null 2>&1
 
 RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -o /WatchYourLAN .    
 
