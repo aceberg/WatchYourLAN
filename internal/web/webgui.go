@@ -28,6 +28,12 @@ func Gui(configPath, bootPath string) {
 
 	AllHosts = db.Select(AppConfig.DbPath)
 
+	if AppConfig.BootPath != "" {
+		fs := http.FileServer(http.Dir(AppConfig.BootPath))
+		http.Handle("/css/", http.StripPrefix("/css", fs))
+		// http.Handle("/css/", http.FileServer(http.Dir(AppConfig.BootPath)))
+	}
+
 	log.Println("=================================== ")
 	log.Printf("Web GUI at http://%s", address)
 	log.Println("=================================== ")

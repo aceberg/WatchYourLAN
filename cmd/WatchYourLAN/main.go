@@ -8,12 +8,14 @@ import (
 )
 
 const configPath = "/data/config"
-const bootPath = "https://cdn.jsdelivr.net/npm/bootswatch@5.2.3/dist"
-// const bootPath = "file://data/node_modules/bootswatch/dist"
+
+// const bootPath = ""
+
+const bootPath = "/data/node_modules/bootswatch/dist/sketchy"
 
 func main() {
 	confPtr := flag.String("c", configPath, "Path to config file")
-	bootPtr := flag.String("b", bootPath, "Path to Bootswatch")
+	bootPtr := flag.String("b", bootPath, "Path to local Bootswatch")
 	flag.Parse()
 
 	check.Path(*confPtr)
