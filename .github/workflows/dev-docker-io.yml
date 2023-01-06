@@ -16,14 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Get version tag from env file
-        uses: c-py/action-dotenv-to-setenv@v2
-        with:
-          env-file: .version
-
-      - name: Echo version
-        run: echo ${{ env.VERSION }}
-
       - name: Build and Push Docker Image to docker.io
         uses: mr-smithers-excellent/docker-build-push@v5
         with:

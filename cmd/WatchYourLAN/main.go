@@ -9,9 +9,9 @@ import (
 
 const configPath = "/data/config"
 
-// const bootPath = ""
+const bootPath = ""
 
-const bootPath = "/data/node_modules/bootswatch/dist/sketchy"
+// const bootPath = "/data/node_modules"
 
 func main() {
 	confPtr := flag.String("c", configPath, "Path to config file")
