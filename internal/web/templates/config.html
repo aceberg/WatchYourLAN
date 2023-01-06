@@ -41,7 +41,13 @@
                 </tr>
                 <tr>
                     <td>Ignore IP</td>
-                    <td><input name="ignoreip" type="text" class="form-control" value="{{ .Config.IgnoreIP }}"></td>
+                    <td>
+                        <select name="ignoreip" class="form-select">
+                            <option selected value="{{ .Config.IgnoreIP }}">{{ .Config.IgnoreIP }}</option>
+                            <option value="yes">yes</option>
+                            <option value="no">no</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><button type="submit" class="btn btn-primary">Save</button></td>
