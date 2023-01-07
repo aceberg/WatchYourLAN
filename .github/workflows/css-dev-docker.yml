@@ -1,4 +1,4 @@
-name: Dev-to-docker
+name: CSS-Dev-docker
 
 on:
   workflow_dispatch:
