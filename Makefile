@@ -29,7 +29,7 @@ check: fmt lint
 
 go-build:
 	cd cmd/WatchYourLAN/ && \
-	go build .
+	CGO_ENABLED=0 go build -o ../../tmp/WatchYourLAN .
 
 docker-build:
 	docker build -t $(DUSER)/$(DNAME) .

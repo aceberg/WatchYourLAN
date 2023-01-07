@@ -11,8 +11,6 @@ const configPath = "/data/config"
 
 const bootPath = ""
 
-// const bootPath = "/data/node_modules"
-
 func main() {
 	confPtr := flag.String("c", configPath, "Path to config file")
 	bootPtr := flag.String("b", bootPath, "Path to local Bootswatch")

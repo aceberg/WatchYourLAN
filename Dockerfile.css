@@ -1,11 +1,9 @@
 FROM golang:bullseye AS builder
 
+RUN cd / && git clone https://github.com/twbs/icons.git
+RUN cd / && git clone https://github.com/thomaspark/bootswatch.git
+
 COPY . /src
-
-RUN apt update && apt install -y npm
-RUN cd / && npm i bootswatch > /dev/null 2>&1 \
-    && npm i bootstrap-icons > /dev/null 2>&1
-
 RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -o /WatchYourLAN .    
 
 
@@ -14,10 +12,13 @@ FROM alpine
 WORKDIR /app
 
 RUN apk add --no-cache tzdata arp-scan \
-    && mkdir /data
+    && mkdir /data \
+    && mkdir -p /app/css/bootswatch/dist \
+    && mkdir -p /app/css/bootstrap-icons/font
 
 COPY --from=builder /WatchYourLAN /app/
-COPY --from=builder /node_modules /app/
+COPY --from=builder /icons/font /app/css/bootstrap-icons/font
+COPY --from=builder /bootswatch/dist /app/css/bootswatch/dist
 
 ENTRYPOINT ["./WatchYourLAN"]
-CMD ["-b", "/app/node_modules"]
+CMD ["-b", "/app/css"]
