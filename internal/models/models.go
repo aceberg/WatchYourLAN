@@ -32,4 +32,5 @@ type GuiData struct {
 	Hosts   []Host
 	Themes  []string
 	Version string
+	Release string
 }

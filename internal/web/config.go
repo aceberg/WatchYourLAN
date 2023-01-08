@@ -1,9 +1,12 @@
 package web
 
 import (
+	"io"
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/tidwall/gjson"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
@@ -20,7 +23,21 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 	file, err := TemplHTML.ReadFile(TemplPath + "version")
 	check.IfError(err)
 
-	guiData.Version = string(file)
+	version := string(file)
+	guiData.Version = version[8:]
+
+	url := "https://api.github.com/repos/aceberg/WatchYourLAN/releases/latest"
+	req, err := http.Get(url)
+	check.IfError(err)
+
+	defer req.Body.Close()
+
+	body, err := io.ReadAll(req.Body)
+	check.IfError(err)
+
+	bodyStr := string(body)
+	release := gjson.Get(bodyStr, "tag_name")
+	guiData.Release = release.String()
 
 	guiData.Themes = []string{"cerulean", "cosmo", "cyborg", "darkly", "flatly", "journal", "litera", "lumen", "lux", "materia", "minty", "morph", "pulse", "quartz", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "vapor", "yeti", "zephyr"}
 
