@@ -49,6 +49,7 @@ func Gui(configPath, bootPath string) {
 	http.HandleFunc("/save_config/", saveConfigHandler)
 	http.HandleFunc("/search_hosts/", searchHandler)
 	http.HandleFunc("/sort_hosts/", sortHandler)
+	http.HandleFunc("/test_notify/", testNotifyHandler)
 	http.HandleFunc("/update_host/", updateHandler)
 	err := http.ListenAndServe(address, nil)
 	check.IfError(err)

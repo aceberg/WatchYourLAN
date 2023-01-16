@@ -15,3 +15,4 @@ services:
       TIMEOUT: "120"                    # optional, time in seconds, default: 60
       SHOUTRRR_URL: ""                  # optional, set url to notify
       THEME: "darkly"                   # optional
+      IGNOREIP: "no"                    # optional

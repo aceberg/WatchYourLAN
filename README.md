@@ -1,12 +1,7 @@
-<div align="center">
-
-<a href="https://github.com/aceberg/WatchYourLAN">
-    <img src="https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/logo.png" width="200" />
-</a>
-</div>
+<h1><a href="https://github.com/aceberg/WatchYourLAN">
+    <img src="https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/logo.png" width="20" />
+</a>WatchYourLAN</h1>
 <br/>
-
-# WatchYourLAN
 
 [![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/aceberg/WatchYourLAN)](https://goreportcard.com/report/github.com/aceberg/WatchYourLAN)
@@ -14,24 +9,19 @@
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)
 ![Docker Pulls](https://img.shields.io/docker/pulls/aceberg/watchyourlan)
 
-Lightweight network IP scanner with web GUI  
-https://github.com/aceberg/WatchYourLAN  
+Lightweight network IP scanner with web GUI https://github.com/aceberg/WatchYourLAN  
+
+- [Quick start](https://github.com/aceberg/WatchYourLAN#quick-start)    
+- [Config](https://github.com/aceberg/WatchYourLAN#config)   
+- [Config file](https://github.com/aceberg/WatchYourLAN#config-file)   
+- [Options](https://github.com/aceberg/WatchYourLAN#options)  
+- [Thanks](https://github.com/aceberg/WatchYourLAN#thanks) 
 
 ![Screenshot_v0.6](https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/Screenshot_v0.6.png)  
 
 ## Quick start
 
-Replace `$YOURTIMEZONE` with correct time zone and `$YOURIFACE` with network interface you want to scan. Network mode must be `host`.
-
-```sh
-docker run --name wyl \
-	-e "IFACE=$YOURIFACE" \
-	-e "TZ=$YOURTIMEZONE" \
-	--network="host" \
-    aceberg/watchyourlan
-```
-
-Set `$DOCKERDATAPATH` for container to save data:
+Replace `$YOURTIMEZONE` with correct time zone and `$YOURIFACE` with network interface you want to scan. Network mode must be `host`. Set `$DOCKERDATAPATH` for container to save data:
 
 ```sh
 docker run --name wyl \
@@ -71,7 +61,14 @@ GUIPORT="8840"
 TIMEOUT="300"           		# 5 minutes
 SHOUTRRR_URL="gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes"	# Url to notify
 THEME="darkly"
+IGNOREIP="no"
 ```
+
+## Options
+
+| Key  | Description | Default | 
+| --------  | ----------- | ------- | 
+| -c | Path to config file | /data/config | 
 
 ## Thanks
 - All go packages listed in [dependencies](https://github.com/aceberg/WatchYourLAN/network/dependencies)

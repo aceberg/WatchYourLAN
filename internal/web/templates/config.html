@@ -28,7 +28,9 @@
                 </tr>
                 <tr>
                     <td>Shoutrrr URL</td>
-                    <td><input name="shout" type="text" class="form-control" value="{{ .Config.ShoutURL }}"></td>
+                    <td>
+                        <textarea name="shout" class="form-control" style="width: 100%;" rows="3" wrap="soft">{{ .Config.ShoutURL }}</textarea>
+                    </td>
                 </tr>
                 <tr>
                     <td>Theme</td>
@@ -51,9 +53,11 @@
                 </tr>
                 <tr>
                     <td><button type="submit" class="btn btn-primary">Save</button></td>
-                    <td></td>
-                </tr>
             </form>
+                    <td>
+                        <a href="/test_notify/"><button style="float: right;" class="btn btn-success">Test notification</button></a>
+                    </td>
+                </tr>
         </table>
         </div>
         <div class="col">
@@ -64,7 +68,7 @@
             <div class="alert alert-info" role="alert">
                 <p>● There can be one or more <b>Interfaces</b>, space separated</p>
                 <p>● After changing <b>Host</b>, <b>Port</b> or <b>Path to DB</b> you need to restart the app</p>
-                <p>● <b>Timeout</b> means time between scans</p>
+                <p>● <b>Timeout</b> means time between scans (in seconds)</p>
                 <p>● <b>Shoutrrr URL</b> provides notifications to Discord, Email, Gotify, Telegram and other services. <a href="https://containrrr.dev/shoutrrr/v0.5/services/overview/" target="_blank">Link to documentation</a></p>
                 <p>● If you want to detect unknown hosts by MAC only, set <b>Ignore IP</b> to "yes"</p>
                 <p>● The <b>Clear table</b> button below will delete all records from table. If you want to delete a single host, click on its MAC and press <b>Delete host</b> button</p>
