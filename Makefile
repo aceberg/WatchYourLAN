@@ -1,7 +1,7 @@
 DUSER=aceberg
 DNAME=watchyourlan
 
-IFACE=virbr-bw
+IFACE=enp4s0
 DBPATH=/data/hosts.db
 SHOUTRRR_URL=gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes
 THEME=darkly
