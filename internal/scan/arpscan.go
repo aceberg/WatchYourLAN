@@ -40,16 +40,18 @@ func parseOutput(text string) []models.Host {
 }
 
 // Scan all interfaces
-func arpScan(allIfaces string) []models.Host {
+func arpScan(allIfaces string, logLevel string) []models.Host {
 	var text string
 	var foundHosts = []models.Host{}
 
 	perString := strings.Split(allIfaces, " ")
 
 	for _, iface := range perString {
-		log.Println("INFO: scanning interface", iface)
 		text = scanIface(iface)
-		log.Println("INFO: found IPs:", text)
+		if logLevel != "short" {
+			log.Println("INFO: scanning interface", iface)
+			log.Println("INFO: found IPs:", text)
+		}
 		foundHosts = append(foundHosts, parseOutput(text)...)
 	}
 

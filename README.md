@@ -48,6 +48,7 @@ Configuration can be done through config file or environment variables
 | SHOUTRRR_URL | Url to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr) (gotify, email, telegram and others) or [Generic Webhook](https://github.com/containrrr/shoutrrr/blob/main/docs/services/generic.md) | "" |
 | THEME | Any theme name from https://bootswatch.com in lowcase | solar |
 | IGNOREIP | If you want to detect unknown hosts by MAC only, set this wariable to "yes" | no |
+| LOGLEVEL | How much log output you want to see ("short" or "verbose") | verbose |
 
 ## Config file
 
@@ -62,6 +63,7 @@ TIMEOUT="300"           		# 5 minutes
 SHOUTRRR_URL="gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes"	# Url to notify
 THEME="darkly"
 IGNOREIP="no"
+LOGLEVEL="short"
 ```
 
 ## Options

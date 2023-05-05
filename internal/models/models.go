@@ -22,6 +22,7 @@ type Conf struct {
 	ShoutURL string
 	Theme    string
 	IgnoreIP string
+	LogLevel string
 	BootPath string
 	Icon     string
 }

@@ -17,6 +17,7 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("SHOUTRRR_URL", "")
 	viper.SetDefault("THEME", "solar")
 	viper.SetDefault("IGNOREIP", "no")
+	viper.SetDefault("LOGLEVEL", "verbose")
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("env")
@@ -33,6 +34,7 @@ func Get(path string) (config models.Conf) {
 	config.ShoutURL = viper.Get("SHOUTRRR_URL").(string)
 	config.Theme = viper.Get("THEME").(string)
 	config.IgnoreIP = viper.Get("IGNOREIP").(string)
+	config.LogLevel = viper.Get("LOGLEVEL").(string)
 
 	return config
 }
@@ -51,6 +53,7 @@ func Write(path string, config models.Conf) {
 	viper.Set("SHOUTRRR_URL", config.ShoutURL)
 	viper.Set("THEME", config.Theme)
 	viper.Set("IGNOREIP", config.IgnoreIP)
+	viper.Set("LOGLEVEL", config.LogLevel)
 
 	err := viper.WriteConfig()
 	check.IfError(err)

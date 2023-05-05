@@ -52,6 +52,16 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Log Level</td>
+                    <td>
+                        <select name="loglevel" class="form-select">
+                            <option selected value="{{ .Config.LogLevel }}">{{ .Config.LogLevel }}</option>
+                            <option value="short">short</option>
+                            <option value="verbose">verbose</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td><button type="submit" class="btn btn-primary">Save</button></td>
             </form>
                     <td>
@@ -71,6 +81,7 @@
                 <p>● <b>Timeout</b> means time between scans (in seconds)</p>
                 <p>● <b>Shoutrrr URL</b> provides notifications to Discord, Email, Gotify, Telegram and other services. <a href="https://containrrr.dev/shoutrrr/v0.5/services/overview/" target="_blank">Link to documentation</a></p>
                 <p>● If you want to detect unknown hosts by MAC only, set <b>Ignore IP</b> to "yes"</p>
+                <p>● <b>Log Level</b> defines how much log output you want to see</p>
                 <p>● The <b>Clear table</b> button below will delete all records from table. If you want to delete a single host, click on its MAC and press <b>Delete host</b> button</p>
             </div>
             <br>

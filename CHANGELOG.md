@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.9.2] - 2023-05-05
+### Added
+- Choose log level in config
+
+### Changed
+- Move to go-1.20  
+
 ## [v0.9.1] - 2023-01-16
 ### Added
 - Scan host for open ports

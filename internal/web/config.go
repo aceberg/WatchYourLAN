@@ -55,6 +55,7 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	AppConfig.ShoutURL = r.FormValue("shout")
 	AppConfig.Theme = r.FormValue("theme")
 	AppConfig.IgnoreIP = r.FormValue("ignoreip")
+	AppConfig.LogLevel = r.FormValue("loglevel")
 
 	timeout := r.FormValue("timeout")
 	AppConfig.Timeout, err = strconv.Atoi(timeout)
