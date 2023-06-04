@@ -54,6 +54,7 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	AppConfig.GuiPort = r.FormValue("port")
 	AppConfig.ShoutURL = r.FormValue("shout")
 	AppConfig.Theme = r.FormValue("theme")
+	AppConfig.Color = r.FormValue("color")
 	AppConfig.IgnoreIP = r.FormValue("ignoreip")
 	AppConfig.LogLevel = r.FormValue("loglevel")
 

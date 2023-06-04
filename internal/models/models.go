@@ -21,6 +21,7 @@ type Conf struct {
 	Timeout  int
 	ShoutURL string
 	Theme    string
+	Color    string
 	IgnoreIP string
 	LogLevel string
 	BootPath string

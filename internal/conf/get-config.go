@@ -16,6 +16,7 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("TIMEOUT", "60")
 	viper.SetDefault("SHOUTRRR_URL", "")
 	viper.SetDefault("THEME", "solar")
+	viper.SetDefault("COLOR", "light")
 	viper.SetDefault("IGNOREIP", "no")
 	viper.SetDefault("LOGLEVEL", "verbose")
 
@@ -33,6 +34,7 @@ func Get(path string) (config models.Conf) {
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.ShoutURL = viper.Get("SHOUTRRR_URL").(string)
 	config.Theme = viper.Get("THEME").(string)
+	config.Color = viper.Get("COLOR").(string)
 	config.IgnoreIP = viper.Get("IGNOREIP").(string)
 	config.LogLevel = viper.Get("LOGLEVEL").(string)
 
@@ -52,6 +54,7 @@ func Write(path string, config models.Conf) {
 	viper.Set("TIMEOUT", config.Timeout)
 	viper.Set("SHOUTRRR_URL", config.ShoutURL)
 	viper.Set("THEME", config.Theme)
+	viper.Set("COLOR", config.Color)
 	viper.Set("IGNOREIP", config.IgnoreIP)
 	viper.Set("LOGLEVEL", config.LogLevel)
 

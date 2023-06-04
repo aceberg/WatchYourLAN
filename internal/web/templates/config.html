@@ -42,6 +42,14 @@
                     </select></td>
                 </tr>
                 <tr>
+                    <td>Color mode</td>
+                    <td><select name="color" class="form-select">
+                        <option selected>{{ .Config.Color }}</option>
+                        <option value="light">light</option>
+                        <option value="dark">dark</option>
+                    </select></td>
+                </tr>
+                <tr>
                     <td>Ignore IP</td>
                     <td>
                         <select name="ignoreip" class="form-select">
