@@ -47,6 +47,7 @@ Configuration can be done through config file or environment variables
 | TIMEOUT   | Time between scans (seconds) | 60 (1 minute) |
 | SHOUTRRR_URL | Url to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr) (gotify, email, telegram and others) or [Generic Webhook](https://github.com/containrrr/shoutrrr/blob/main/docs/services/generic.md) | "" |
 | THEME | Any theme name from https://bootswatch.com in lowcase | solar |
+| COLOR | Background color: light or dark | light |
 | IGNOREIP | If you want to detect unknown hosts by MAC only, set this wariable to "yes" | no |
 | LOGLEVEL | How much log output you want to see ("short" or "verbose") | verbose |
 
