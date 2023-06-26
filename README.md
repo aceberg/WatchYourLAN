@@ -15,6 +15,7 @@ Lightweight network IP scanner with web GUI https://github.com/aceberg/WatchYour
 - [Config](https://github.com/aceberg/WatchYourLAN#config)   
 - [Config file](https://github.com/aceberg/WatchYourLAN#config-file)   
 - [Options](https://github.com/aceberg/WatchYourLAN#options)  
+- [Local network only](https://github.com/aceberg/WatchYourLAN#local-network-only)  
 - [Thanks](https://github.com/aceberg/WatchYourLAN#thanks) 
 
 ![Screenshot_v0.6](https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/Screenshot_v0.6.png)  
@@ -72,6 +73,25 @@ LOGLEVEL="short"
 | Key  | Description | Default | 
 | --------  | ----------- | ------- | 
 | -c | Path to config file | /data/config | 
+| -n | Path to node modules (see below) | "" |
+
+## Local network only
+By default, this app pulls themes, icons and fonts from the internet. But, in some cases, it may be useful to have an independent from global network setup. I created a separate [image](https://github.com/aceberg/my-dockerfiles/tree/main/node-bootstrap) with all necessary modules and fonts.
+Run with Docker:
+```sh
+docker run --name node-bootstrap          \
+    -p 8850:8850                          \
+    aceberg/node-bootstrap
+```
+```sh
+docker run --name wyl \
+	-e "IFACE=$YOURIFACE" \
+	-e "TZ=$YOURTIMEZONE" \
+	--network="host" \
+	-v $DOCKERDATAPATH/wyl:/data \
+    aceberg/watchyourlan -n "http://127.0.0.1:8850"
+```
+Or use [docker-compose](docker-compose-local.yml)
 
 ## Thanks
 - All go packages listed in [dependencies](https://github.com/aceberg/WatchYourLAN/network/dependencies)

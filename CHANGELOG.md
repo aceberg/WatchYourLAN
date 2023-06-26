@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.9.4] - 2023-06-26
+### Added
+- Local node modules option
+
 ## [v0.9.3] - 2023-06-04
 ### Added
 - Background color: light or dark
