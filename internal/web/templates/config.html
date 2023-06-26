@@ -79,10 +79,7 @@
         </table>
         </div>
         <div class="col">
-            <p>Current version: {{ .Version }};&nbsp;&nbsp;&nbsp;Latest version: {{ .Release }}</p>
-            {{ if ne .Version .Release }}
-            <p><b>Update available!</b></p>
-            {{ end }}
+            <p>Current version: {{ .Version }}</p>
             <div class="alert alert-info" role="alert">
                 <p>● There can be one or more <b>Interfaces</b>, space separated</p>
                 <p>● After changing <b>Host</b>, <b>Port</b> or <b>Path to DB</b> you need to restart the app</p>

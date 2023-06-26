@@ -24,7 +24,7 @@ type Conf struct {
 	Color    string
 	IgnoreIP string
 	LogLevel string
-	BootPath string
+	NodePath string
 	Icon     string
 }
 

@@ -4,7 +4,6 @@ DNAME=watchyourlan
 IFACE=enp4s0
 DBPATH=/data/hosts.db
 SHOUTRRR_URL=gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes
-THEME=darkly
 
 mod:
 	rm go.mod || true && \
@@ -16,7 +15,7 @@ run:
 	cd cmd/WatchYourLAN/ && \
 	sudo \
 	env IFACE=$(IFACE) DBPATH=$(DBPATH) THEME=$(THEME) \
-	go run .
+	go run . #-n http://192.168.2.3:8850
 
 fmt:
 	go fmt ./...

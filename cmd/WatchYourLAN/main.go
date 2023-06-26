@@ -8,15 +8,14 @@ import (
 )
 
 const configPath = "/data/config"
-
-const bootPath = ""
+const nodePath = ""
 
 func main() {
 	confPtr := flag.String("c", configPath, "Path to config file")
-	bootPtr := flag.String("b", bootPath, "Path to local Bootswatch")
+	nodePtr := flag.String("n", nodePath, "Path to node modules")
 	flag.Parse()
 
 	check.Path(*confPtr)
 
-	web.Gui(*confPtr, *bootPtr) // Start web GUI
+	web.Gui(*confPtr, *nodePtr) // Start web GUI
 }

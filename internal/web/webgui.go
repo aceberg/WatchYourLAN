@@ -11,11 +11,11 @@ import (
 )
 
 // Gui - start web GUI
-func Gui(configPath, bootPath string) {
+func Gui(configPath, nodePath string) {
 
 	ConfigPath = configPath
 	AppConfig = conf.Get(ConfigPath)
-	AppConfig.BootPath = bootPath
+	AppConfig.NodePath = nodePath
 	AppConfig.Icon = Icon
 
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
@@ -27,12 +27,6 @@ func Gui(configPath, bootPath string) {
 	go scan.Start(AppConfig, QuitScan)
 
 	AllHosts = db.Select(AppConfig.DbPath)
-
-	if AppConfig.BootPath != "" {
-		fs := http.FileServer(http.Dir(AppConfig.BootPath))
-		http.Handle("/css/", http.StripPrefix("/css", fs))
-		// http.Handle("/css/", http.FileServer(http.Dir(AppConfig.BootPath)))
-	}
 
 	log.Println("=================================== ")
 	log.Printf("Web GUI at http://%s", address)
