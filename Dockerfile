@@ -9,12 +9,9 @@ FROM alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache arp-scan curl tzdata \
+RUN apk add --no-cache arp-scan tzdata \
     && mkdir /data
 
 COPY --from=builder /WatchYourLAN /app/
-
-HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f http://localhost:8840 || exit 1
 
 ENTRYPOINT ["./WatchYourLAN"]
