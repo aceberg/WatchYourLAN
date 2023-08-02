@@ -7,13 +7,14 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/db"
+	"github.com/aceberg/WatchYourLAN/internal/migrate"
 	"github.com/aceberg/WatchYourLAN/internal/scan"
 )
 
 // Gui - start web GUI
 func Gui(configPath, nodePath string) {
 
-	ConfigPath = configPath
+	ConfigPath = migrate.ToYAML(configPath)
 	AppConfig = conf.Get(ConfigPath)
 	AppConfig.NodePath = nodePath
 	AppConfig.Icon = Icon

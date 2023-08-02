@@ -15,7 +15,7 @@ run:
 	cd cmd/WatchYourLAN/ && \
 	sudo \
 	env IFACE=$(IFACE) DBPATH=$(DBPATH) THEME=$(THEME) \
-	go run . #-n http://192.168.2.3:8850
+	go run . -c /data/config #-n http://192.168.2.3:8850
 
 fmt:
 	go fmt ./...

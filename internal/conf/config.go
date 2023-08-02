@@ -21,7 +21,7 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("LOGLEVEL", "verbose")
 
 	viper.SetConfigFile(path)
-	viper.SetConfigType("env")
+	viper.SetConfigType("yaml")
 	err := viper.ReadInConfig()
 	check.IfError(err)
 
@@ -45,7 +45,7 @@ func Get(path string) (config models.Conf) {
 func Write(path string, config models.Conf) {
 
 	viper.SetConfigFile(path)
-	viper.SetConfigType("env")
+	viper.SetConfigType("yaml")
 
 	viper.Set("IFACE", config.Iface)
 	viper.Set("DBPATH", config.DbPath)

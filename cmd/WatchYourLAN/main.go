@@ -7,7 +7,7 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/web"
 )
 
-const configPath = "/data/config"
+const configPath = "/data/config.yaml"
 const nodePath = ""
 
 func main() {
