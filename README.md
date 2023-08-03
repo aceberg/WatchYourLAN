@@ -53,19 +53,22 @@ Configuration can be done through config file or environment variables
 | LOGLEVEL | How much log output you want to see ("short" or "verbose") | verbose |
 
 ## Config file
+> [!WARNING]  
+> Config file format has been migrated to YAML in release v1.0.0.   
 
-Config file path is `/data/config`.
+Config file path is `/data/config.yaml`.
 All variables could be set there. Example:
-```sh
-IFACE="enp2s0 wg0"
-DBPATH="/data/hosts.db"
-GUIIP="192.168.2.1"     		# To access from LAN
-GUIPORT="8840"
-TIMEOUT="300"           		# 5 minutes
-SHOUTRRR_URL="gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes"	# Url to notify
-THEME="darkly"
-IGNOREIP="no"
-LOGLEVEL="short"
+```yaml
+color: light
+dbpath: /data/db.sqlite
+guiip: 192.168.2.1
+guiport: "8840"
+iface: enp1s0
+ignoreip: "no"
+loglevel: short
+shoutrrr_url: gotify://192.168.2.1:8083/AwQqpAae.rrl5Ob/?title=Unknown host detected&DisableTLS=yes
+theme: solar
+timeout: 120
 ```
 
 ## Options
