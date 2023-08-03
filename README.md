@@ -9,8 +9,7 @@
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)
 ![Docker Pulls](https://img.shields.io/docker/pulls/aceberg/watchyourlan)
 
-Lightweight network IP scanner with web GUI https://github.com/aceberg/WatchYourLAN  
-
+Lightweight network IP scanner with web GUI 
 - [Quick start](https://github.com/aceberg/WatchYourLAN#quick-start)    
 - [Config](https://github.com/aceberg/WatchYourLAN#config)   
 - [Config file](https://github.com/aceberg/WatchYourLAN#config-file)   
@@ -54,7 +53,7 @@ Configuration can be done through config file or environment variables
 
 ## Config file
 > [!WARNING]  
-> Config file format has been migrated to YAML in release v1.0.0.   
+> Config file format has been migrated to YAML in release [v1.0.0](https://github.com/aceberg/WatchYourLAN/releases/tag/1.0.0).   
 
 Config file path is `/data/config.yaml`.
 All variables could be set there. Example:
@@ -75,7 +74,7 @@ timeout: 120
 
 | Key  | Description | Default | 
 | --------  | ----------- | ------- | 
-| -c | Path to config file | /data/config | 
+| -c | Path to config file | /data/config.yaml | 
 | -n | Path to node modules (see below) | "" |
 
 ## Local network only
