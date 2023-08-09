@@ -17,6 +17,7 @@ echo "Package: watchyourlan
 Version: $1
 Section: utils
 Priority: optional
+Depends: arp-scan, tzdata
 Architecture: all
 Maintainer: aceberg <aceberg_a@proton.me>
 Description: Lightweight network IP scanner with web GUI
