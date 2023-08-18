@@ -1,0 +1,19 @@
+{{ define "login" }}
+</head>
+<body>
+    <div class="container">
+        <br>
+        <br>
+        <div class="row text-center">
+            <div class="d-flex align-items-center justify-content-center">
+                <form action="/login/" method="post">
+                    <input name="username" type="text" placeholder="Login" class="form-control p-2 m-2">
+                    <input name="password" type="password" placeholder="Password" class="form-control p-2 m-2">
+                    <button type="submit" class="btn btn-primary p-2 m-2">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{{ template "footer" }}
+{{ end }}

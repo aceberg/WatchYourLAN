@@ -3,12 +3,14 @@ package conf
 import (
 	"github.com/spf13/viper"
 
+	"github.com/aceberg/WatchYourLAN/internal/auth"
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
 // Get - get app config
-func Get(path string) (config models.Conf) {
+func Get(path string) (config models.Conf, authConf auth.Conf) {
+
 	viper.SetDefault("IFACE", "enp1s0")
 	viper.SetDefault("DBPATH", "/data/db.sqlite")
 	viper.SetDefault("GUIIP", "localhost")
@@ -19,6 +21,9 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("COLOR", "light")
 	viper.SetDefault("IGNOREIP", "no")
 	viper.SetDefault("LOGLEVEL", "verbose")
+	viper.SetDefault("AUTH_USER", "")
+	viper.SetDefault("AUTH_PASSWORD", "")
+	viper.SetDefault("AUTH_EXPIRE", "7d")
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
@@ -37,12 +42,19 @@ func Get(path string) (config models.Conf) {
 	config.Color = viper.Get("COLOR").(string)
 	config.IgnoreIP = viper.Get("IGNOREIP").(string)
 	config.LogLevel = viper.Get("LOGLEVEL").(string)
+	authConf.Auth = viper.GetBool("AUTH")
+	authConf.User, _ = viper.Get("AUTH_USER").(string)
+	authConf.Password, _ = viper.Get("AUTH_PASSWORD").(string)
+	authConf.ExpStr, _ = viper.Get("AUTH_EXPIRE").(string)
 
-	return config
+	authConf.Expire = auth.ToTime(authConf.ExpStr)
+	config.Auth = authConf.Auth
+
+	return config, authConf
 }
 
 // Write - write config to file
-func Write(path string, config models.Conf) {
+func Write(path string, config models.Conf, authConf auth.Conf) {
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
@@ -57,6 +69,11 @@ func Write(path string, config models.Conf) {
 	viper.Set("COLOR", config.Color)
 	viper.Set("IGNOREIP", config.IgnoreIP)
 	viper.Set("LOGLEVEL", config.LogLevel)
+
+	viper.Set("auth", authConf.Auth)
+	viper.Set("auth_user", authConf.User)
+	viper.Set("auth_password", authConf.Password)
+	viper.Set("auth_expire", authConf.ExpStr)
 
 	err := viper.WriteConfig()
 	check.IfError(err)

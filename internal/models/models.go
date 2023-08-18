@@ -1,5 +1,9 @@
 package models
 
+import (
+	"github.com/aceberg/WatchYourLAN/internal/auth"
+)
+
 // Host - one host
 type Host struct {
 	ID    uint16
@@ -26,6 +30,7 @@ type Conf struct {
 	LogLevel string
 	NodePath string
 	Icon     string
+	Auth     bool
 }
 
 // GuiData - all data sent to html page
@@ -34,4 +39,5 @@ type GuiData struct {
 	Hosts   []Host
 	Themes  []string
 	Version string
+	Auth    auth.Conf
 }

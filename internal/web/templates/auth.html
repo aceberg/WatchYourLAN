@@ -1,0 +1,53 @@
+{{ define "auth" }}
+
+<body>
+    <div class="container mt-5">
+    <div class="row">
+        <div class="col">
+        <table class="table">
+            <form action="/auth_save/" method="post">
+                <tr>
+                    <td>Enable</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            {{ if .Auth.Auth }}
+                            <input class="form-check-input" type="checkbox" name="auth" checked>
+                            {{ else }}
+                            <input class="form-check-input" type="checkbox" name="auth">
+                            {{ end }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Expire after</td>
+                    <td><input name="expire" type="text" class="form-control" value="{{ .Auth.ExpStr }}"></td>
+                </tr>
+                <tr>
+                    <td>Login</td>
+                    <td><input name="user" type="text" class="form-control" value="{{ .Auth.User }}"></td>
+                </tr>
+                <tr>
+                    <td>New password</td>
+                    <td><input name="password" type="password" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="btn btn-primary">Save</button></td>
+                    <td></td>
+                </tr>
+            </form>
+        </table>
+        </div>
+        <div class="col">
+            <div class="alert alert-info" role="alert">
+                <p>● <b>WARNING!</b> Authentication is only safe when used over <b>https</b> and with a strong password.</p>
+                <p>● <b>Expire after</b> - when user session expires. Can be set with suffixes <b>m</b>(minute), <b>h</b>(hour), <b>d</b>(day) or <b>M</b>(month). Default: <b>7d</b>.</p>
+                <p>● <b>Login</b>. For Auth to work, login and password must not be empty.</p>
+                <p>● <b>Password</b> is stored encrypted in config file. If you forgot your password, just set <b>auth_password:</b> field to empty there.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+        
+
+{{ template "footer" }}
+{{ end }}

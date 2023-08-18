@@ -3,10 +3,13 @@ package web
 import (
 	"embed"
 
+	"github.com/aceberg/WatchYourLAN/internal/auth"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
 var (
+	authConf auth.Conf
+
 	// AppConfig - app config
 	AppConfig models.Conf
 

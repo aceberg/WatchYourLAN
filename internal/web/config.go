@@ -48,7 +48,7 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 
 	close(QuitScan)
 
-	conf.Write(ConfigPath, AppConfig)
+	conf.Write(ConfigPath, AppConfig, authConf)
 
 	log.Println("INFO: writing new config")
 

@@ -31,6 +31,14 @@
                 <li class="nav-item">
                   <a class="nav-link active" href="/config/">Config</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="/auth_conf/">Auth</a>
+                </li>
+                {{ if .Config.Auth }}
+                <li class="nav-item">
+                  <a class="nav-link active" href="/login/?logout=yes">Log Out</a>
+                </li>
+                {{ end }}
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <form action="/search_hosts/" method="post">

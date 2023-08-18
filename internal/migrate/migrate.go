@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/aceberg/WatchYourLAN/internal/auth"
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/notify"
@@ -37,9 +38,10 @@ func ToYAML(path string) string {
 }
 
 func migrateConfig(oldPath, newPath string) {
+	var authConf auth.Conf
 
 	config := getOldConfig(oldPath)
-	conf.Write(newPath, config)
+	conf.Write(newPath, config, authConf)
 
 	msg := fmt.Sprintf("Config file migrated from ENV to YAML format. \nOld config file %s is no longer used and can be deleted. \nNew config file is %s, please update your settings.", oldPath, newPath)
 
