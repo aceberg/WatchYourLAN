@@ -50,6 +50,10 @@ Configuration can be done through config file or environment variables
 | COLOR | Background color: light or dark | light |
 | IGNOREIP | If you want to detect unknown hosts by MAC only, set this wariable to "yes" | no |
 | LOGLEVEL | How much log output you want to see ("short" or "verbose") | verbose |
+| AUTH | Enable Session-Cookie authentication | false |
+| AUTH_USER | Username | "" |
+| AUTH_PASSWORD | Encrypted password (bcrypt) | "" |
+| AUTH_EXPIRE | Session expiration time. A number and suffix: **m, h, d** or **M**. | 7d |
 
 ## Config file
 > [!WARNING]  
