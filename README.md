@@ -11,6 +11,7 @@
 
 Lightweight network IP scanner with web GUI 
 - [Quick start](https://github.com/aceberg/WatchYourLAN#quick-start)    
+- [Install .deb](https://github.com/aceberg/ppa)    
 - [Config](https://github.com/aceberg/WatchYourLAN#config)   
 - [Config file](https://github.com/aceberg/WatchYourLAN#config-file)   
 - [Options](https://github.com/aceberg/WatchYourLAN#options)  
@@ -40,20 +41,21 @@ Configuration can be done through config file or environment variables
 
 | Variable  | Description | Default |
 | --------  | ----------- | ------- |
-| IFACE     | Interface to scan. Could be one or more, separated by space. Currently `docker0` is not allowed, as arp-scan wouldn't work with it correctly | enp1s0 |
+| AUTH | Enable Session-Cookie authentication | false |
+| AUTH_EXPIRE | Session expiration time. A number and suffix: **m, h, d** or **M**. | 7d |
+| AUTH_USER | Username | "" |
+| AUTH_PASSWORD | Encrypted password (bcrypt) | "" |
+| COLOR | Background color: light or dark | light |
 | DBPATH    | Path to Database | /data/db.sqlite |
 | GUIIP     | Address for web GUI | localhost (127.0.0.1) |
 | GUIPORT   | Port for web GUI | 8840 |
-| TIMEOUT   | Time between scans (seconds) | 60 (1 minute) |
-| SHOUTRRR_URL | Url to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr) (gotify, email, telegram and others) or [Generic Webhook](https://github.com/containrrr/shoutrrr/blob/main/docs/services/generic.md) | "" |
-| THEME | Any theme name from https://bootswatch.com in lowcase | solar |
-| COLOR | Background color: light or dark | light |
+| IFACE     | Interface to scan. Could be one or more, separated by space. Currently `docker0` is not allowed, as arp-scan wouldn't work with it correctly | enp1s0 |
 | IGNOREIP | If you want to detect unknown hosts by MAC only, set this wariable to "yes" | no |
 | LOGLEVEL | How much log output you want to see ("short" or "verbose") | verbose |
-| AUTH | Enable Session-Cookie authentication | false |
-| AUTH_USER | Username | "" |
-| AUTH_PASSWORD | Encrypted password (bcrypt) | "" |
-| AUTH_EXPIRE | Session expiration time. A number and suffix: **m, h, d** or **M**. | 7d |
+| SHOUTRRR_URL | Url to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr) (gotify, email, telegram and others) or [Generic Webhook](https://github.com/containrrr/shoutrrr/blob/main/docs/services/generic.md) | "" |
+| THEME | Any theme name from https://bootswatch.com in lowcase | solar |
+| TIMEOUT   | Time between scans (seconds) | 60 (1 minute) |
+
 
 ## Config file
 > [!WARNING]  
