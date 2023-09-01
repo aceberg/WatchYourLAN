@@ -44,7 +44,7 @@ Configuration can be done through config file or environment variables
 | AUTH | Enable Session-Cookie authentication | false |
 | AUTH_EXPIRE | Session expiration time. A number and suffix: **m, h, d** or **M**. | 7d |
 | AUTH_USER | Username | "" |
-| AUTH_PASSWORD | Encrypted password (bcrypt) | "" |
+| AUTH_PASSWORD | Encrypted password (bcrypt). [How to encrypt password with bcrypt?](docs/BCRYPT.md) | "" |
 | COLOR | Background color: light or dark | light |
 | DBPATH    | Path to Database | /data/db.sqlite |
 | GUIIP     | Address for web GUI | localhost (127.0.0.1) |
