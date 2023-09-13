@@ -9,7 +9,7 @@ services:
     image: aceberg/watchyourlan
     network_mode: "host"      
     restart: unless-stopped
-    command: "-n http://127.0.0.1:8850"
+    command: "-n http://YOUR_IP:8850"   # put your server IP or DNS name here
     depends_on:
       - node-bootstrap
     volumes:

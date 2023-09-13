@@ -97,7 +97,7 @@ docker run --name wyl \
 	-e "TZ=$YOURTIMEZONE" \
 	--network="host" \
 	-v $DOCKERDATAPATH/wyl:/data \
-    aceberg/watchyourlan -n "http://127.0.0.1:8850"
+    aceberg/watchyourlan -n "http://$YOUR_IP:8850"
 ```
 Or use [docker-compose](docker-compose-local.yml)
 
