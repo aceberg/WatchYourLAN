@@ -4,18 +4,6 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/auth"
 )
 
-// Host - one host
-type Host struct {
-	ID    uint16
-	Name  string
-	IP    string
-	Mac   string
-	Hw    string
-	Date  string
-	Known uint16
-	Now   uint16
-}
-
 // Conf - app config
 type Conf struct {
 	Iface    string
@@ -33,6 +21,28 @@ type Conf struct {
 	Auth     bool
 }
 
+// Host - one host
+type Host struct {
+	ID    uint16
+	Name  string
+	IP    string
+	Mac   string
+	Hw    string
+	Date  string
+	Known uint16
+	Now   uint16
+}
+
+// // History for hosts
+// type History struct {
+// 	ID 		int
+// 	HostID	int
+// 	Name	string
+// 	IP	string
+// 	Date string
+// 	State bool
+// }
+
 // GuiData - all data sent to html page
 type GuiData struct {
 	Config  Conf
@@ -40,4 +50,5 @@ type GuiData struct {
 	Themes  []string
 	Version string
 	Auth    auth.Conf
+	// HistLog []History
 }

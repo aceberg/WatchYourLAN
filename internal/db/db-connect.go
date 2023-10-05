@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"log"
+	"sync"
 
 	// Import sqlite module
 	_ "modernc.org/sqlite"
@@ -11,23 +12,33 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
+var mu sync.Mutex
+
 func dbExec(path, sqlStatement string) {
+
+	mu.Lock()
 	db, err := sql.Open("sqlite", path)
 	check.IfError(err)
 	defer db.Close()
 
 	_, err = db.Exec(sqlStatement)
+	mu.Unlock()
+
 	check.IfError(err)
 }
 
 // Select - select all hosts
 func Select(path string) (dbHosts []models.Host) {
-	db, _ := sql.Open("sqlite", path)
-	defer db.Close()
 
 	sqlStatement := `SELECT * FROM "now" ORDER BY DATE DESC`
 
+	mu.Lock()
+	db, _ := sql.Open("sqlite", path)
+	defer db.Close()
+
 	res, err := db.Query(sqlStatement)
+	mu.Unlock()
+
 	if err != nil {
 		log.Fatal("ERROR: db_select: ", err)
 	}

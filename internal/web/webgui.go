@@ -22,8 +22,6 @@ func Gui(configPath, nodePath string) {
 
 	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
 
-	db.Create(AppConfig.DbPath)
-
 	QuitScan = make(chan bool)
 
 	go scan.Start(AppConfig, QuitScan)
@@ -34,15 +32,14 @@ func Gui(configPath, nodePath string) {
 	log.Printf("Web GUI at http://%s", address)
 	log.Println("=================================== ")
 
-	http.HandleFunc("/login/", loginHandler)
+	http.HandleFunc("/login/", loginHandler) // login.go
 
 	http.HandleFunc("/", auth.Auth(indexHandler, &authConf))
-	http.HandleFunc("/auth_conf/", auth.Auth(authConfHandler, &authConf))
-	http.HandleFunc("/auth_save/", auth.Auth(saveAuthHandler, &authConf))
-	http.HandleFunc("/clear/", auth.Auth(clearHandler, &authConf))
-	http.HandleFunc("/config/", auth.Auth(configHandler, &authConf))
+	http.HandleFunc("/auth_conf/", auth.Auth(authConfHandler, &authConf)) // auth-conf.go
+	http.HandleFunc("/auth_save/", auth.Auth(saveAuthHandler, &authConf)) // auth-conf.go
+	http.HandleFunc("/clear/", auth.Auth(clearHandler, &authConf))        // config.go
+	http.HandleFunc("/config/", auth.Auth(configHandler, &authConf))      // config.go
 	http.HandleFunc("/del_host/", auth.Auth(delHandler, &authConf))
-	http.HandleFunc("/home/", auth.Auth(homeHandler, &authConf))
 	http.HandleFunc("/host/", auth.Auth(hostHandler, &authConf))
 	http.HandleFunc("/line/", auth.Auth(lineHandler, &authConf))
 	http.HandleFunc("/port_scan/", auth.Auth(portHandler, &authConf))

@@ -17,5 +17,5 @@ func main() {
 
 	check.Path(*confPtr)
 
-	web.Gui(*confPtr, *nodePtr) // Start web GUI
+	web.Gui(*confPtr, *nodePtr) // webgui.go
 }

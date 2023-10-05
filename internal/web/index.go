@@ -10,13 +10,10 @@ import (
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 
+	AllHosts = db.Select(AppConfig.DbPath)
+
 	guiData.Config = AppConfig
 	guiData.Hosts = AllHosts
 
 	execTemplate(w, "index", guiData)
-}
-
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	AllHosts = db.Select(AppConfig.DbPath)
-	http.Redirect(w, r, "/", 302)
 }
