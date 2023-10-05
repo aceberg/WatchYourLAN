@@ -23,14 +23,14 @@ type Conf struct {
 
 // Host - one host
 type Host struct {
-	ID    uint16
-	Name  string
-	IP    string
-	Mac   string
-	Hw    string
-	Date  string
-	Known uint16
-	Now   uint16
+	ID    uint16 `db:"ID"`
+	Name  string `db:"NAME"`
+	IP    string `db:"IP"`
+	Mac   string `db:"MAC"`
+	Hw    string `db:"HW"`
+	Date  string `db:"DATE"`
+	Known uint16 `db:"KNOWN"`
+	Now   uint16 `db:"NOW"`
 }
 
 // // History for hosts

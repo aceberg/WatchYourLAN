@@ -21,7 +21,7 @@ func delHandler(w http.ResponseWriter, r *http.Request) {
 
 	db.Delete(AppConfig.DbPath, uint16(id))
 
-	http.Redirect(w, r, "/home/", 302)
+	http.Redirect(w, r, "/", 302)
 }
 
 func hostHandler(w http.ResponseWriter, r *http.Request) {

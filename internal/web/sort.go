@@ -8,7 +8,6 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -44,6 +43,7 @@ func sortByIPs(method string) {
 }
 
 func sortHandler(w http.ResponseWriter, r *http.Request) {
+	var guiData models.GuiData
 
 	sortMethod := r.FormValue("sort_method")
 
@@ -73,10 +73,13 @@ func sortHandler(w http.ResponseWriter, r *http.Request) {
 	case "known-down":
 		sortByField("desc", "Known")
 	default:
-		AllHosts = db.Select(AppConfig.DbPath)
+		updateAllHosts()
 	}
 
-	http.Redirect(w, r, r.Header.Get("Referer"), 302)
+	guiData.Config = AppConfig
+	guiData.Hosts = AllHosts
+
+	execTemplate(w, "line", guiData)
 }
 
 func sortByField(method string, field string) {

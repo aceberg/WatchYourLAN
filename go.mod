@@ -5,6 +5,7 @@ go 1.21.1
 require (
 	github.com/containrrr/shoutrrr v0.8.0
 	github.com/google/uuid v1.3.1
+	github.com/jmoiron/sqlx v1.3.5
 	github.com/spf13/viper v1.16.0
 	golang.org/x/crypto v0.14.0
 	modernc.org/sqlite v1.26.0

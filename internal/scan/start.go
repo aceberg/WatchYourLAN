@@ -25,7 +25,7 @@ func Start(appConfig models.Conf, quit chan bool) {
 			plusDate := lastDate.Add(time.Duration(appConfig.Timeout) * time.Second)
 
 			if nowDate.After(plusDate) {
-				structHosts = arpScan(appConfig.Iface, appConfig.LogLevel)
+				structHosts = arpScan(appConfig.Iface, appConfig.LogLevel) // arpscan.go
 				dbHosts = db.Select(appConfig.DbPath)
 
 				toMap()

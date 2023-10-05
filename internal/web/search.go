@@ -8,7 +8,11 @@ import (
 )
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
+	var guiData models.GuiData
+
 	search := r.FormValue("search")
+
+	updateAllHosts()
 
 	foundHosts := []models.Host{}
 	for _, oneHost := range AllHosts {
@@ -16,9 +20,11 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 			foundHosts = append(foundHosts, oneHost)
 		}
 	}
-	AllHosts = foundHosts
 
-	http.Redirect(w, r, r.Header.Get("Referer"), 302)
+	guiData.Config = AppConfig
+	guiData.Hosts = foundHosts
+
+	execTemplate(w, "index", guiData)
 }
 
 func inString(str1 string, str2 string) bool {
