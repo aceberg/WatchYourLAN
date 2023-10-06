@@ -49,6 +49,7 @@ Configuration can be done through config file or environment variables
 | DBPATH    | Path to Database | /data/db.sqlite |
 | GUIIP     | Address for web GUI | 0.0.0.0 |
 | GUIPORT   | Port for web GUI | 8840 |
+| HISTORY_DAYS | Keep devices online/offline history for (days) | 30 |
 | IFACE     | Interface to scan. Could be one or more, separated by space. Currently `docker0` is not allowed, as arp-scan wouldn't work with it correctly | enp1s0 |
 | IGNOREIP | If you want to detect unknown hosts by MAC only, set this wariable to "yes" | no |
 | LOGLEVEL | How much log output you want to see ("short" or "verbose") | verbose |

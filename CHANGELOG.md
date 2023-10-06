@@ -2,6 +2,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v1.0.2] - 2023-10-07
+### Fixed
+- UI update bug [#61](https://github.com/aceberg/WatchYourLAN/issues/61)
+### Added
+- Device online/offline history [#60](https://github.com/aceberg/WatchYourLAN/issues/60)
+
 ## [v1.0.1] - 2023-08-18
 ### Added
 - User Authentification
