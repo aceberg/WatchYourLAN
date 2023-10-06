@@ -9,8 +9,6 @@ import (
 func lineHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 
-	updateAllHosts()
-
 	guiData.Config = AppConfig
 	guiData.Hosts = []models.Host{}
 

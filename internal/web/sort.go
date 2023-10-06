@@ -43,7 +43,6 @@ func sortByIPs(method string) {
 }
 
 func sortHandler(w http.ResponseWriter, r *http.Request) {
-	var guiData models.GuiData
 
 	sortMethod := r.FormValue("sort_method")
 
@@ -76,10 +75,7 @@ func sortHandler(w http.ResponseWriter, r *http.Request) {
 		updateAllHosts()
 	}
 
-	guiData.Config = AppConfig
-	guiData.Hosts = AllHosts
-
-	execTemplate(w, "line", guiData)
+	http.Redirect(w, r, r.Header.Get("Referer"), 302)
 }
 
 func sortByField(method string, field string) {

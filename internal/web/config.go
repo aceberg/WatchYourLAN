@@ -41,6 +41,7 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	AppConfig.Color = r.FormValue("color")
 	AppConfig.IgnoreIP = r.FormValue("ignoreip")
 	AppConfig.LogLevel = r.FormValue("loglevel")
+	AppConfig.HistDays = r.FormValue("history")
 
 	timeout := r.FormValue("timeout")
 	AppConfig.Timeout, err = strconv.Atoi(timeout)
