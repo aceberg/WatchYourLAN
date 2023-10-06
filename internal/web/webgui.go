@@ -24,6 +24,7 @@ func Gui(configPath, nodePath string) {
 
 	QuitScan = make(chan bool)
 	go scan.Start(AppConfig, QuitScan)
+	go trimHistoryRoutine() // trim-history.go
 
 	updateAllHosts() // webgui.go
 

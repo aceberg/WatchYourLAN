@@ -13,7 +13,7 @@ func Get(path string) (config models.Conf, authConf auth.Conf) {
 
 	viper.SetDefault("IFACE", "enp1s0")
 	viper.SetDefault("DBPATH", "/data/db.sqlite")
-	viper.SetDefault("GUIIP", "localhost")
+	viper.SetDefault("GUIIP", "0.0.0.0")
 	viper.SetDefault("GUIPORT", "8840")
 	viper.SetDefault("TIMEOUT", "60")
 	viper.SetDefault("SHOUTRRR_URL", "")
@@ -24,6 +24,7 @@ func Get(path string) (config models.Conf, authConf auth.Conf) {
 	viper.SetDefault("AUTH_USER", "")
 	viper.SetDefault("AUTH_PASSWORD", "")
 	viper.SetDefault("AUTH_EXPIRE", "7d")
+	viper.SetDefault("HISTORY_DAYS", "30")
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
@@ -42,6 +43,7 @@ func Get(path string) (config models.Conf, authConf auth.Conf) {
 	config.Color = viper.Get("COLOR").(string)
 	config.IgnoreIP = viper.Get("IGNOREIP").(string)
 	config.LogLevel = viper.Get("LOGLEVEL").(string)
+	config.HistDays = viper.Get("HISTORY_DAYS").(string)
 	authConf.Auth = viper.GetBool("AUTH")
 	authConf.User, _ = viper.Get("AUTH_USER").(string)
 	authConf.Password, _ = viper.Get("AUTH_PASSWORD").(string)
@@ -69,6 +71,7 @@ func Write(path string, config models.Conf, authConf auth.Conf) {
 	viper.Set("COLOR", config.Color)
 	viper.Set("IGNOREIP", config.IgnoreIP)
 	viper.Set("LOGLEVEL", config.LogLevel)
+	viper.Set("HISTORY_DAYS", config.HistDays)
 
 	viper.Set("auth", authConf.Auth)
 	viper.Set("auth_user", authConf.User)

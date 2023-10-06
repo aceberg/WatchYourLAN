@@ -49,5 +49,12 @@ func hostHandler(w http.ResponseWriter, r *http.Request) {
 
 	guiData.Themes = addr
 
+	history := db.SelectHist(AppConfig.DbPath)
+	for _, hist := range history {
+		if hist.Host == id {
+			guiData.Hist = append(guiData.Hist, hist)
+		}
+	}
+
 	execTemplate(w, "host", guiData)
 }

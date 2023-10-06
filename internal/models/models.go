@@ -19,6 +19,7 @@ type Conf struct {
 	NodePath string
 	Icon     string
 	Auth     bool
+	HistDays string
 }
 
 // Host - one host
