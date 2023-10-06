@@ -16,7 +16,7 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
 	if idStr == "" {
 		fmt.Fprintf(w, "No data!")
 	} else {
-		var known uint16
+		var known int
 		id, _ := strconv.Atoi(idStr)
 		known = 0
 		if knownStr == "on" {
@@ -24,7 +24,7 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		for i, oneHost := range AllHosts {
-			if oneHost.ID == uint16(id) {
+			if oneHost.ID == id {
 				AllHosts[i].Name = name
 				AllHosts[i].Known = known
 				db.Update(AppConfig.DbPath, AllHosts[i])

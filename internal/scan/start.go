@@ -7,14 +7,17 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
+var appConfig models.Conf
 var dbHosts, structHosts []models.Host
 var foundHostsMap map[string]models.Host
 
 // Start - start arp-scan goroutine
-func Start(appConfig models.Conf, quit chan bool) {
+func Start(config models.Conf, quit chan bool) {
 	var lastDate time.Time
 
+	appConfig = config
 	db.Create(appConfig.DbPath)
+	dbHosts = db.Select(appConfig.DbPath)
 
 	for {
 		select {
@@ -29,7 +32,7 @@ func Start(appConfig models.Conf, quit chan bool) {
 				dbHosts = db.Select(appConfig.DbPath)
 
 				toMap()
-				hostsCompare(appConfig) // compare.go
+				hostsCompare() // compare.go
 
 				lastDate = time.Now()
 			}

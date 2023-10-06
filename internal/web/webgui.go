@@ -34,11 +34,12 @@ func Gui(configPath, nodePath string) {
 	http.HandleFunc("/login/", loginHandler) // login.go
 
 	http.HandleFunc("/", auth.Auth(indexHandler, &authConf))
-	http.HandleFunc("/auth_conf/", auth.Auth(authConfHandler, &authConf))     // auth-conf.go
-	http.HandleFunc("/auth_save/", auth.Auth(saveAuthHandler, &authConf))     // auth-conf.go
+	http.HandleFunc("/auth_conf/", auth.Auth(authConfHandler, &authConf))     // auth.go
+	http.HandleFunc("/auth_save/", auth.Auth(saveAuthHandler, &authConf))     // auth.go
 	http.HandleFunc("/clear/", auth.Auth(clearHandler, &authConf))            // config.go
 	http.HandleFunc("/config/", auth.Auth(configHandler, &authConf))          // config.go
 	http.HandleFunc("/del_host/", auth.Auth(delHandler, &authConf))           // host.go
+	http.HandleFunc("/history/", auth.Auth(historyHandler, &authConf))        // history.go
 	http.HandleFunc("/host/", auth.Auth(hostHandler, &authConf))              // host.go
 	http.HandleFunc("/line/", auth.Auth(lineHandler, &authConf))              // line.go
 	http.HandleFunc("/port_scan/", auth.Auth(portHandler, &authConf))         // port.go

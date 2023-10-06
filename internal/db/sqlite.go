@@ -41,8 +41,27 @@ func Select(path string) (dbHosts []models.Host) {
 	mu.Unlock()
 
 	if err != nil {
-		log.Fatal("ERROR: db_select: ", err)
+		log.Fatal("ERROR: db.Select: ", err)
 	}
 
 	return dbHosts
+}
+
+// SelectHist - select all history
+func SelectHist(path string) (hist []models.History) {
+
+	sqlStatement := `SELECT * FROM "history" ORDER BY DATE DESC`
+
+	mu.Lock()
+	db, _ := sqlx.Connect("sqlite", path)
+	defer db.Close()
+
+	err := db.Select(&hist, sqlStatement)
+	mu.Unlock()
+
+	if err != nil {
+		log.Fatal("ERROR: db.SelectHist: ", err)
+	}
+
+	return hist
 }
