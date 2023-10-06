@@ -1,7 +1,6 @@
 package db
 
 import (
-	"log"
 	"sync"
 
 	"github.com/jmoiron/sqlx"
@@ -40,9 +39,7 @@ func Select(path string) (dbHosts []models.Host) {
 	err := db.Select(&dbHosts, sqlStatement)
 	mu.Unlock()
 
-	if err != nil {
-		log.Fatal("ERROR: db.Select: ", err)
-	}
+	check.IfError(err)
 
 	return dbHosts
 }
@@ -50,7 +47,7 @@ func Select(path string) (dbHosts []models.Host) {
 // SelectHist - select all history
 func SelectHist(path string) (hist []models.History) {
 
-	sqlStatement := `SELECT * FROM "history" ORDER BY DATE DESC`
+	sqlStatement := `SELECT * FROM "history" ORDER BY ID DESC`
 
 	mu.Lock()
 	db, _ := sqlx.Connect("sqlite", path)
@@ -59,9 +56,7 @@ func SelectHist(path string) (hist []models.History) {
 	err := db.Select(&hist, sqlStatement)
 	mu.Unlock()
 
-	if err != nil {
-		log.Fatal("ERROR: db.SelectHist: ", err)
-	}
+	check.IfError(err)
 
 	return hist
 }
