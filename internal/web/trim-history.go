@@ -1,7 +1,7 @@
 package web
 
 import (
-	// "log"
+	"log"
 	"strconv"
 	"time"
 
@@ -13,25 +13,30 @@ func trimHistoryRoutine() {
 	for {
 		trimHistory()
 
-		time.Sleep(time.Duration(1) * time.Hour)
+		time.Sleep(time.Duration(1) * time.Hour) // Every hour
 	}
 }
 
 func trimHistory() {
 
 	days, _ := strconv.Atoi(AppConfig.HistDays)
-	now := time.Now()
+
+	nowStr := time.Now().Format("2006-01-02 15:04:05")  // This needed so all time is
+	now, _ := time.Parse("2006-01-02 15:04:05", nowStr) // in one format
+	nowMinus := now.Add(-time.Duration(days) * 24 * time.Hour)
+
 	history := db.SelectHist(AppConfig.DbPath)
+
+	if AppConfig.LogLevel != "short" {
+		log.Println("INFO: removing all history before", nowMinus.Format("2006-01-02 15:04:05"))
+	}
 
 	for _, hist := range history {
 		date, _ := time.Parse("2006-01-02 15:04:05", hist.Date)
-		datePlus := date.Add(time.Duration(days) * 24 * time.Hour)
 
-		if now.After(datePlus) {
+		if date.Before(nowMinus) {
 
 			db.DeleteHist(AppConfig.DbPath, hist.ID)
-
-			// log.Println("REMOVED DATE =", hist.Date)
 		}
 	}
 }

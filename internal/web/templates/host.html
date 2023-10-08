@@ -101,22 +101,16 @@
     <div class="row">
         <table class="table table-striped">
             <tr>
-                <th>Host ID</th>
                 <th>Name</th>
                 <th>IP</th>
-                <th>Mac</th>
-                <th>Hardware</th>
-                <th>First/Last seen</th>
+                <th>Time</th>
                 <th>Known</th>
                 <th>State</th>
             </tr>
             {{ range .Hist }}
                     <tr>
-                        <td><a href="/host?id={{ .Host }}">{{ .Host }}</a></td>
                         <td>{{ .Name }}</td>
                         <td><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
-                        <td><a href="/host?id={{ .Host }}">{{ .Mac }}</a></td>
-                        <td>{{ .Hw }}</td>
                         <td>{{ .Date }}</td>
                         <td>
                             {{ if eq .Known 1 }}

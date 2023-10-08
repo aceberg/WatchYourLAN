@@ -3,6 +3,7 @@ package scan
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
@@ -31,6 +32,8 @@ func hostsCompare() {
 
 		} else if oneHost.Now == 1 {
 			oneHost.Now = 0
+			oneHost.Date = time.Now().Format("2006-01-02 15:04:05")
+
 			db.Update(appConfig.DbPath, oneHost)
 
 			histAdd(oneHost, 0)
