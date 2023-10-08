@@ -18,8 +18,10 @@ jobs:
         with:
           env-file: .version
 
-      - name: Install go-1.21.1
-        run: go get go@1.21.1
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.1'
+      - run: go version
 
       - name: Build and archive
         run: build/ci/build.sh ${{ env.VERSION }}
