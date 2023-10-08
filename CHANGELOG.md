@@ -2,6 +2,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v1.0.3] - 2023-10-08
+### Fixed
+- Github Action workflow for binary release
+- History bugs
+
 ## [v1.0.2] - 2023-10-07
 ### Fixed
 - UI update bug [#61](https://github.com/aceberg/WatchYourLAN/issues/61)
