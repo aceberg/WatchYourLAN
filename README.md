@@ -41,6 +41,7 @@ Configuration can be done through config file or environment variables
 
 | Variable  | Description | Default |
 | --------  | ----------- | ------- |
+| ARP_TIMEOUT | Per host timeout for <b>arp-scan</b> (in milliseconds) | 500 |
 | AUTH | Enable Session-Cookie authentication | false |
 | AUTH_EXPIRE | Session expiration time. A number and suffix: **m, h, d** or **M**. | 7d |
 | AUTH_USER | Username | "" |

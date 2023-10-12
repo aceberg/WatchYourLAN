@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td>Timeout (seconds)</td>
-                    <td><input name="timeout" type="text" class="form-control" value="{{ .Config.Timeout }}"></td>
+                    <td><input name="timeout" type="number" class="form-control" value="{{ .Config.Timeout }}"></td>
                 </tr>
                 <tr>
                     <td>Shoutrrr URL</td>
@@ -71,7 +71,23 @@
                 </tr>
                 <tr>
                     <td>Keep history (days)</td>
-                    <td><input name="history" type="text" class="form-control" value="{{ .Config.HistDays }}"></td>
+                    <td><input name="history" type="number" class="form-control" value="{{ .Config.HistDays }}"></td>
+                </tr>
+                <tr>
+                    <td>Arp Timeout</td>
+                    <td>
+                        <select name="arp_timeout" class="form-select">
+                            <option selected value="{{ .Config.ArpTimeout }}">{{ .Config.ArpTimeout }}</option>
+                            <option value="100">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                            <option value="1500">1500</option>
+                            <option value="2000">2000</option>
+                            <option value="3000">3000</option>
+                            <option value="5000">5000</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><button type="submit" class="btn btn-primary">Save</button></td>
@@ -92,6 +108,7 @@
                 <p>● If you want to detect unknown hosts by MAC only, set <b>Ignore IP</b> to "yes"</p>
                 <p>● <b>Log Level</b> defines how much log output you want to see</p>
                 <p>● The <b>Clear table</b> button below will delete all records from table. If you want to delete a single host, click on its MAC and press <b>Delete host</b> button</p>
+                <p>● <b>Arp Timeout</b> per host timeout for <b>arp-scan</b> (in milliseconds). Default: 500</p>
             </div>
             <br>
             <form action="/clear/" method="post">

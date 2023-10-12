@@ -2,6 +2,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v1.0.4] - 2023-10-12
+### Added
+- Configurable `timeout` for `arp-scan` [#65](https://github.com/aceberg/WatchYourLAN/issues/65)
+
 ## [v1.0.3] - 2023-10-08
 ### Fixed
 - Github Action workflow for binary release

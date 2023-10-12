@@ -6,20 +6,21 @@ import (
 
 // Conf - app config
 type Conf struct {
-	Iface    string
-	DbPath   string
-	GuiIP    string
-	GuiPort  string
-	Timeout  int
-	ShoutURL string
-	Theme    string
-	Color    string
-	IgnoreIP string
-	LogLevel string
-	NodePath string
-	Icon     string
-	Auth     bool
-	HistDays string
+	Iface      string
+	DbPath     string
+	GuiIP      string
+	GuiPort    string
+	Timeout    int
+	ShoutURL   string
+	Theme      string
+	Color      string
+	IgnoreIP   string
+	LogLevel   string
+	NodePath   string
+	Icon       string
+	Auth       bool
+	HistDays   string
+	ArpTimeout string
 }
 
 // Host - one host

@@ -21,10 +21,12 @@ func Get(path string) (config models.Conf, authConf auth.Conf) {
 	viper.SetDefault("COLOR", "light")
 	viper.SetDefault("IGNOREIP", "no")
 	viper.SetDefault("LOGLEVEL", "verbose")
+	viper.SetDefault("HISTORY_DAYS", "30")
+	viper.SetDefault("ARP_TIMEOUT", "500")
+
 	viper.SetDefault("AUTH_USER", "")
 	viper.SetDefault("AUTH_PASSWORD", "")
 	viper.SetDefault("AUTH_EXPIRE", "7d")
-	viper.SetDefault("HISTORY_DAYS", "30")
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
@@ -44,6 +46,8 @@ func Get(path string) (config models.Conf, authConf auth.Conf) {
 	config.IgnoreIP = viper.Get("IGNOREIP").(string)
 	config.LogLevel = viper.Get("LOGLEVEL").(string)
 	config.HistDays = viper.Get("HISTORY_DAYS").(string)
+	config.ArpTimeout = viper.Get("ARP_TIMEOUT").(string)
+
 	authConf.Auth = viper.GetBool("AUTH")
 	authConf.User, _ = viper.Get("AUTH_USER").(string)
 	authConf.Password, _ = viper.Get("AUTH_PASSWORD").(string)
@@ -72,6 +76,7 @@ func Write(path string, config models.Conf, authConf auth.Conf) {
 	viper.Set("IGNOREIP", config.IgnoreIP)
 	viper.Set("LOGLEVEL", config.LogLevel)
 	viper.Set("HISTORY_DAYS", config.HistDays)
+	viper.Set("ARP_TIMEOUT", config.ArpTimeout)
 
 	viper.Set("auth", authConf.Auth)
 	viper.Set("auth_user", authConf.User)

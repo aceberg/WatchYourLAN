@@ -10,7 +10,7 @@ import (
 )
 
 func scanIface(iface string) string {
-	cmd, err := exec.Command("arp-scan", "-glNx", "-I", iface).Output()
+	cmd, err := exec.Command("arp-scan", "-glNx", "-t", appConfig.ArpTimeout, "-I", iface).Output()
 	if err != nil {
 		return string("")
 	}
@@ -40,15 +40,15 @@ func parseOutput(text string) []models.Host {
 }
 
 // Scan all interfaces
-func arpScan(allIfaces string, logLevel string) []models.Host {
+func arpScan() []models.Host {
 	var text string
 	var foundHosts = []models.Host{}
 
-	perString := strings.Split(allIfaces, " ")
+	perString := strings.Split(appConfig.Iface, " ")
 
 	for _, iface := range perString {
 		text = scanIface(iface)
-		if logLevel != "short" {
+		if appConfig.LogLevel != "short" {
 			log.Println("INFO: scanning interface", iface)
 			log.Println("INFO: found IPs:", text)
 		}
