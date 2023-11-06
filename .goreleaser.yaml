@@ -1,0 +1,65 @@
+project_name: watchyourlan
+builds:
+  - main: ./cmd/WatchYourLAN/
+    binary: watchyourlan
+    id: default
+    env: [CGO_ENABLED=0]
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - "5"
+      - "6"
+      - "7"
+    ignore:
+      - goos: darwin
+        goarch: 386
+      - goos: darwin
+        goarch: arm
+      - goos: windows
+        goarch: 386
+      - goos: windows
+        goarch: arm
+
+nfpms:
+  - maintainer: aceberg <aceberg_a@proton.me>
+    description: Lightweight network IP scanner with web GUI 
+    homepage: https://github.com/aceberg/watchyourlan
+    license: MIT
+    section: utils
+    formats:
+    - deb
+    - rpm
+    - apk
+    - termux.deb
+    dependencies: # Don't forget to edit!
+    - arp-scan
+    - tzdata
+    contents:
+    - src: ./configs/watchyourlan.service
+      dst: /lib/systemd/system/watchyourlan.service
+    scripts:
+      postinstall: ./configs/postinstall.sh
+
+archives:
+  - files:
+    - LICENSE.md
+    - README.md
+    - CHANGELOG.md
+    - src: ./configs/watchyourlan.service
+      dst: watchyourlan.service
+    - src: ./configs/install.sh
+      dst: install.sh
+    wrap_in_directory: true
+    format_overrides:
+    - goos: windows
+      format: zip
+
+checksum:
+  name_template: "checksums.txt"

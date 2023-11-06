@@ -8,30 +8,20 @@ on:
 jobs:
   generate:
     name: Create release-artifacts
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
         uses: actions/checkout@master
 
-      - name: Get version tag from env file
-        uses: c-py/action-dotenv-to-setenv@v2
-        with:
-          env-file: .version
-
       - uses: actions/setup-go@v4
         with:
-          go-version: '1.21.1'
+          go-version: 'stable'
       - run: go version
 
-      - name: Build and archive
-        run: build/ci/build.sh ${{ env.VERSION }}
-
-      - name: Build .deb package
-        run: build/ci/build-deb.sh ${{ env.VERSION }}
-
-      - name: Upload the artifacts
-        uses: skx/github-action-publish-binaries@master
+      - uses: goreleaser/goreleaser-action@v5
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: 'watchyourlan-*'
