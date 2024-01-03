@@ -1,9 +1,9 @@
 {{ define "auth" }}
 
 <body>
-    <div class="container mt-5">
+    <div class="container-lg mt-5">
     <div class="row">
-        <div class="col">
+        <div class="col-lg-6">
         <table class="table">
             <form action="/auth_save/" method="post">
                 <tr>
@@ -37,7 +37,7 @@
             </form>
         </table>
         </div>
-        <div class="col">
+        <div class="col-lg-6">
             <div class="alert alert-info" role="alert">
                 <p>● <b>WARNING!</b> Authentication is only safe when used over <b>https</b> and with a strong password.</p>
                 <p>● <b>Expire after</b> - when user session expires. Can be set with suffixes <b>m</b>(minute), <b>h</b>(hour), <b>d</b>(day) or <b>M</b>(month). Default: <b>7d</b>.</p>
