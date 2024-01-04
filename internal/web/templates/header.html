@@ -17,13 +17,13 @@
     {{ end }}
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container-lg">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
                   <a class="nav-link active" href="/">Home</a>
                 </li>
@@ -48,12 +48,12 @@
                 </li>
                 {{ end }}
             </ul>
-            <form action="/search_hosts/" method="post" class="d-flex mb-0">
+            <form action="/search_hosts/" method="post" class="d-flex mb-md-0 mb-3">
               <input name="search" type="text" class="form-control text-dark me-2" placeholder="Search">
               <button type="submit" class="btn btn-primary">Search</button>
             </form>
           </div>
-          <a class="ms-auto" target="_blank" href="https://github.com/aceberg/WatchYourLAN"><i class="bi bi-github" style="font-size: 2rem;"></i></a>
+          <a class="ms-md-2" target="_blank" href="https://github.com/aceberg/WatchYourLAN"><i class="bi-github" style="font-size: 2rem;"></i></a>
         </div>
     </nav>
 {{ end }}
