@@ -1,38 +1,38 @@
 {{ define "host" }}
 
 <body>
-    <div class="container mt-5">
+    <div class="container-lg mt-5">
     <div class="row">
-        <div class="col">
+        <div class="col table-responsive">
         <table class="table">
             {{ range .Hosts }}
                 <tr>
-                    <td>ID</td>
-                    <td>{{ .ID }}</td>
+                    <td class="align-middle">ID</td>
+                    <td class="align-middle">{{ .ID }}</td>
                 </tr>
                 <tr>
-                    <td>Name</td>
-                    <td>{{ .Name }}</td>
+                    <td class="align-middle">Name</td>
+                    <td class="align-middle">{{ .Name }}</td>
                 </tr>
                 <tr>
-                    <td>IP</td>
-                    <td><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
+                    <td class="align-middle">IP</td>
+                    <td class="align-middle"><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
                 </tr>
                 <tr>
-                    <td>Mac</td>
-                    <td>{{ .Mac }}</td>
+                    <td class="align-middle">Mac</td>
+                    <td class="align-middle">{{ .Mac }}</td>
                 </tr>
                 <tr>
-                    <td>Hw</td>
-                    <td>{{ .Hw }}</td>
+                    <td class="align-middle">Hw</td>
+                    <td class="align-middle">{{ .Hw }}</td>
                 </tr>
                 <tr>
-                    <td>Date</td>
-                    <td>{{ .Date }}</td>
+                    <td class="align-middle">Date</td>
+                    <td class="align-middle">{{ .Date }}</td>
                 </tr>
                 <tr>
-                    <td>Known</td>
-                    <td>
+                    <td class="align-middle">Known</td>
+                    <td class="align-middle">
                         {{ if eq .Known 1 }}
                             Yes
                         {{ else }}
@@ -41,8 +41,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Now</td>
-                    <td>
+                    <td class="align-middle">Now</td>
+                    <td class="align-middle">
                         {{ if eq .Now 1 }}
                             Online
                         {{ else }}
@@ -51,12 +51,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="align-middle">
                     <form action="/del_host/" method="post">
                         <input name="id" type="hidden" class="form-control" value="{{ .ID }}"><button type="submit" class="btn btn-danger">Delete host</button>
                     </form>
                     </td>
-                    <td></td>
+                    <td class="align-middle"></td>
                 </tr>
             {{ end }}
         </table>
@@ -64,8 +64,8 @@
         <div class="col">
             <table class="table">
             <tr>
-                <td>Domain name</td>
-                <td>
+                <td class="align-middle">Domain name</td>
+                <td class="align-middle">
                 {{ range .Themes }}
                 <a href="http://{{ . }}" target="_blank">{{ . }}</a>
                 {{ end }}
@@ -81,16 +81,16 @@
                 <form action="/port_scan/" method="post">
                     <input name="ip" type="hidden" class="form-control" value="{{ .IP }}">
                     <tr>
-                        <td>Start port</td>
-                        <td><input name="begin" type="text" class="form-control" placeholder="1"></td>
+                        <td class="align-middle">Start port</td>
+                        <td class="align-middle"><input name="begin" type="text" class="form-control" placeholder="1"></td>
                     </tr>
                     <tr>
-                        <td>End port</td>
-                        <td><input name="end" type="text" class="form-control" placeholder="65535"></td>
+                        <td class="align-middle">End port</td>
+                        <td class="align-middle"><input name="end" type="text" class="form-control" placeholder="65535"></td>
                     </tr>
                     <tr>
-                        <td><button type="submit" class="btn btn-success">Scan host</button></td>
-                        <td></td>
+                        <td class="align-middle"><button type="submit" class="btn btn-success">Scan host</button></td>
+                        <td class="align-middle"></td>
                     </tr>
                 </form>
             </table>
@@ -109,17 +109,17 @@
             </tr>
             {{ range .Hist }}
                     <tr>
-                        <td>{{ .Name }}</td>
-                        <td><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
-                        <td>{{ .Date }}</td>
-                        <td>
+                        <td class="align-middle">{{ .Name }}</td>
+                        <td class="align-middle"><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
+                        <td class="align-middle">{{ .Date }}</td>
+                        <td class="align-middle">
                             {{ if eq .Known 1 }}
                             Yes
                             {{ else }}
                             No
                             {{ end }}
                         </td>
-                        <td>                            
+                        <td class="align-middle">                            
                             {{ if eq .State 1 }}
                             <i class="bi bi-circle-fill text-success"></i>
                             {{ else }}

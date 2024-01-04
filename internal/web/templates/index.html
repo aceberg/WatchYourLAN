@@ -3,10 +3,13 @@
     <meta http-equiv="refresh" content="{{ .Config.Timeout }}">
 </head>
 <body>
-    <div class="container mt-3">
+  <div class="container-lg mt-3">
+    <div class="row">
+      <div class="col">
         <h2>Online</h2>
         <p>Scanning interfaces: {{ .Config.Iface }}</p>
-        <table class="table table-striped">
+        <div class="table-responsive">
+          <table class="table table-striped">
             <tr>
                 <th>Name</th>
                 <th>IP</th>
@@ -17,11 +20,11 @@
             {{ range .Hosts }}
                 {{ if eq .Now 1 }}
                 <tr>
-                    <td>{{ .Name }}</td>
-                    <td><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
-                    <td><a href="/host?id={{ .ID }}">{{ .Mac }}</a></td>
-                    <td>{{ .Hw }}</td>
-                    <td>
+                    <td class="align-middle">{{ .Name }}</td>
+                    <td class="align-middle"><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
+                    <td class="align-middle"><a href="/host?id={{ .ID }}">{{ .Mac }}</a></td>
+                    <td class="align-middle">{{ .Hw }}</td>
+                    <td class="align-middle">
                         {{ if eq .Known 1 }}
                         <button type="button" class="btn btn-success" disabled>Yes</button>
                         {{ else }}
@@ -31,9 +34,11 @@
                 </tr>
                 {{ end }}
             {{ end }}
-        </table>
+          </table>
+        </div>
         <h2>Log</h2>
-        <table class="table table-striped">
+        <div class="table-responsive">
+          <table class="table table-striped">
             <tr>
                 <th>Name</th>
                 <th>IP</th>
@@ -46,14 +51,14 @@
                 <form action="/update_host/" method="post">
                     <input name="id" type="hidden" class="form-control" value="{{ .ID }}">
                     <tr>
-                        <td>
+                        <td class="align-middle">
                             <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
                         </td>
-                        <td><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
-                        <td><a href="/host?id={{ .ID }}">{{ .Mac }}</a></td>
-                        <td>{{ .Hw }}</td>
-                        <td>{{ .Date }}</td>
-                        <td>
+                        <td class="align-middle"><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
+                        <td class="align-middle"><a href="/host?id={{ .ID }}">{{ .Mac }}</a></td>
+                        <td class="align-middle">{{ .Hw }}</td>
+                        <td class="align-middle">{{ .Date }}</td>
+                        <td class="align-middle">
                             {{ if eq .Known 1 }}
                             <button value="off" name="known" type="submit" class="btn btn-success">Yes</button>
                             {{ else }}
@@ -63,8 +68,11 @@
                     </tr>
                 </form>
             {{ end }}
-        </table>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 
 {{ template "footer" }}
 {{ end }}
