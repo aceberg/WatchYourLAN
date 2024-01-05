@@ -91,7 +91,7 @@ func sortByField(method string, field string) {
 		r := reflect.ValueOf(&host)
 		f := reflect.Indirect(r).FieldByName(field)
 		if field == "Known" {
-			oneSort.F = strconv.FormatUint(f.Uint(), 10)
+			oneSort.F = strconv.FormatInt(f.Int(), 10)
 		} else {
 			oneSort.F = f.String()
 		}
