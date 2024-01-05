@@ -46,7 +46,7 @@ Configuration can be done through config file or environment variables
 | AUTH_EXPIRE | Session expiration time. A number and suffix: **m, h, d** or **M**. | 7d |
 | AUTH_USER | Username | "" |
 | AUTH_PASSWORD | Encrypted password (bcrypt). [How to encrypt password with bcrypt?](docs/BCRYPT.md) | "" |
-| COLOR | Background color: light or dark | light |
+| COLOR | Background color: light or dark | dark |
 | DBPATH    | Path to Database | /data/db.sqlite |
 | GUIIP     | Address for web GUI | 0.0.0.0 |
 | GUIPORT   | Port for web GUI | 8840 |
@@ -55,7 +55,7 @@ Configuration can be done through config file or environment variables
 | IGNOREIP | If you want to detect unknown hosts by MAC only, set this wariable to "yes" | no |
 | LOGLEVEL | How much log output you want to see ("short" or "verbose") | verbose |
 | SHOUTRRR_URL | Url to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr) (gotify, email, telegram and others) or [Generic Webhook](https://github.com/containrrr/shoutrrr/blob/main/docs/services/generic.md) | "" |
-| THEME | Any theme name from https://bootswatch.com in lowcase | solar |
+| THEME | Any theme name from https://bootswatch.com in lowcase or [additional](https://github.com/aceberg/aceberg-bootswatch-fork) (emerald, grass, sand) | solar |
 | TIMEOUT   | Time between scans (seconds) | 60 (1 minute) |
 
 

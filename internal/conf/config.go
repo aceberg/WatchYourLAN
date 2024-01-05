@@ -18,7 +18,7 @@ func Get(path string) (config models.Conf, authConf auth.Conf) {
 	viper.SetDefault("TIMEOUT", "60")
 	viper.SetDefault("SHOUTRRR_URL", "")
 	viper.SetDefault("THEME", "solar")
-	viper.SetDefault("COLOR", "light")
+	viper.SetDefault("COLOR", "dark")
 	viper.SetDefault("IGNOREIP", "no")
 	viper.SetDefault("LOGLEVEL", "verbose")
 	viper.SetDefault("HISTORY_DAYS", "30")

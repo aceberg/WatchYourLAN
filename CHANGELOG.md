@@ -2,6 +2,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v1.0.5] - 2024-01-05
+### Added
+- Goreleaser for binaries [#66](https://github.com/aceberg/WatchYourLAN/issues/66)
+- Better Mobile view [#51](https://github.com/aceberg/WatchYourLAN/issues/51)
+- [More themes](https://github.com/aceberg/aceberg-bootswatch-fork) (emerald, grass, sand)
+
 ## [v1.0.4] - 2023-10-12
 ### Added
 - Configurable `timeout` for `arp-scan` [#65](https://github.com/aceberg/WatchYourLAN/issues/65)
