@@ -52,7 +52,7 @@ Configuration can be done through config file or environment variables
 | GUIPORT   | Port for web GUI | 8840 |
 | HISTORY_DAYS | Keep devices online/offline history for (days) | 30 |
 | IFACE     | Interface to scan. Could be one or more, separated by space. Currently `docker0` is not allowed, as arp-scan wouldn't work with it correctly | enp1s0 |
-| IGNOREIP | If you want to detect unknown hosts by MAC only, set this wariable to "yes" | no |
+| IGNOREIP | If you want to detect unknown hosts by MAC only, set this variable to "yes" | no |
 | LOGLEVEL | How much log output you want to see ("short" or "verbose") | verbose |
 | SHOUTRRR_URL | Url to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr) (gotify, email, telegram and others) or [Generic Webhook](https://github.com/containrrr/shoutrrr/blob/main/docs/services/generic.md) | "" |
 | THEME | Any theme name from https://bootswatch.com in lowcase or [additional](https://github.com/aceberg/aceberg-bootswatch-fork) (emerald, grass, sand) | solar |
