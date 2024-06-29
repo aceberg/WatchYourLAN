@@ -1,78 +1,40 @@
-{{ define "index"}}
-    <!--Auto refresh (seconds)-->
-    <meta http-equiv="refresh" content="{{ .Config.Timeout }}">
+{{ define "index.html" }}
 </head>
+<script src="/fs/public/js/index.js"></script>
+<script src="/fs/public/js/sort.js"></script>
 <body>
-  <div class="container-lg mt-3">
-    <div class="row">
-      <div class="col">
-        <h2>Online</h2>
-        <p>Scanning interfaces: {{ .Config.Iface }}</p>
-        <div class="table-responsive">
+<div class="container-lg">
+  <div class="row">
+    <div class="col-md mt-4">
+      <form action="/addr_add/" method="post" class="input-group">
+        <input name="name" type="text" class="form-control" placeholder="Name">
+        <input name="addr" type="text" class="form-control" placeholder="Address">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md mt-4 mb-4">
+      <div class="card border-primary">
+        <div class="card-body table-responsive">
           <table class="table table-striped">
-            <tr>
-                <th>Name</th>
-                <th>IP</th>
-                <th>Mac</th>
-                <th>Hardware</th>
-                <th>Known</th>
-            </tr>
-            {{ range .Hosts }}
-                {{ if eq .Now 1 }}
-                <tr>
-                    <td class="align-middle">{{ .Name }}</td>
-                    <td class="align-middle"><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
-                    <td class="align-middle"><a href="/host?id={{ .ID }}">{{ .Mac }}</a></td>
-                    <td class="align-middle">{{ .Hw }}</td>
-                    <td class="align-middle">
-                        {{ if eq .Known 1 }}
-                        <button type="button" class="btn btn-success" disabled>Yes</button>
-                        {{ else }}
-                        <button type="button" class="btn btn-warning" disabled>No</button>
-                        {{ end }}
-                    </td>
-                </tr>
-                {{ end }}
-            {{ end }}
-          </table>
-        </div>
-        <h2>Log</h2>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <tr>
-                <th>Name</th>
-                <th>IP</th>
-                <th>Mac</th>
-                <th>Hardware</th>
-                <th>Last seen</th>
-                <th>Known</th>
-            </tr>
-            {{ range .Hosts }}
-                <form action="/update_host/" method="post">
-                    <input name="id" type="hidden" class="form-control" value="{{ .ID }}">
-                    <tr>
-                        <td class="align-middle">
-                            <input name="name" type="text" class="form-control text-dark" value="{{ .Name }}">
-                        </td>
-                        <td class="align-middle"><a href="http://{{ .IP }}" target="_blank">{{ .IP }}</a></td>
-                        <td class="align-middle"><a href="/host?id={{ .ID }}">{{ .Mac }}</a></td>
-                        <td class="align-middle">{{ .Hw }}</td>
-                        <td class="align-middle">{{ .Date }}</td>
-                        <td class="align-middle">
-                            {{ if eq .Known 1 }}
-                            <button value="off" name="known" type="submit" class="btn btn-success">Yes</button>
-                            {{ else }}
-                            <button value="on" name="known" type="submit" class="btn btn-warning">No</button>
-                            {{ end }}
-                        </td>
-                    </tr>
-                </form>
-            {{ end }}
+            <thead>
+              <th style="width: 3em;"></th>
+              <th>Name <i class="bi bi-sort-down-alt" onclick="sortBy('Name')"></i></th>
+              <th>Addr <i class="bi bi-sort-down-alt" onclick="sortBy('Addr')"></i></th>
+              <th>Total <i class="bi bi-sort-down-alt" onclick="sortBy('Total')"></i></th>
+              <th>Watching <i class="bi bi-sort-down-alt" onclick="sortBy('Watching')"></i></th>
+              <th>Online <i class="bi bi-sort-down-alt" onclick="sortBy('Online')"></i></th>
+              <th>Offline <i class="bi bi-sort-down-alt" onclick="sortBy('Offline')"></i></th>
+            </thead>
+            <tbody id="tBody"></tbody> 
+            <!-- index.js -->
           </table>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-{{ template "footer" }}
+{{ template "footer.html" }}
 {{ end }}

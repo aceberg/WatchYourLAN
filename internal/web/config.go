@@ -1,80 +1,52 @@
 package web
 
 import (
-	"log"
+	"log/slog"
 	"net/http"
-	"strconv"
+	// "strconv"
+
+	"github.com/gin-gonic/gin"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
-	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/db"
+	// "github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/models"
-	"github.com/aceberg/WatchYourLAN/internal/notify"
-	"github.com/aceberg/WatchYourLAN/internal/scan"
 )
 
-func configHandler(w http.ResponseWriter, r *http.Request) {
+func configHandler(c *gin.Context) {
 	var guiData models.GuiData
 
-	guiData.Config = AppConfig
+	guiData.Config = appConfig
 
-	file, err := TemplHTML.ReadFile(TemplPath + "version")
+	guiData.Themes = []string{"cerulean", "cosmo", "cyborg", "darkly", "emerald", "flatly", "grass", "grayscale", "journal", "litera", "lumen", "lux", "materia", "minty", "morph", "ocean", "pulse", "quartz", "sand", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "vapor", "wood", "yeti", "zephyr"}
+
+	file, err := pubFS.ReadFile("public/version")
 	check.IfError(err)
-
 	version := string(file)
 	guiData.Version = version[8:]
 
-	guiData.Themes = []string{"cerulean", "cosmo", "cyborg", "darkly", "emerald", "flatly", "grass", "journal", "litera", "lumen", "lux", "materia", "minty", "morph", "pulse", "quartz", "sand", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "vapor", "yeti", "zephyr"}
-
-	execTemplate(w, "config", guiData)
+	c.HTML(http.StatusOK, "header.html", guiData)
+	c.HTML(http.StatusOK, "config.html", guiData)
 }
 
-func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
-	var err error
+func saveConfigHandler(c *gin.Context) {
 
-	AppConfig.Iface = r.FormValue("iface")
-	AppConfig.DbPath = r.FormValue("dbpath")
-	AppConfig.GuiIP = r.FormValue("host")
-	AppConfig.GuiPort = r.FormValue("port")
-	AppConfig.ShoutURL = r.FormValue("shout")
-	AppConfig.Theme = r.FormValue("theme")
-	AppConfig.Color = r.FormValue("color")
-	AppConfig.IgnoreIP = r.FormValue("ignoreip")
-	AppConfig.LogLevel = r.FormValue("loglevel")
-	AppConfig.HistDays = r.FormValue("history")
-	AppConfig.ArpTimeout = r.FormValue("arp_timeout")
+	// appConfig.Host = c.PostForm("host")
+	// appConfig.Port = c.PostForm("port")
+	// appConfig.Theme = c.PostForm("theme")
+	// appConfig.Color = c.PostForm("color")
+	// tStr := c.PostForm("timeout")
+	// hStr := c.PostForm("trim")
 
-	timeout := r.FormValue("timeout")
-	AppConfig.Timeout, err = strconv.Atoi(timeout)
-	check.IfError(err)
+	// if tStr != "" {
+	// 	appConfig.Timeout, _ = strconv.Atoi(tStr)
+	// }
+	// if hStr != "" {
+	// 	appConfig.HistTrim, _ = strconv.Atoi(hStr)
+	// }
 
-	close(QuitScan)
+	// conf.Write(appConfig)
 
-	conf.Write(ConfigPath, AppConfig, authConf)
+	slog.Info("writing new config to " + appConfig.ConfPath)
 
-	log.Println("INFO: writing new config")
-
-	QuitScan = make(chan bool)
-	go scan.Start(AppConfig, QuitScan)
-
-	http.Redirect(w, r, r.Header.Get("Referer"), 302)
-}
-
-func clearHandler(w http.ResponseWriter, r *http.Request) {
-
-	log.Println("INFO: delting all hosts from DB")
-
-	db.Clear(AppConfig.DbPath)
-
-	http.Redirect(w, r, r.Header.Get("Referer"), 302)
-}
-
-func testNotifyHandler(w http.ResponseWriter, r *http.Request) {
-
-	log.Println("INFO: Test notification send")
-
-	msg := "Test notification"
-	notify.Shoutrrr(msg, AppConfig.ShoutURL)
-
-	http.Redirect(w, r, r.Header.Get("Referer"), 302)
+	c.Redirect(http.StatusFound, "/config")
 }

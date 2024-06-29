@@ -1,58 +1,49 @@
 package web
 
 import (
-	"log"
+	"html/template"
+	"log/slog"
 	"net/http"
 
-	"github.com/aceberg/WatchYourLAN/internal/auth"
+	"github.com/gin-gonic/gin"
+
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/db"
-	"github.com/aceberg/WatchYourLAN/internal/migrate"
-	"github.com/aceberg/WatchYourLAN/internal/scan"
 )
 
-// Gui - start web GUI
-func Gui(configPath, nodePath string) {
+// Gui - start web server
+func Gui(dirPath, nodePath string) {
 
-	ConfigPath = migrate.ToYAML(configPath)
-	AppConfig, authConf = conf.Get(ConfigPath)
-	AppConfig.NodePath = nodePath
-	AppConfig.Icon = Icon
+	confPath := dirPath + "/config.yaml"
+	check.Path(confPath)
 
-	address := AppConfig.GuiIP + ":" + AppConfig.GuiPort
+	appConfig = conf.Get(confPath)
 
-	QuitScan = make(chan bool)
-	go scan.Start(AppConfig, QuitScan)
-	go trimHistoryRoutine() // trim-history.go
+	appConfig.DirPath = dirPath
+	appConfig.ConfPath = confPath
+	appConfig.NodePath = nodePath
 
-	updateAllHosts() // webgui.go
+	slog.Info("config", "path", appConfig.DirPath)
 
-	log.Println("=================================== ")
-	log.Printf("Web GUI at http://%s", address)
-	log.Println("=================================== ")
+	address := appConfig.Host + ":" + appConfig.Port
 
-	http.HandleFunc("/login/", loginHandler) // login.go
+	slog.Info("=================================== ")
+	slog.Info("Web GUI at http://" + address)
+	slog.Info("=================================== ")
 
-	http.HandleFunc("/", auth.Auth(indexHandler, &authConf))
-	http.HandleFunc("/auth_conf/", auth.Auth(authConfHandler, &authConf))     // auth.go
-	http.HandleFunc("/auth_save/", auth.Auth(saveAuthHandler, &authConf))     // auth.go
-	http.HandleFunc("/clear/", auth.Auth(clearHandler, &authConf))            // config.go
-	http.HandleFunc("/config/", auth.Auth(configHandler, &authConf))          // config.go
-	http.HandleFunc("/del_host/", auth.Auth(delHandler, &authConf))           // host.go
-	http.HandleFunc("/history/", auth.Auth(historyHandler, &authConf))        // history.go
-	http.HandleFunc("/host/", auth.Auth(hostHandler, &authConf))              // host.go
-	http.HandleFunc("/line/", auth.Auth(lineHandler, &authConf))              // line.go
-	http.HandleFunc("/port_scan/", auth.Auth(portHandler, &authConf))         // port.go
-	http.HandleFunc("/save_config/", auth.Auth(saveConfigHandler, &authConf)) // config.go
-	http.HandleFunc("/search_hosts/", auth.Auth(searchHandler, &authConf))    // search.go
-	http.HandleFunc("/sort_hosts/", auth.Auth(sortHandler, &authConf))        // sort.go
-	http.HandleFunc("/test_notify/", auth.Auth(testNotifyHandler, &authConf)) // config.go
-	http.HandleFunc("/update_host/", auth.Auth(updateHandler, &authConf))     // update.go
-	err := http.ListenAndServe(address, nil)
+	gin.SetMode(gin.ReleaseMode)
+	router := gin.Default()
+
+	templ := template.Must(template.New("").ParseFS(templFS, "templates/*"))
+	router.SetHTMLTemplate(templ) // templates
+
+	router.StaticFS("/fs/", http.FS(pubFS)) // public
+
+	router.GET("/", indexHandler)         // index.go
+	router.GET("/config/", configHandler) // config.go
+
+	router.POST("/config/", saveConfigHandler) // config.go
+
+	err := router.Run(address)
 	check.IfError(err)
-}
-
-func updateAllHosts() {
-	AllHosts = db.Select(AppConfig.DbPath)
 }

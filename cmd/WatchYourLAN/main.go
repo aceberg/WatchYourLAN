@@ -3,19 +3,18 @@ package main
 import (
 	"flag"
 
-	"github.com/aceberg/WatchYourLAN/internal/check"
+	_ "time/tzdata"
+
 	"github.com/aceberg/WatchYourLAN/internal/web"
 )
 
-const configPath = "/data/config.yaml"
+const dirPath = "/data/WatchYourLAN"
 const nodePath = ""
 
 func main() {
-	confPtr := flag.String("c", configPath, "Path to config file")
+	dirPtr := flag.String("d", dirPath, "Path to config dir")
 	nodePtr := flag.String("n", nodePath, "Path to node modules")
 	flag.Parse()
 
-	check.Path(*confPtr)
-
-	web.Gui(*confPtr, *nodePtr) // webgui.go
+	web.Gui(*dirPtr, *nodePtr) // webgui.go
 }

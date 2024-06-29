@@ -1,36 +1,21 @@
-{{ define "config" }}
+{{ define "config.html" }}
 
 <body>
-    <div class="container-lg mt-5">
+    <div class="container-lg">
     <div class="row">
-        <div class="col-md-6 table-responsive">
-        <table class="table">
-            <form action="/save_config/" method="post">
-                <tr>
-                    <td>Interfaces</td>
-                    <td><input name="iface" type="text" class="form-control" value="{{ .Config.Iface }}"></td>
-                </tr>
-                <tr>
-                    <td>Path to DB</td>
-                    <td><input name="dbpath" type="text" class="form-control" value="{{ .Config.DbPath }}"></td>
-                </tr>
+        <div class="col-md mt-4">
+        <div class="card border-primary">
+            <div class="card-header">Config</div>
+        <div class="card-body table-responsive">
+        <table class="table table-borderless">
+            <form action="/config/" method="post">
                 <tr>
                     <td>Host</td>
-                    <td><input name="host" type="text" class="form-control" value="{{ .Config.GuiIP }}"></td>
+                    <td><input name="host" type="text" class="form-control" value="{{ .Config.Host }}"></td>
                 </tr>
                 <tr>
                     <td>Port</td>
-                    <td><input name="port" type="text" class="form-control" value="{{ .Config.GuiPort }}"></td>
-                </tr>
-                <tr>
-                    <td>Timeout (seconds)</td>
-                    <td><input name="timeout" type="number" class="form-control" value="{{ .Config.Timeout }}"></td>
-                </tr>
-                <tr>
-                    <td>Shoutrrr URL</td>
-                    <td>
-                        <textarea name="shout" class="form-control" style="width: 100%;" rows="3" wrap="soft">{{ .Config.ShoutURL }}</textarea>
-                    </td>
+                    <td><input name="port" type="text" class="form-control" value="{{ .Config.Port }}"></td>
                 </tr>
                 <tr>
                     <td>Theme</td>
@@ -50,74 +35,95 @@
                     </select></td>
                 </tr>
                 <tr>
-                    <td>Ignore IP</td>
-                    <td>
-                        <select name="ignoreip" class="form-select">
-                            <option selected value="{{ .Config.IgnoreIP }}">{{ .Config.IgnoreIP }}</option>
-                            <option value="yes">yes</option>
-                            <option value="no">no</option>
-                        </select>
-                    </td>
+                    <td>Timeout (minutes)</td>
+                    <td><input name="timeout" type="number" class="form-control" value="{{ .Config.Timeout }}"></td>
                 </tr>
                 <tr>
-                    <td>Log Level</td>
-                    <td>
-                        <select name="loglevel" class="form-select">
-                            <option selected value="{{ .Config.LogLevel }}">{{ .Config.LogLevel }}</option>
-                            <option value="short">short</option>
-                            <option value="verbose">verbose</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Keep history (days)</td>
-                    <td><input name="history" type="number" class="form-control" value="{{ .Config.HistDays }}"></td>
-                </tr>
-                <tr>
-                    <td>Arp Timeout</td>
-                    <td>
-                        <select name="arp_timeout" class="form-select">
-                            <option selected value="{{ .Config.ArpTimeout }}">{{ .Config.ArpTimeout }}</option>
-                            <option value="100">100</option>
-                            <option value="250">250</option>
-                            <option value="500">500</option>
-                            <option value="1000">1000</option>
-                            <option value="1500">1500</option>
-                            <option value="2000">2000</option>
-                            <option value="3000">3000</option>
-                            <option value="5000">5000</option>
-                        </select>
-                    </td>
+                    <td>Trim History</td>
+                    <td><input name="trim" type="number" class="form-control" value="{{ .Config.HistTrim }}"></td>
                 </tr>
                 <tr>
                     <td><button type="submit" class="btn btn-primary">Save</button></td>
-            </form>
-                    <td>
-                        <a href="/test_notify/"><button style="float: right;" class="btn btn-success">Test notification</button></a>
-                    </td>
+                    <td></td>
                 </tr>
+            </form>
         </table>
         </div>
-        <div class="col-md-6">
-            <p>Current version: {{ .Version }}</p>
-            <div class="alert alert-info" role="alert">
-                <p>● There can be one or more <b>Interfaces</b>, space separated</p>
-                <p>● After changing <b>Host</b>, <b>Port</b> or <b>Path to DB</b> you need to restart the app</p>
-                <p>● <b>Timeout</b> means time between scans (in seconds)</p>
-                <p>● <b>Shoutrrr URL</b> provides notifications to Discord, Email, Gotify, Telegram and other services. <a href="https://containrrr.dev/shoutrrr/v0.5/services/overview/" target="_blank">Link to documentation</a></p>
-                <p>● If you want to detect unknown hosts by MAC only, set <b>Ignore IP</b> to "yes"</p>
-                <p>● <b>Log Level</b> defines how much log output you want to see</p>
-                <p>● The <b>Clear table</b> button below will delete all records from table. If you want to delete a single host, click on its MAC and press <b>Delete host</b> button</p>
-                <p>● <b>Arp Timeout</b> per host timeout for <b>arp-scan</b> (in milliseconds). Default: 500</p>
+        </div>
+        <div class="card border-primary mt-4">
+            <div class="card-header">Version</div>
+            <div class="card-body">
+                <a href="https://github.com/aceberg/WatchYourLAN/releases/tag/{{ .Version }}" target="_blank">{{ .Version }}</a>
             </div>
-            <br>
-            <form action="/clear/" method="post">
-                <button type="submit" class="btn btn-danger">Clear table</button>
-            </form>
+        </div>
+        </div>
+        <div class="col-md mt-4">
+            <div class="card border-primary">
+                <div class="card-header">InfluxDB2 config</div>
+            <div class="card-body table-responsive">
+            <table class="table table-borderless">
+                <form action="/config_influx/" method="post">
+                    <tr>
+                        <td>Enable</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                {{ if .Config.InfluxEnable }}
+                                <input class="form-check-input" type="checkbox" name="enable" checked>
+                                {{ else }}
+                                <input class="form-check-input" type="checkbox" name="enable">
+                                {{ end }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><input name="addr" type="text" class="form-control" value="{{ .Config.InfluxAddr }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Token</td>
+                        <td><input name="token" type="text" class="form-control" value="{{ .Config.InfluxToken }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Org</td>
+                        <td><input name="org" type="text" class="form-control" value="{{ .Config.InfluxOrg }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Bucket</td>
+                        <td><input name="bucket" type="text" class="form-control" value="{{ .Config.InfluxBucket }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Skip TLS verify</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                {{ if .Config.InfluxSkipTLS }}
+                                <input class="form-check-input" type="checkbox" name="skip" checked>
+                                {{ else }}
+                                <input class="form-check-input" type="checkbox" name="skip">
+                                {{ end }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" class="btn btn-primary">Save</button></td>
+                        <td></td>
+                    </tr>
+                </form>
+            </table>
+            </div>
+        </div>
+            <div class="card border-primary mt-4 mb-4">
+                <div class="card-header">About</div>
+            <div class="card-body">
+                <p>● After changing <b>Host</b> or <b>Port</b> the app must be restarted</p>
+                <p>● <b>Timeout (minutes)</b> - how often watched ports are scanned</p>
+                <p>● <b>Trim History</b> - how many port states are saved in memory and displayed on the <a href="/history/">History</a> page</p>
+                <p>● If you find this app useful, please, <a href="https://github.com/aceberg#donate" target="_blank">donate</a></p>
+                <p>● Commission you own app (Golang, HTML/JS). Contact and prices <a href="https://github.com/aceberg" target="_blank">here</a></p>
+            </div>
         </div>
     </div>
     </div>
         
 
-{{ template "footer" }}
+{{ template "footer.html" }}
 {{ end }}

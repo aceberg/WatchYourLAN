@@ -3,16 +3,15 @@ package web
 import (
 	"net/http"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func indexHandler(c *gin.Context) {
 	var guiData models.GuiData
+	guiData.Config = appConfig
 
-	updateAllHosts()
-
-	guiData.Config = AppConfig
-	guiData.Hosts = AllHosts
-
-	execTemplate(w, "index", guiData)
+	c.HTML(http.StatusOK, "header.html", guiData)
+	c.HTML(http.StatusOK, "index.html", guiData)
 }

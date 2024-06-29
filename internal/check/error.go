@@ -1,7 +1,8 @@
 package check
 
 import (
-	"log"
+	"fmt"
+	"log/slog"
 )
 
 // IfError prints error, if it is not nil
@@ -10,6 +11,6 @@ func IfError(err error) bool {
 		return false
 	}
 
-	log.Println("ERROR:", err)
+	slog.Error(fmt.Sprintf("%v", err))
 	return true
 }

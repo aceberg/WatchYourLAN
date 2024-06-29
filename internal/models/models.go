@@ -1,26 +1,14 @@
 package models
 
-import (
-	"github.com/aceberg/WatchYourLAN/internal/auth"
-)
-
 // Conf - app config
 type Conf struct {
-	Iface      string
-	DbPath     string
-	GuiIP      string
-	GuiPort    string
-	Timeout    int
-	ShoutURL   string
-	Theme      string
-	Color      string
-	IgnoreIP   string
-	LogLevel   string
-	NodePath   string
-	Icon       string
-	Auth       bool
-	HistDays   string
-	ArpTimeout string
+	Host     string
+	Port     string
+	Theme    string
+	Color    string
+	DirPath  string
+	ConfPath string
+	NodePath string
 }
 
 // Host - one host
@@ -54,6 +42,5 @@ type GuiData struct {
 	Hosts   []Host
 	Themes  []string
 	Version string
-	Auth    auth.Conf
 	Hist    []History
 }
