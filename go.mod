@@ -4,6 +4,7 @@ go 1.22.4
 
 require (
 	github.com/gin-gonic/gin v1.10.0
+	github.com/google/gopacket v1.1.19
 	github.com/spf13/viper v1.19.0
 )
 

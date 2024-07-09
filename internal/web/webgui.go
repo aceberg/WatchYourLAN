@@ -23,6 +23,9 @@ func Gui(dirPath, nodePath string) {
 	appConfig.ConfPath = confPath
 	appConfig.NodePath = nodePath
 
+	// temp
+	appConfig.Ifaces = append(appConfig.Ifaces, "enp4s0")
+
 	slog.Info("config", "path", appConfig.DirPath)
 
 	address := appConfig.Host + ":" + appConfig.Port

@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
-	// "github.com/aceberg/WatchYourLAN/internal/conf"
+	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -30,21 +30,13 @@ func configHandler(c *gin.Context) {
 
 func saveConfigHandler(c *gin.Context) {
 
-	// appConfig.Host = c.PostForm("host")
-	// appConfig.Port = c.PostForm("port")
-	// appConfig.Theme = c.PostForm("theme")
-	// appConfig.Color = c.PostForm("color")
-	// tStr := c.PostForm("timeout")
-	// hStr := c.PostForm("trim")
+	appConfig.Host = c.PostForm("host")
+	appConfig.Port = c.PostForm("port")
+	appConfig.Theme = c.PostForm("theme")
+	appConfig.Color = c.PostForm("color")
+	appConfig.NodePath = c.PostForm("node")
 
-	// if tStr != "" {
-	// 	appConfig.Timeout, _ = strconv.Atoi(tStr)
-	// }
-	// if hStr != "" {
-	// 	appConfig.HistTrim, _ = strconv.Atoi(hStr)
-	// }
-
-	// conf.Write(appConfig)
+	conf.Write(appConfig)
 
 	slog.Info("writing new config to " + appConfig.ConfPath)
 

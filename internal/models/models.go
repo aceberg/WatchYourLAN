@@ -8,7 +8,9 @@ type Conf struct {
 	Color    string
 	DirPath  string
 	ConfPath string
+	DBPath   string
 	NodePath string
+	Ifaces   []string
 }
 
 // Host - one host
