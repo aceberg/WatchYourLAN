@@ -42,6 +42,8 @@ func Gui(dirPath, nodePath string) {
 
 	router.StaticFS("/fs/", http.FS(pubFS)) // public
 
+	router.GET("/api/all", apiAll) // api.go
+
 	router.GET("/", indexHandler)         // index.go
 	router.GET("/config/", configHandler) // config.go
 

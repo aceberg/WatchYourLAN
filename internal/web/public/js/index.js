@@ -3,27 +3,26 @@ var addrsArray = {};
 loadAddrs();
 
 function createHTML(addr, i) {
-    let off = '';
+    let now = '';
 
-    if (addr.Offline == 0) {
-        off = `<span style="color:var(--bs-success);">0</span>`;
+    if (addr.Now == 0) {
+        now = `<i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>`;
     } else {
-        off = `<span style="color:var(--bs-danger);">${addr.Offline}</span>`;
+        now = `<i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>`;
     }
     
     let html = `
     <tr>
         <td style="opacity: 45%;">${i}.</td>
+        <td>${addr.Name}</td>
         <td>
-            <a href="/scan/?addr=${addr.Addr}">${addr.Name}</a>
+            <a href="http://${addr.IP}">${addr.IP}</a>
         </td>
-        <td>
-            <a href="/scan/?addr=${addr.Addr}">${addr.Addr}</a>
-        </td>
-        <td>${addr.Total}</td>
-        <td>${addr.Watching}</td>
-        <td>${addr.Online}</td>
-        <td>${off}</td>
+        <td>${addr.Mac}</td>
+        <td>${addr.Hw}</td>
+        <td>${addr.Date}</td>
+        <td>${addr.Known}</td>
+        <td>${now}</td>
     </tr>
     `;
     

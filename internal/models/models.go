@@ -11,6 +11,8 @@ type Conf struct {
 	DBPath   string
 	NodePath string
 	Ifaces   []string
+	ScanMethod string
+	ArpArgs string
 }
 
 // Host - one host

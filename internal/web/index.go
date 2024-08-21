@@ -14,8 +14,8 @@ func indexHandler(c *gin.Context) {
 	var guiData models.GuiData
 	guiData.Config = appConfig
 
-	res := arp.Scan(appConfig.Ifaces)
-	log.Println("ARPSCAN:", res)
+	allHosts = arp.Scan(appConfig.Ifaces)
+	log.Println("ARPSCAN:", allHosts)
 
 	go arp.GoScan()
 

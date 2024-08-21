@@ -9,6 +9,8 @@ import (
 var (
 	// appConfig - config for Web Gui
 	appConfig models.Conf
+
+	allHosts []models.Host
 )
 
 // templFS - html templates
