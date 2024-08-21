@@ -11,6 +11,9 @@ var (
 	appConfig models.Conf
 
 	allHosts []models.Host
+	// histHosts []models.Host
+
+	quitScan chan bool
 )
 
 // templFS - html templates

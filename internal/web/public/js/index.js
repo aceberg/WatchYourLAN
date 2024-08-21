@@ -11,10 +11,18 @@ function createHTML(addr, i) {
         now = `<i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>`;
     }
     
+    let known = '';
+
+    if (addr.Known == 1) {
+        known = `<button type="button" class="btn btn-success">Yes</button>`;
+    } else {
+        known = `<button type="button" class="btn btn-warning" disabled>No</button>`;
+    }
+
     let html = `
     <tr>
         <td style="opacity: 45%;">${i}.</td>
-        <td>${addr.Name}</td>
+        <td><input name="name" type="text" class="form-control" value="${addr.Name}"></td>
         <td>${addr.Iface}</td>
         <td>
             <a href="http://${addr.IP}">${addr.IP}</a>
@@ -22,7 +30,7 @@ function createHTML(addr, i) {
         <td>${addr.Mac}</td>
         <td>${addr.Hw}</td>
         <td>${addr.Date}</td>
-        <td>${addr.Known}</td>
+        <td>${known}</td>
         <td>${now}</td>
     </tr>
     `;

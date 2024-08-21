@@ -7,10 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/aceberg/WatchYourLAN/internal/arp"
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/db"
 )
 
 // Gui - start web server
@@ -26,6 +24,8 @@ func Gui(dirPath, nodePath string) {
 	appConfig.DBPath = dirPath + "/scan.db"
 	appConfig.NodePath = nodePath
 
+	updateScan() // scan.go
+
 	slog.Info("config", "path", appConfig.DirPath)
 
 	address := appConfig.Host + ":" + appConfig.Port
@@ -33,11 +33,6 @@ func Gui(dirPath, nodePath string) {
 	slog.Info("=================================== ")
 	slog.Info("Web GUI at http://" + address)
 	slog.Info("=================================== ")
-
-	updateAllHosts()
-	// Run scan
-	allHosts = arp.Scan(appConfig.Ifaces)
-	slog.Info("ARPSCAN:", "found", allHosts)
 
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
@@ -56,8 +51,4 @@ func Gui(dirPath, nodePath string) {
 
 	err := router.Run(address)
 	check.IfError(err)
-}
-
-func updateAllHosts() {
-	allHosts = db.Select(appConfig.DBPath)
 }

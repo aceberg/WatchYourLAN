@@ -18,6 +18,8 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("SCANER", "arpscan")
 	viper.SetDefault("ARPARGS", "")
 	viper.SetDefault("IFACES", "")
+	viper.SetDefault("TIMEOUT", 60)
+	viper.SetDefault("IGNOREIP", "no")
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
@@ -34,6 +36,8 @@ func Get(path string) (config models.Conf) {
 	config.Scaner = viper.Get("SCANER").(string)
 	config.ArpArgs = viper.Get("ARPARGS").(string)
 	config.Ifaces = viper.Get("IFACES").(string)
+	config.Timeout = viper.GetInt("TIMEOUT")
+	config.IgnoreIP = viper.Get("IGNOREIP").(string)
 
 	return config
 }
@@ -52,6 +56,8 @@ func Write(config models.Conf) {
 	viper.Set("SCANER", config.Scaner)
 	viper.Set("ARPARGS", config.ArpArgs)
 	viper.Set("IFACES", config.Ifaces)
+	viper.Set("TIMEOUT", config.Timeout)
+	viper.Set("IGNOREIP", config.IgnoreIP)
 
 	err := viper.WriteConfig()
 	check.IfError(err)

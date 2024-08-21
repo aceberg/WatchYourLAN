@@ -28,9 +28,9 @@ func dbExec(path, sqlStatement string) {
 }
 
 // Select - select all hosts
-func Select(path string) (dbHosts []models.Host) {
+func Select(path, table string) (dbHosts []models.Host) {
 
-	sqlStatement := `SELECT * FROM "now" ORDER BY DATE DESC`
+	sqlStatement := "SELECT * FROM " + table + " ORDER BY DATE DESC"
 
 	mu.Lock()
 	db, _ := sqlx.Connect("sqlite", path)
