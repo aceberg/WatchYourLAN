@@ -11,6 +11,8 @@ import (
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
+
+	"github.com/aceberg/WatchYourLAN/internal/check"
 )
 
 // GoScan - scan iface
@@ -131,8 +133,9 @@ func writeARP(handle *pcap.Handle, iface *net.Interface, addr *net.IPNet) error 
 	// Send one packet for every address.
 	for _, ip := range ips(addr) {
 		arp.DstProtAddress = []byte(ip)
-		gopacket.SerializeLayers(buf, opts, &eth, &arp)
-		if err := handle.WritePacketData(buf.Bytes()); err != nil {
+		err := gopacket.SerializeLayers(buf, opts, &eth, &arp)
+		check.IfError(err)
+		if err = handle.WritePacketData(buf.Bytes()); err != nil {
 			return err
 		}
 	}

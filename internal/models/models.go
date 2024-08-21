@@ -10,15 +10,16 @@ type Conf struct {
 	ConfPath string
 	DBPath   string
 	NodePath string
-	Ifaces   []string
-	ScanMethod string
-	ArpArgs string
+	Ifaces   string
+	Scaner   string
+	ArpArgs  string
 }
 
 // Host - one host
 type Host struct {
 	ID    int    `db:"ID"`
 	Name  string `db:"NAME"`
+	Iface string `db:"IFACE"`
 	IP    string `db:"IP"`
 	Mac   string `db:"MAC"`
 	Hw    string `db:"HW"`

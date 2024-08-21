@@ -1,72 +1,85 @@
 {{ define "config.html" }}
 
 <body>
-    <div class="container-lg">
+  <div class="container-lg">
     <div class="row">
-        <div class="col-md mt-4">
+      <div class="col-md mt-4">
         <div class="card border-primary">
-            <div class="card-header">Config</div>
-        <div class="card-body table-responsive">
-        <table class="table table-borderless">
-            <form action="/config/" method="post">
+          <div class="card-header">Config</div>
+          <div class="card-body table-responsive">
+            <table class="table table-borderless">
+              <form action="/config/" method="post">
                 <tr>
-                    <td>Host</td>
-                    <td><input name="host" type="text" class="form-control" value="{{ .Config.Host }}"></td>
+                  <td>Host</td>
+                  <td><input name="host" type="text" class="form-control" value="{{ .Config.Host }}"></td>
                 </tr>
                 <tr>
-                    <td>Port</td>
-                    <td><input name="port" type="text" class="form-control" value="{{ .Config.Port }}"></td>
+                  <td>Port</td>
+                  <td><input name="port" type="text" class="form-control" value="{{ .Config.Port }}"></td>
                 </tr>
                 <tr>
-                    <td>Theme</td>
-                    <td><select name="theme" class="form-select">
-                        <option selected>{{ .Config.Theme }}</option>
-                        {{ range .Themes }}
-                            <option value="{{ . }}">{{ . }}</option>
-                        {{ end }}
-                    </select></td>
+                  <td>Theme</td>
+                  <td><select name="theme" class="form-select">
+                    <option selected>{{ .Config.Theme }}</option>
+                    {{ range .Themes }}
+                        <option value="{{ . }}">{{ . }}</option>
+                    {{ end }}
+                  </select></td>
                 </tr>
                 <tr>
-                    <td>Color mode</td>
-                    <td><select name="color" class="form-select">
-                        <option selected>{{ .Config.Color }}</option>
-                        <option value="light">light</option>
-                        <option value="dark">dark</option>
-                    </select></td>
+                  <td>Color mode</td>
+                  <td><select name="color" class="form-select">
+                    <option selected>{{ .Config.Color }}</option>
+                    <option value="light">light</option>
+                    <option value="dark">dark</option>
+                  </select></td>
                 </tr>
                 <tr>
-                    <td>Local node-bootstrap url</td>
-                    <td><input name="node" type="text" class="form-control" value="{{ .Config.NodePath }}"></td>
+                  <td>Local node-bootstrap url</td>
+                  <td><input name="node" type="text" class="form-control" value="{{ .Config.NodePath }}"></td>
                 </tr>
                 <tr>
-                    <td><button type="submit" class="btn btn-primary">Save</button></td>
-                    <td></td>
+                  <td>Interfaces</td>
+                  <td><input name="ifaces" type="text" class="form-control" value="{{ .Config.Ifaces }}"></td>
                 </tr>
-            </form>
-        </table>
+                <tr>
+                  <td>Scaner</td>
+                  <td><select name="scaner" class="form-select">
+                    <option selected>{{ .Config.Scaner }}</option>
+                    <option value="arpscan">arpscan</option>
+                    <option value="golang">golang (experimental)</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <td>Args for arpscan</td>
+                  <td><input name="arpargs" type="text" class="form-control" value="{{ .Config.ArpArgs }}"></td>
+                </tr>
+                <tr>
+                  <td><button type="submit" class="btn btn-primary">Save</button></td>
+                  <td></td>
+                </tr>
+              </form>
+            </table>
+          </div>
         </div>
-        </div>
-        <div class="card border-primary mt-4">
-            <div class="card-header">Version</div>
-            <div class="card-body">
-                <a href="https://github.com/aceberg/WatchYourLAN/releases/tag/{{ .Version }}" target="_blank">{{ .Version }}</a>
-            </div>
-        </div>
-        </div>
-        <div class="col-md mt-4">
-            <div class="card border-primary mt-4 mb-4">
-                <div class="card-header">About</div>
-            <div class="card-body">
-                <p>● After changing <b>Host</b> or <b>Port</b> the app must be restarted</p>
-                <p>● <b>Timeout (minutes)</b> - how often watched ports are scanned</p>
-                <p>● <b>Trim History</b> - how many port states are saved in memory and displayed on the <a href="/history/">History</a> page</p>
-                <p>● If you find this app useful, please, <a href="https://github.com/aceberg#donate" target="_blank">donate</a></p>
-                <p>● Commission you own app (Golang, HTML/JS). Contact and prices <a href="https://github.com/aceberg" target="_blank">here</a></p>
-            </div>
-        </div>
-    </div>
-    </div>
+      </div>
         
+      <div class="col-md mt-4 mb-4">
+        <div class="card border-primary">
+          <div class="card-header">
+            About (<a href="https://github.com/aceberg/WatchYourLAN/releases/tag/{{ .Version }}" target="_blank">v{{ .Version }}</a>)
+          </div>
+          <div class="card-body">
+            <p>● After changing <b>Host</b> or <b>Port</b> the app must be restarted</p>
+            <p>● <b>Timeout (minutes)</b> - how often watched ports are scanned</p>
+            <p>● <b>Trim History</b> - how many port states are saved in memory and displayed on the <a href="/history/">History</a> page</p>
+            <p>● If you find this app useful, please, <a href="https://github.com/aceberg#donate" target="_blank">donate</a></p>
+            <p>● Commission you own app (Golang, HTML/JS). Contact and prices <a href="https://github.com/aceberg" target="_blank">here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>      
 
 {{ template "footer.html" }}
 {{ end }}

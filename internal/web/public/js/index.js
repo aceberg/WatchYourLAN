@@ -15,6 +15,7 @@ function createHTML(addr, i) {
     <tr>
         <td style="opacity: 45%;">${i}.</td>
         <td>${addr.Name}</td>
+        <td>${addr.Iface}</td>
         <td>
             <a href="http://${addr.IP}">${addr.IP}</a>
         </td>

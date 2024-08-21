@@ -15,6 +15,9 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("THEME", "solar")
 	viper.SetDefault("COLOR", "dark")
 	viper.SetDefault("NODEPATH", "")
+	viper.SetDefault("SCANER", "arpscan")
+	viper.SetDefault("ARPARGS", "")
+	viper.SetDefault("IFACES", "")
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
@@ -28,6 +31,9 @@ func Get(path string) (config models.Conf) {
 	config.Theme = viper.Get("THEME").(string)
 	config.Color = viper.Get("COLOR").(string)
 	config.NodePath = viper.Get("NODEPATH").(string)
+	config.Scaner = viper.Get("SCANER").(string)
+	config.ArpArgs = viper.Get("ARPARGS").(string)
+	config.Ifaces = viper.Get("IFACES").(string)
 
 	return config
 }
@@ -43,6 +49,9 @@ func Write(config models.Conf) {
 	viper.Set("THEME", config.Theme)
 	viper.Set("COLOR", config.Color)
 	viper.Set("NODEPATH", config.NodePath)
+	viper.Set("SCANER", config.Scaner)
+	viper.Set("ARPARGS", config.ArpArgs)
+	viper.Set("IFACES", config.Ifaces)
 
 	err := viper.WriteConfig()
 	check.IfError(err)

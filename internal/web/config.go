@@ -3,7 +3,6 @@ package web
 import (
 	"log/slog"
 	"net/http"
-	// "strconv"
 
 	"github.com/gin-gonic/gin"
 
@@ -35,6 +34,9 @@ func saveConfigHandler(c *gin.Context) {
 	appConfig.Theme = c.PostForm("theme")
 	appConfig.Color = c.PostForm("color")
 	appConfig.NodePath = c.PostForm("node")
+	appConfig.Scaner = c.PostForm("scaner")
+	appConfig.ArpArgs = c.PostForm("arpargs")
+	appConfig.Ifaces = c.PostForm("ifaces")
 
 	conf.Write(appConfig)
 

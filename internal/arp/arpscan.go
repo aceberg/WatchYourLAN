@@ -17,7 +17,7 @@ func scanIface(iface string) string {
 	return string(cmd)
 }
 
-func parseOutput(text string) []models.Host {
+func parseOutput(text, iface string) []models.Host {
 	var foundHosts = []models.Host{}
 
 	perString := strings.Split(text, "\n")
@@ -27,6 +27,7 @@ func parseOutput(text string) []models.Host {
 		if host != "" {
 			var oneHost models.Host
 			p := strings.Split(host, "	")
+			oneHost.Iface = iface
 			oneHost.IP = p[0]
 			oneHost.Mac = p[1]
 			oneHost.Hw = p[2]
@@ -40,17 +41,19 @@ func parseOutput(text string) []models.Host {
 }
 
 // Scan all interfaces
-func Scan(ifaces []string) []models.Host {
+func Scan(ifaces string) []models.Host {
 	var text string
 	var foundHosts = []models.Host{}
 
-	for _, iface := range ifaces {
+	perString := strings.Split(ifaces, " ")
+
+	for _, iface := range perString {
 		text = scanIface(iface)
 
 		log.Println("INFO: scanning interface", iface)
 		log.Println("INFO: found IPs:", text)
 
-		foundHosts = append(foundHosts, parseOutput(text)...)
+		foundHosts = append(foundHosts, parseOutput(text, iface)...)
 	}
 
 	return foundHosts
