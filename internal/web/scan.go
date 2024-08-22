@@ -13,7 +13,7 @@ func updateScan() {
 	db.Create(appConfig.DBPath)
 
 	allHosts = db.Select(appConfig.DBPath, "now")
-	// histHosts = db.Select(appConfig.DBPath, "history")
+	histHosts = db.Select(appConfig.DBPath, "history")
 
 	quitScan = make(chan bool)
 	go startScan()
@@ -35,7 +35,7 @@ func startScan() {
 				foundHosts := arp.Scan(appConfig.Ifaces)
 				compareHosts(foundHosts)
 				allHosts = db.Select(appConfig.DBPath, "now")
-				// histHosts = db.Select(appConfig.DBPath, "history")
+				histHosts = db.Select(appConfig.DBPath, "history")
 
 				lastDate = time.Now()
 			}

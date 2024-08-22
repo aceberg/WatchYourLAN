@@ -15,3 +15,11 @@ func indexHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "header.html", guiData)
 	c.HTML(http.StatusOK, "index.html", guiData)
 }
+
+func historyHandler(c *gin.Context) {
+	var guiData models.GuiData
+	guiData.Config = appConfig
+
+	c.HTML(http.StatusOK, "header.html", guiData)
+	c.HTML(http.StatusOK, "history.html", guiData)
+}

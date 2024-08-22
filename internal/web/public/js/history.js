@@ -1,45 +1,43 @@
-var histArray = {};
+var addrsArray = {};
 
-loadHistory();
+loadAddrs();
 
-function createHTML(hist, i) {
-    
-    let allState = "";
-    let color = "";
+function createHTML(addr, i) {
+    let now = '';
 
-    for (let state of hist.State){
-        if (state.State) {
-            color = `bi-check-circle-fill" style="color:var(--bs-success);"`;
-        } else {
-            color = `bi-dash-circle-fill" style="color:var(--bs-danger);"`;
-        }
-        allState = allState + `<i class="bi ${color} title="${state.Date}"></i>`;
+    if (addr.Now == 0) {
+        now = `<i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>`;
+    } else {
+        now = `<i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>`;
     }
-
+    
     let html = `
     <tr>
         <td style="opacity: 45%;">${i}.</td>
-        <td><a href="/scan/?addr=${hist.Addr}">${hist.Name}</a></td>
-        <td><a href="/scan/?addr=${hist.Addr}">${hist.Addr}</a></td>
-        <td><a href="http://${hist.Addr}:${hist.Port}">${hist.Port}</a></td>
-        <td><a href="http://${hist.Addr}:${hist.Port}">${hist.PortName}</a></td>
-        <td>${allState}</td>
-    </tr>`;
+        <td>${addr.Name}</td>
+        <td>${addr.Iface}</td>
+        <td>
+            <a href="http://${addr.IP}">${addr.IP}</a>
+        </td>
+        <td>${addr.Mac}</td>
+        <td>${now}</td>
+    </tr>
+    `;
     
     return html;
 }
 
-async function loadHistory() {
+async function loadAddrs() {
     
     let url = '/api/history';
-    let histMap = await (await fetch(url)).json();
-    if (histMap != null) {
-        histArray = Object.values(histMap);
+    let addrsMap = await (await fetch(url)).json();
+    if (addrsMap != null) {
+        addrsArray = Object.values(addrsMap);
     }
 
-    displayArrayData(histArray);
+    displayArrayData(addrsArray);
 }
 
 function sortBy(field) {
-    sortByAny(histArray, field);
+    sortByAny(addrsArray, field);
 }

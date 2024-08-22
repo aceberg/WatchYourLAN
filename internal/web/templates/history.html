@@ -1,0 +1,30 @@
+{{ define "history.html" }}
+</head>
+<script src="/fs/public/js/history.js"></script>
+<script src="/fs/public/js/sort.js"></script>
+<body>
+<div class="container-lg">
+  <div class="row">
+    <div class="col-md mt-4 mb-4">
+      <div class="card border-primary">
+        <div class="card-body table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <th style="width: 3em;"></th>
+              <th>Name <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Name')"></i></th>
+              <th>Iface <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Iface')"></i></th>
+              <th>IP <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('IP')"></i></th>
+              <th>MAC <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Mac')"></i></th>
+              <th>History <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Now')"></i></th>
+            </thead>
+            <tbody id="tBody"></tbody> 
+            <!-- index.js -->
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ template "footer.html" }}
+{{ end }}
