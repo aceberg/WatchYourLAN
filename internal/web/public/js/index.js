@@ -1,28 +1,29 @@
-var addrsArray = {};
+let addrsArray = {};
+let edit = "0";
 
 loadAddrs();
 
 function createHTML(addr, i) {
-    let now = '';
-
-    if (addr.Now == 0) {
-        now = `<i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>`;
-    } else {
+    let now = `<i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>`;
+    if (addr.Now == 1) {
         now = `<i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>`;
     }
     
     let known = '';
-
     if (addr.Known == 1) {
-        known = `<button type="button" class="btn btn-success">Yes</button>`;
-    } else {
-        known = `<button type="button" class="btn btn-warning" disabled>No</button>`;
+        known = `checked`;
+    }
+
+    // Needs option to use value in js
+    let name = `<option id="name${addr.ID}" value="${addr.Name}">${addr.Name}</option>`;
+    if (edit == 1) {
+        name = `<input id="name${addr.ID}" onchange="editForm(${addr.ID},'')" type="text" class="form-control" value="${addr.Name}">`;
     }
 
     let html = `
     <tr>
         <td style="opacity: 45%;">${i}.</td>
-        <td><input name="name" type="text" class="form-control" value="${addr.Name}"></td>
+        <td>${name}</td>
         <td>${addr.Iface}</td>
         <td>
             <a href="http://${addr.IP}">${addr.IP}</a>
@@ -30,7 +31,11 @@ function createHTML(addr, i) {
         <td>${addr.Mac}</td>
         <td>${addr.Hw}</td>
         <td>${addr.Date}</td>
-        <td>${known}</td>
+        <td>
+            <div class="form-check form-switch">
+                <input onclick="editForm(${addr.ID}, 'toggle')" class="form-check-input" type="checkbox" ${known}>
+            </div>
+        </td>
         <td>${now}</td>
     </tr>
     `;
@@ -40,15 +45,29 @@ function createHTML(addr, i) {
 
 async function loadAddrs() {
     
-    let url = '/api/all';
-    let addrsMap = await (await fetch(url)).json();
-    if (addrsMap != null) {
-        addrsArray = Object.values(addrsMap);
-    }
+    const url = '/api/all';
+    addrsArray = await (await fetch(url)).json();
+    bkpArray = addrsArray;
 
     displayArrayData(addrsArray);
 }
 
 function sortBy(field) {
     sortByAny(addrsArray, field);
+}
+
+function editClick() {
+
+    edit = 1 - edit;
+    loadAddrs();
+}
+
+async function editForm(id, known) {
+    
+    const name = document.getElementById("name"+id).value;
+    const url = '/api/edit/'+id+'/'+name+'/'+known;
+
+    // console.log(url);
+
+    await fetch(url);
 }

@@ -2,11 +2,36 @@
 </head>
 <script src="/fs/public/js/index.js"></script>
 <script src="/fs/public/js/sort.js"></script>
+<script src="/fs/public/js/filter.js"></script>
 <body>
 <div class="container-lg">
   <div class="row">
     <div class="col-md mt-4 mb-4">
       <div class="card border-primary">
+        <div class="card-header">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-left gap-3">
+              <button class="btn btn-outline-primary" disabled>Filter by</button>
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Iface</button>
+              <ul class="dropdown-menu">
+                {{ range .Themes }}
+                <li><a class="dropdown-item" onclick="filterFunc('iface', '{{ . }}')">{{ . }}</a></li>
+                {{ end }}
+              </ul>
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Known</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="filterFunc('known', 1)">Known</a></li>
+                <li><a class="dropdown-item" onclick="filterFunc('known', 0)">Unknown</a></li>
+              </ul>
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Online</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="filterFunc('line', 1)">Online</a></li>
+                <li><a class="dropdown-item" onclick="filterFunc('line', 0)">Offline</a></li>
+              </ul>
+            </div>
+            <button class="btn btn-outline-primary" id="edit" onclick="editClick()">Edit names</button>
+          </div>
+        </div>
         <div class="card-body table-responsive">
           <table class="table table-striped">
             <thead>
