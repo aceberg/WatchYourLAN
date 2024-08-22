@@ -4,7 +4,6 @@ go 1.22.6
 
 require (
 	github.com/gin-gonic/gin v1.10.0
-	github.com/google/gopacket v1.1.19
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/spf13/viper v1.19.0
 	modernc.org/sqlite v1.32.0
