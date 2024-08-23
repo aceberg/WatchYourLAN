@@ -1,7 +1,6 @@
 package web
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,9 +13,8 @@ func hostHandler(c *gin.Context) {
 	guiData.Config = appConfig
 
 	idStr := c.Param("id")
-	log.Println("ID =", idStr)
 
-	guiData.Version = idStr
+	guiData.Host = getHostByID(idStr, allHosts)
 
 	c.HTML(http.StatusOK, "header.html", guiData)
 	c.HTML(http.StatusOK, "host.html", guiData)

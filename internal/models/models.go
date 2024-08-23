@@ -33,7 +33,7 @@ type Host struct {
 // GuiData - all data sent to html page
 type GuiData struct {
 	Config  Conf
-	Hosts   []Host
+	Host    Host
 	Themes  []string
 	Version string
 }

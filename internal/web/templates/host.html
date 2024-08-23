@@ -1,5 +1,6 @@
 {{ define "host.html" }}
 
+<script src="/fs/public/js/scan.js"></script>
 <body>
   <div class="container-lg">
     <div class="row">
@@ -8,7 +9,47 @@
           <div class="card-header">Host</div>
           <div class="card-body table-responsive">
             <table class="table table-borderless">
-
+              <tr>
+                <td>ID</td>
+                <td>{{ .Host.ID }}</td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td>{{ .Host.Name }}</td>
+              </tr>
+              <tr>
+                <td>Iface</td>
+                <td>{{ .Host.Iface }}</td>
+              </tr>
+              <tr>
+                <td>IP</td>
+                <td><a href="http://{{ .Host.IP }}">{{ .Host.IP }}</a></td>
+              </tr>
+              <tr>
+                <td>MAC</td>
+                <td>{{ .Host.Mac }}</td>
+              </tr>
+              <tr>
+                <td>Hardware</td>
+                <td>{{ .Host.Hw }}</td>
+              </tr>
+              <tr>
+                <td>Date</td>
+                <td>{{ .Host.Date }}</td>
+              </tr>
+              <tr>
+                <td>Known</td>
+                <td>{{ .Host.Known }}</td>
+              </tr>
+              <tr>
+                <td>Online</td>
+                <td>{{ if eq .Host.Now 0 }}
+                  <i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>
+                  {{ else }}
+                  <i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>
+                  {{ end }}
+                </td>
+              </tr>
             </table>
           </div>
         </div>
@@ -18,6 +59,20 @@
         <div class="card border-primary">
           <div class="card-header">Port scan</div>
           <div class="card-body">
+            <form class="input-group">
+              <input id="begin" type="text" class="form-control" placeholder="1">
+              <input id="end" type="text" class="form-control" placeholder="65535">
+              <!-- To get from JS -->
+              <input type="hidden" id="hostIP" value="{{ .Host.IP }}"> 
+              <button onclick="scanAddr()" type="button" class="btn btn-primary">Scan</button>
+            </form>
+            <div style="display: flex; justify-content: space-between; visibility: hidden;" id="stopBtn" class="mt-2">
+              <button onclick="stopScan()" type="button" class="btn btn-warning">Stop</button>
+              <div id="curPort"></div>
+            </div>
+            <div id="foundPorts" class="mt-2">
+              <!-- JS here -->
+            </div>
           </div>
         </div>
       </div>

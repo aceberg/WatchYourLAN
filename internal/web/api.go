@@ -3,11 +3,11 @@ package web
 import (
 	// "log"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 
 	"github.com/aceberg/WatchYourLAN/internal/db"
+	"github.com/aceberg/WatchYourLAN/internal/portscan"
 )
 
 func apiAll(c *gin.Context) {
@@ -25,10 +25,19 @@ func apiHistory(c *gin.Context) {
 func apiHost(c *gin.Context) {
 
 	idStr := c.Param("id")
-	id, _ := strconv.Atoi(idStr)
-	host := getHostByID(id, allHosts) // functions.go
+
+	host := getHostByID(idStr, allHosts) // functions.go
 
 	c.IndentedJSON(http.StatusOK, host)
+}
+
+func apiPort(c *gin.Context) {
+
+	addr := c.Param("addr")
+	port := c.Param("port")
+	state := portscan.IsOpen(addr, port)
+
+	c.IndentedJSON(http.StatusOK, state)
 }
 
 func apiEdit(c *gin.Context) {
@@ -37,9 +46,7 @@ func apiEdit(c *gin.Context) {
 	name := c.Param("name")
 	toggleKnown := c.Param("known")
 
-	id, _ := strconv.Atoi(idStr)
-
-	host := getHostByID(id, allHosts) // functions.go
+	host := getHostByID(idStr, allHosts) // functions.go
 	if host.Date != "" {
 		host.Name = name
 
