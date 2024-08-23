@@ -34,7 +34,7 @@ func saveConfigHandler(c *gin.Context) {
 	appConfig.Theme = c.PostForm("theme")
 	appConfig.Color = c.PostForm("color")
 	appConfig.NodePath = c.PostForm("node")
-	appConfig.Scaner = c.PostForm("scaner")
+	appConfig.IgnoreIP = c.PostForm("ignore")
 	appConfig.ArpArgs = c.PostForm("arpargs")
 	appConfig.Ifaces = c.PostForm("ifaces")
 

@@ -12,6 +12,7 @@ func Create(path string) {
 	sqlStatement := `CREATE TABLE IF NOT EXISTS "now" (
 		"ID"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 		"NAME"	TEXT NOT NULL,
+		"DNS"	TEXT NOT NULL,
 		"IFACE"	TEXT,
 		"IP"	TEXT,
 		"MAC"	TEXT,
@@ -25,6 +26,7 @@ func Create(path string) {
 	sqlStatement = `CREATE TABLE IF NOT EXISTS "history" (
 		"ID"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 		"NAME"	TEXT NOT NULL,
+		"DNS"	TEXT NOT NULL,
 		"IFACE"	TEXT,
 		"IP"	TEXT,
 		"MAC"	TEXT,
@@ -40,9 +42,9 @@ func Create(path string) {
 func Insert(path, table string, oneHost models.Host) {
 	oneHost.Name = quoteStr(oneHost.Name)
 	oneHost.Hw = quoteStr(oneHost.Hw)
-	sqlStatement := `INSERT INTO '%s' (NAME, IFACE, IP, MAC, HW, DATE, KNOWN, NOW) 
-		VALUES ('%s','%s','%s','%s','%s','%s','%d','%d');`
-	sqlStatement = fmt.Sprintf(sqlStatement, table, oneHost.Name, oneHost.Iface, oneHost.IP, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now)
+	sqlStatement := `INSERT INTO '%s' (NAME, DNS, IFACE, IP, MAC, HW, DATE, KNOWN, NOW) 
+		VALUES ('%s','%s','%s','%s','%s','%s','%s','%d','%d');`
+	sqlStatement = fmt.Sprintf(sqlStatement, table, oneHost.Name, oneHost.DNS, oneHost.Iface, oneHost.IP, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now)
 
 	dbExec(path, sqlStatement)
 }
@@ -52,10 +54,10 @@ func Update(path, table string, oneHost models.Host) {
 	oneHost.Name = quoteStr(oneHost.Name)
 	oneHost.Hw = quoteStr(oneHost.Hw)
 	sqlStatement := `UPDATE '%s' set 
-		NAME = '%s', IFACE = '%s', IP = '%s', MAC = '%s', HW = '%s', DATE = '%s', 
+		NAME = '%s', DNS = '%s', IFACE = '%s', IP = '%s', MAC = '%s', HW = '%s', DATE = '%s', 
 		KNOWN = '%d', NOW = '%d' 
 		WHERE ID = '%d';`
-	sqlStatement = fmt.Sprintf(sqlStatement, table, oneHost.Name, oneHost.Iface, oneHost.IP, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now, oneHost.ID)
+	sqlStatement = fmt.Sprintf(sqlStatement, table, oneHost.Name, oneHost.DNS, oneHost.Iface, oneHost.IP, oneHost.Mac, oneHost.Hw, oneHost.Date, oneHost.Known, oneHost.Now, oneHost.ID)
 
 	dbExec(path, sqlStatement)
 }

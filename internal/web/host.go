@@ -13,8 +13,9 @@ func hostHandler(c *gin.Context) {
 	guiData.Config = appConfig
 
 	idStr := c.Param("id")
-
-	guiData.Host = getHostByID(idStr, allHosts)
+	host := getHostByID(idStr, allHosts)
+	_, host.DNS = updateDNS(host)
+	guiData.Host = host
 
 	c.HTML(http.StatusOK, "header.html", guiData)
 	c.HTML(http.StatusOK, "host.html", guiData)

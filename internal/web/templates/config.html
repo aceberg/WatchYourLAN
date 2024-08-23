@@ -43,11 +43,11 @@
                   <td><input name="ifaces" type="text" class="form-control" value="{{ .Config.Ifaces }}"></td>
                 </tr>
                 <tr>
-                  <td>Scaner</td>
-                  <td><select name="scaner" class="form-select">
-                    <option selected>{{ .Config.Scaner }}</option>
-                    <option value="arpscan">arpscan</option>
-                    <option value="golang">golang (experimental)</option>
+                  <td>Ignore IP</td>
+                  <td><select name="ignore" class="form-select">
+                    <option selected>{{ .Config.IgnoreIP }}</option>
+                    <option value="yes">yes</option>
+                    <option value="no">no</option>
                   </select></td>
                 </tr>
                 <tr>

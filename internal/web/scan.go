@@ -68,6 +68,7 @@ func compareHosts(foundHosts []models.Host) {
 
 		} else {
 			aHost.Now = 0
+			db.Insert(appConfig.DBPath, "history", aHost)
 		}
 		db.Update(appConfig.DBPath, "now", aHost)
 	}
@@ -75,6 +76,7 @@ func compareHosts(foundHosts []models.Host) {
 	for _, fHost := range foundHostsMap {
 
 		// NOTIFY, LOG
+		fHost.Name, fHost.DNS = updateDNS(fHost)
 		db.Insert(appConfig.DBPath, "now", fHost)
 	}
 }

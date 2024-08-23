@@ -46,6 +46,7 @@ func Gui(dirPath, nodePath string) {
 	router.GET("/api/edit/:id/:name/*known", apiEdit) // api.go
 	router.GET("/api/history", apiHistory)            // api.go
 	router.GET("/api/host", apiHost)                  // api.go
+	router.GET("/api/host/del/:id", apiHostDel)       // api.go
 	router.GET("/api/port/:addr/:port", apiPort)      // api.go
 
 	router.GET("/", indexHandler)           // index.go

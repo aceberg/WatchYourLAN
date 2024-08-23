@@ -1,10 +1,10 @@
 {{ define "host.html" }}
 
-<script src="/fs/public/js/scan.js"></script>
+<script src="/fs/public/js/host-scan.js"></script>
 <body>
   <div class="container-lg">
     <div class="row">
-      <div class="col-md mt-4">
+      <div class="col-md mt-4 mb-4">
         <div class="card border-primary">
           <div class="card-header">Host</div>
           <div class="card-body table-responsive">
@@ -16,6 +16,10 @@
               <tr>
                 <td>Name</td>
                 <td>{{ .Host.Name }}</td>
+              </tr>
+              <tr>
+                <td>DNS</td>
+                <td>{{ .Host.DNS }}</td>
               </tr>
               <tr>
                 <td>Iface</td>
@@ -50,6 +54,12 @@
                   {{ end }}
                 </td>
               </tr>
+              <tr>
+                <td>
+                    <button onclick="delHost('{{ .Host.ID }}')" class="btn btn-danger">Delete host</button>
+                </td>
+                <td></td>
+              </tr>
             </table>
           </div>
         </div>
@@ -73,6 +83,16 @@
             <div id="foundPorts" class="mt-2">
               <!-- JS here -->
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md mb-4">
+        <div class="card border-primary">
+          <div class="card-header">History</div>
+          <div class="card-body">
+
           </div>
         </div>
       </div>

@@ -17,6 +17,7 @@ async function scanAddr() {
     }
     let portOpen = false;
     stop = false;
+    found = 0;
 
     document.getElementById('stopBtn').style.visibility = "visible";
 
@@ -25,6 +26,10 @@ async function scanAddr() {
         if (stop) {
             break;
         }
+        if (found > 9) {
+            found = 0;
+            document.getElementById('foundPorts').insertAdjacentHTML('beforeend', '<br>');
+        }
 
         let url = '/api/port/'+addr+'/'+i;
         portOpen = await (await fetch(url)).json();
@@ -32,6 +37,7 @@ async function scanAddr() {
         document.getElementById("curPort").innerHTML = "Scanning port "+i;
 
         if (portOpen) {
+            found = found + 1;
             let html = genHTML(addr, i);
             document.getElementById('foundPorts').insertAdjacentHTML('beforeend', html);
         }
@@ -43,4 +49,13 @@ async function scanAddr() {
 function genHTML(addr, port) {
     html = `<a href="http://${addr}:${port}">${port}</a>&nbsp;&nbsp;&nbsp;`;
     return html;
+}
+
+async function delHost(id) {
+    
+    const url = '/api/host/del/'+id;
+
+    await fetch(url);
+
+    window.location.href = '/';
 }

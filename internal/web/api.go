@@ -31,6 +31,16 @@ func apiHost(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, host)
 }
 
+func apiHostDel(c *gin.Context) {
+
+	idStr := c.Param("id")
+	host := getHostByID(idStr, allHosts) // functions.go
+	db.Delete(appConfig.DBPath, "now", host.ID)
+	allHosts = db.Select(appConfig.DBPath, "now")
+
+	c.IndentedJSON(http.StatusOK, "OK")
+}
+
 func apiPort(c *gin.Context) {
 
 	addr := c.Param("addr")

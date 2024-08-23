@@ -11,7 +11,7 @@ type Conf struct {
 	DBPath   string
 	NodePath string
 	Ifaces   string
-	Scaner   string
+	// Scaner   string
 	ArpArgs  string
 	Timeout  int
 	IgnoreIP string
@@ -21,6 +21,7 @@ type Conf struct {
 type Host struct {
 	ID    int    `db:"ID"`
 	Name  string `db:"NAME"`
+	DNS   string `db:"DNS"`
 	Iface string `db:"IFACE"`
 	IP    string `db:"IP"`
 	Mac   string `db:"MAC"`
