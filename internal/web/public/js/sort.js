@@ -15,15 +15,31 @@ function sortByAny(someArray, field) {
     // console.log("Field =", field);
 
     if (field != oldField) {
-        someArray.sort(byFieldDown(field));
+        
+        if (field == 'IP') {
+            someArray.sort((a, b) => {
+                const num1 = Number(a.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
+                const num2 = Number(b.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
+                return num1-num2;
+            });
+        } else {
+            someArray.sort(byFieldDown(field));
+        }
+
         oldField = field;
     } else {
-        someArray.sort(byFieldUp(field));
-        oldField = '';
-    }
+        
+        if (field == 'IP') {
+            someArray.sort((a, b) => {
+                const num1 = Number(a.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
+                const num2 = Number(b.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
+                return num2-num1;
+            });
+        } else {
+            someArray.sort(byFieldUp(field));
+        }
 
-    if (field == 'State') {
-        someArray.sort(byFieldUp('Watch'));
+        oldField = '';
     }
 
     displayArrayData(someArray);

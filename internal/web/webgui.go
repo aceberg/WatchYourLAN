@@ -44,10 +44,12 @@ func Gui(dirPath, nodePath string) {
 
 	router.GET("/api/all", apiAll)                    // api.go
 	router.GET("/api/history", apiHistory)            // api.go
+	router.GET("/api/host", apiHost)            // api.go
 	router.GET("/api/edit/:id/:name/*known", apiEdit) // api.go
 
 	router.GET("/", indexHandler)           // index.go
 	router.GET("/history/", historyHandler) // index.go
+	router.GET("/host/:id", hostHandler)    // host.go
 	router.GET("/config/", configHandler)   // config.go
 
 	router.POST("/config/", saveConfigHandler) // config.go

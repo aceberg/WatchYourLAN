@@ -28,7 +28,7 @@ function createHTML(addr, i) {
         <td>
             <a href="http://${addr.IP}">${addr.IP}</a>
         </td>
-        <td>${addr.Mac}</td>
+        <td><a href="/host/${addr.ID}">${addr.Mac}</a></td>
         <td>${addr.Hw}</td>
         <td>${addr.Date}</td>
         <td>

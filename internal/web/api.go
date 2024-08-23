@@ -22,6 +22,15 @@ func apiHistory(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, histHosts)
 }
 
+func apiHost(c *gin.Context) {
+
+	idStr := c.Param("id")
+	id, _ := strconv.Atoi(idStr)
+	host := getHostByID(id, allHosts) // functions.go
+
+	c.IndentedJSON(http.StatusOK, host)
+}
+
 func apiEdit(c *gin.Context) {
 
 	idStr := c.Param("id")
@@ -30,7 +39,7 @@ func apiEdit(c *gin.Context) {
 
 	id, _ := strconv.Atoi(idStr)
 
-	host := getHostByID(id, allHosts)
+	host := getHostByID(id, allHosts) // functions.go
 	if host.Date != "" {
 		host.Name = name
 

@@ -25,3 +25,8 @@ function filterFunc(field, value) {
 
     displayArrayData(addrsArray);
 }
+
+function resetFilter() {
+    addrsArray = bkpArray;
+    displayArrayData(addrsArray);
+}
