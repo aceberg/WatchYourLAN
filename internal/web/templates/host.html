@@ -1,6 +1,7 @@
 {{ define "host.html" }}
 
 <script src="/fs/public/js/host-scan.js"></script>
+<script src="/fs/public/js/host.js"></script>
 <body>
   <div class="container-lg">
     <div class="row">
@@ -43,7 +44,7 @@
               </tr>
               <tr>
                 <td>Known</td>
-                <td>{{ .Host.Known }}</td>
+                <td>{{ if eq .Host.Known 1 }}Yes{{ else }}No{{ end }}</td>
               </tr>
               <tr>
                 <td>Online</td>
@@ -92,12 +93,15 @@
         <div class="card border-primary">
           <div class="card-header">History</div>
           <div class="card-body">
-
+            <div id="showHist"></div>
           </div>
         </div>
       </div>
     </div>
   </div>      
+  <script>
+    loadHistory('{{ .Host.Mac }}');
+  </script>
 
 {{ template "footer.html" }}
 {{ end }}

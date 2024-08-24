@@ -33,3 +33,15 @@ func updateDNS(host models.Host) (name, dns string) {
 
 	return name, dns
 }
+
+func getHostsByMAC(mac string, hosts []models.Host) (foundHosts []models.Host) {
+
+	for _, host := range hosts {
+		if host.Mac == mac {
+
+			foundHosts = append(foundHosts, host)
+		}
+	}
+
+	return foundHosts
+}

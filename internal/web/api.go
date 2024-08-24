@@ -1,12 +1,13 @@
 package web
 
 import (
-	// "log"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 
 	"github.com/aceberg/WatchYourLAN/internal/db"
+	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/portscan"
 )
 
@@ -18,8 +19,19 @@ func apiAll(c *gin.Context) {
 }
 
 func apiHistory(c *gin.Context) {
+	var hosts []models.Host
 
-	c.IndentedJSON(http.StatusOK, histHosts)
+	mac := c.Param("mac")
+
+	if mac != "/" {
+		mac = mac[1:]
+		log.Println("MAC", mac)
+		hosts = getHostsByMAC(mac, histHosts)
+	} else {
+		hosts = histHosts
+	}
+
+	c.IndentedJSON(http.StatusOK, hosts)
 }
 
 func apiHost(c *gin.Context) {

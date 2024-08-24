@@ -47,17 +47,16 @@ func startScan() {
 
 func compareHosts(foundHosts []models.Host) {
 
-	// Make map and Insert history
+	// Make map of found hosts
 	foundHostsMap := make(map[string]models.Host)
 	for _, fHost := range foundHosts {
 		foundHostsMap[fHost.Mac] = fHost
-		db.Insert(appConfig.DBPath, "history", fHost)
 	}
 
 	for _, aHost := range allHosts {
 
 		fHost, exists := foundHostsMap[aHost.Mac]
-		if exists && (appConfig.IgnoreIP == "yes" || aHost.IP == fHost.IP) {
+		if exists {
 
 			aHost.Iface = fHost.Iface
 			aHost.IP = fHost.IP
@@ -68,9 +67,11 @@ func compareHosts(foundHosts []models.Host) {
 
 		} else {
 			aHost.Now = 0
-			db.Insert(appConfig.DBPath, "history", aHost)
 		}
 		db.Update(appConfig.DBPath, "now", aHost)
+
+		aHost.Date = time.Now().Format("2006-01-02 15:04:05")
+		db.Insert(appConfig.DBPath, "history", aHost)
 	}
 
 	for _, fHost := range foundHostsMap {

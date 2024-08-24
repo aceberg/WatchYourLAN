@@ -50,12 +50,3 @@ function genHTML(addr, port) {
     html = `<a href="http://${addr}:${port}">${port}</a>&nbsp;&nbsp;&nbsp;`;
     return html;
 }
-
-async function delHost(id) {
-    
-    const url = '/api/host/del/'+id;
-
-    await fetch(url);
-
-    window.location.href = '/';
-}

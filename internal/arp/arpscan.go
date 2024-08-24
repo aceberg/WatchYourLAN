@@ -21,7 +21,6 @@ func parseOutput(text, iface string) []models.Host {
 	var foundHosts = []models.Host{}
 
 	perString := strings.Split(text, "\n")
-	currentTime := time.Now()
 
 	for _, host := range perString {
 		if host != "" {
@@ -31,7 +30,7 @@ func parseOutput(text, iface string) []models.Host {
 			oneHost.IP = p[0]
 			oneHost.Mac = p[1]
 			oneHost.Hw = p[2]
-			oneHost.Date = currentTime.Format("2006-01-02 15:04:05")
+			oneHost.Date = time.Now().Format("2006-01-02 15:04:05")
 			oneHost.Now = 1
 			foundHosts = append(foundHosts, oneHost)
 		}

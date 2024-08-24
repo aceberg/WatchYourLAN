@@ -20,6 +20,9 @@ function createHTML(addr, i) {
             <a href="http://${addr.IP}">${addr.IP}</a>
         </td>
         <td>${addr.Mac}</td>
+        <td>${addr.Hw}</td>
+        <td>${addr.Date}</td>
+        <td>${addr.Known}</td>
         <td>${now}</td>
     </tr>
     `;
