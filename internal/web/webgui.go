@@ -14,7 +14,7 @@ import (
 // Gui - start web server
 func Gui(dirPath, nodePath string) {
 
-	confPath := dirPath + "/config.yaml"
+	confPath := dirPath + "/config_v2.yaml"
 	check.Path(confPath)
 
 	appConfig = conf.Get(confPath)
@@ -54,7 +54,8 @@ func Gui(dirPath, nodePath string) {
 	router.GET("/host/:id", hostHandler)    // host.go
 	router.GET("/config/", configHandler)   // config.go
 
-	router.POST("/config/", saveConfigHandler) // config.go
+	router.POST("/config/", saveConfigHandler)        // config.go
+	router.POST("/config_influx/", saveInfluxHandler) // config.go
 
 	err := router.Run(address)
 	check.IfError(err)

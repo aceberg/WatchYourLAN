@@ -6,6 +6,7 @@ import (
 
 	"github.com/aceberg/WatchYourLAN/internal/arp"
 	"github.com/aceberg/WatchYourLAN/internal/db"
+	"github.com/aceberg/WatchYourLAN/internal/influx"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -72,6 +73,9 @@ func compareHosts(foundHosts []models.Host) {
 
 		aHost.Date = time.Now().Format("2006-01-02 15:04:05")
 		db.Insert(appConfig.DBPath, "history", aHost)
+		if appConfig.InfluxEnable {
+			influx.Add(appConfig, aHost)
+		}
 	}
 
 	for _, fHost := range foundHostsMap {

@@ -2,19 +2,24 @@ package models
 
 // Conf - app config
 type Conf struct {
-	Host     string
-	Port     string
-	Theme    string
-	Color    string
-	DirPath  string
-	ConfPath string
-	DBPath   string
-	NodePath string
-	Ifaces   string
-	// Scaner   string
-	ArpArgs  string
-	Timeout  int
-	TrimHist int
+	Host          string
+	Port          string
+	Theme         string
+	Color         string
+	DirPath       string
+	ConfPath      string
+	DBPath        string
+	NodePath      string
+	Ifaces        string
+	ArpArgs       string
+	Timeout       int
+	TrimHist      int
+	InfluxEnable  bool
+	InfluxAddr    string
+	InfluxToken   string
+	InfluxOrg     string
+	InfluxBucket  string
+	InfluxSkipTLS bool
 }
 
 // Host - one host
