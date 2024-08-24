@@ -16,10 +16,10 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("COLOR", "dark")
 	viper.SetDefault("NODEPATH", "")
 	// viper.SetDefault("SCANER", "arpscan")
-	viper.SetDefault("ARPARGS", "")
+	viper.SetDefault("ARP_ARGS", "")
 	viper.SetDefault("IFACES", "")
 	viper.SetDefault("TIMEOUT", 60)
-	viper.SetDefault("IGNOREIP", "no")
+	viper.SetDefault("TRIM_HIST", 48)
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
@@ -34,10 +34,10 @@ func Get(path string) (config models.Conf) {
 	config.Color = viper.Get("COLOR").(string)
 	config.NodePath = viper.Get("NODEPATH").(string)
 	// config.Scaner = viper.Get("SCANER").(string)
-	config.ArpArgs = viper.Get("ARPARGS").(string)
+	config.ArpArgs = viper.Get("ARP_ARGS").(string)
 	config.Ifaces = viper.Get("IFACES").(string)
 	config.Timeout = viper.GetInt("TIMEOUT")
-	config.IgnoreIP = viper.Get("IGNOREIP").(string)
+	config.TrimHist = viper.GetInt("TRIM_HIST")
 
 	return config
 }
@@ -54,10 +54,10 @@ func Write(config models.Conf) {
 	viper.Set("COLOR", config.Color)
 	viper.Set("NODEPATH", config.NodePath)
 	// viper.Set("SCANER", config.Scaner)
-	viper.Set("ARPARGS", config.ArpArgs)
+	viper.Set("ARP_ARGS", config.ArpArgs)
 	viper.Set("IFACES", config.Ifaces)
 	viper.Set("TIMEOUT", config.Timeout)
-	viper.Set("IGNOREIP", config.IgnoreIP)
+	viper.Set("TRIM_HIST", config.TrimHist)
 
 	err := viper.WriteConfig()
 	check.IfError(err)

@@ -43,16 +43,16 @@
                   <td><input name="ifaces" type="text" class="form-control" value="{{ .Config.Ifaces }}"></td>
                 </tr>
                 <tr>
-                  <td>Ignore IP</td>
-                  <td><select name="ignore" class="form-select">
-                    <option selected>{{ .Config.IgnoreIP }}</option>
-                    <option value="yes">yes</option>
-                    <option value="no">no</option>
-                  </select></td>
+                  <td>Timeout</td>
+                  <td><input name="timeout" type="number" class="form-control" value="{{ .Config.Timeout }}"></td>
                 </tr>
                 <tr>
                   <td>Args for arpscan</td>
                   <td><input name="arpargs" type="text" class="form-control" value="{{ .Config.ArpArgs }}"></td>
+                </tr>
+                <tr>
+                  <td>Trim History (hours)</td>
+                  <td><input name="trim" type="number" class="form-control" value="{{ .Config.TrimHist }}"></td>
                 </tr>
                 <tr>
                   <td><button type="submit" class="btn btn-primary">Save</button></td>

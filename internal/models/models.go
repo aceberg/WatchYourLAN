@@ -14,7 +14,7 @@ type Conf struct {
 	// Scaner   string
 	ArpArgs  string
 	Timeout  int
-	IgnoreIP string
+	TrimHist int
 }
 
 // Host - one host

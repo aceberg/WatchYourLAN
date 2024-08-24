@@ -1,46 +1,60 @@
-var addrsArray = {};
+let show = 500;
+let addrsArray;
 
 loadAddrs();
 
-function createHTML(addr, i) {
-    let now = '';
-
-    if (addr.Now == 0) {
-        now = `<i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>`;
-    } else {
-        now = `<i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>`;
-    }
-    
-    let html = `
-    <tr>
-        <td style="opacity: 45%;">${i}.</td>
-        <td>${addr.Name}</td>
-        <td>${addr.Iface}</td>
-        <td>
-            <a href="http://${addr.IP}">${addr.IP}</a>
-        </td>
-        <td>${addr.Mac}</td>
-        <td>${addr.Hw}</td>
-        <td>${addr.Date}</td>
-        <td>${addr.Known}</td>
-        <td>${now}</td>
-    </tr>
-    `;
-    
-    return html;
-}
-
 async function loadAddrs() {
     
-    let url = '/api/history';
-    let addrsMap = await (await fetch(url)).json();
-    if (addrsMap != null) {
-        addrsArray = Object.values(addrsMap);
+    const n = localStorage.getItem("histShow");
+    if (n != null) {
+        show = n;
     }
 
-    displayArrayData(addrsArray);
+    const url = '/api/all';
+    addrsArray = await (await fetch(url)).json();
+
+    loadHistory();
 }
 
-function sortBy(field) {
-    sortByAny(addrsArray, field);
+async function loadHistory() {
+    
+    let tr, td, url, hist;
+    let i = 0;
+
+    document.getElementById('showHist').innerHTML = '';
+
+    for (let a of addrsArray) {
+        url = '/api/history/'+a.Mac;
+        hist = await (await fetch(url)).json();
+        if (show > 0) {
+            hist = hist.slice(0, show);
+        }
+
+        td = getHistHTML(hist); // hist-html.js
+        i = i + 1;
+
+        tr = `
+        <tr>
+            <td style="opacity: 45%;">${i}.</td>
+            <td>
+                <p>${a.Name}</p>
+                <p><a href="http://${a.IP}" target="blank">${a.IP}</a></p>
+                <p><a href="/host/${a.ID}">${a.Mac}</a></p>
+            </td>
+            <td>${td}</td>
+        </tr>`;
+
+        document.getElementById('showHist').insertAdjacentHTML('beforeend', tr);
+    }
+}
+
+function showHist(n) {
+    show = n;
+    localStorage.setItem("histShow", show);
+    loadHistory();
+}
+
+function manualShow() {
+    const n = document.getElementById('man-show').value;
+    showHist(n);
 }

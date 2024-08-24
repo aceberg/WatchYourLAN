@@ -1,27 +1,35 @@
 {{ define "history.html" }}
 </head>
 <script src="/fs/public/js/history.js"></script>
-<script src="/fs/public/js/sort.js"></script>
+<script src="/fs/public/js/hist-html.js"></script>
+
 <body>
 <div class="container-lg">
   <div class="row">
     <div class="col-md mt-4 mb-4">
       <div class="card border-primary">
+        <div class="card-header">
+          <div class="input-group">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Show</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="showHist(500)">500</a></li>
+                <li><a class="dropdown-item" onclick="showHist(1000)">1000</a></li>
+                <li><a class="dropdown-item" onclick="showHist(2000)">2000</a></li>
+                <li><a class="dropdown-item" onclick="showHist(5000)">5000</a></li>
+                <li><a class="dropdown-item" onclick="showHist(0)">All</a></li>
+              </ul>
+            <input class="form-control" id="man-show" onchange="manualShow()" placeholder="Show elements" style="max-width: 10em;">
+          </div>
+        </div>
         <div class="card-body table-responsive">
           <table class="table table-striped">
             <thead>
               <th style="width: 3em;"></th>
-              <th>Name <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Name')"></i></th>
-              <th>Iface <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Iface')"></i></th>
-              <th>IP <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('IP')"></i></th>
-              <th>MAC <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Mac')"></i></th>
-              <th>Hardware <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Hw')"></i></th>
-              <th>Date <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Date')"></i></th>
-              <th>Known <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Known')"></i></th>
-              <th>Online <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Now')"></i></th>
+              <th>Host</th>
+              <th>History</th>
             </thead>
-            <tbody id="tBody"></tbody> 
-            <!-- index.js -->
+            <tbody id="showHist"></tbody>
+            <!-- history.js -->
           </table>
         </div>
       </div>

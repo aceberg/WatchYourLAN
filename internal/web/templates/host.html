@@ -2,6 +2,7 @@
 
 <script src="/fs/public/js/host-scan.js"></script>
 <script src="/fs/public/js/host.js"></script>
+<script src="/fs/public/js/hist-html.js"></script>
 <body>
   <div class="container-lg">
     <div class="row">
@@ -91,7 +92,19 @@
     <div class="row">
       <div class="col-md mb-4">
         <div class="card border-primary">
-          <div class="card-header">History</div>
+          <div class="card-header">
+            <div class="input-group">
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Show</button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" onclick="showHist(500)">500</a></li>
+                  <li><a class="dropdown-item" onclick="showHist(1000)">1000</a></li>
+                  <li><a class="dropdown-item" onclick="showHist(2000)">2000</a></li>
+                  <li><a class="dropdown-item" onclick="showHist(5000)">5000</a></li>
+                  <li><a class="dropdown-item" onclick="showHist(0)">All</a></li>
+                </ul>
+              <input class="form-control" id="man-show" onchange="manualShow()" placeholder="Show elements" style="max-width: 10em;">
+            </div>
+          </div>
           <div class="card-body">
             <div id="showHist"></div>
           </div>
