@@ -1,31 +1,23 @@
 package web
 
 import (
-	// "log/slog"
+	"fmt"
+	"log/slog"
 	"time"
 
 	"github.com/aceberg/WatchYourLAN/internal/arp"
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/influx"
 	"github.com/aceberg/WatchYourLAN/internal/models"
+	"github.com/aceberg/WatchYourLAN/internal/notify"
 )
 
-func updateScan() {
-	db.Create(appConfig.DBPath)
-
-	allHosts = db.Select(appConfig.DBPath, "now")
-	histHosts = db.Select(appConfig.DBPath, "history")
-
-	quitScan = make(chan bool)
-	go startScan()
-}
-
-func startScan() {
+func startScan(quit chan bool) {
 	var lastDate time.Time
 
 	for {
 		select {
-		case <-quitScan:
+		case <-quit:
 			return
 		default:
 			nowDate := time.Now()
@@ -80,7 +72,10 @@ func compareHosts(foundHosts []models.Host) {
 
 	for _, fHost := range foundHostsMap {
 
-		// NOTIFY, LOG
+		msg := fmt.Sprintf("Unknown host IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
+		slog.Warn(msg)
+		notify.Shout(msg, appConfig.ShoutURL) // Notify through Shoutrrr
+
 		fHost.Name, fHost.DNS = updateDNS(fHost)
 		db.Insert(appConfig.DBPath, "now", fHost)
 	}

@@ -10,10 +10,12 @@ type Conf struct {
 	ConfPath      string
 	DBPath        string
 	NodePath      string
+	LogLevel      string
 	Ifaces        string
 	ArpArgs       string
 	Timeout       int
 	TrimHist      int
+	ShoutURL      string
 	InfluxEnable  bool
 	InfluxAddr    string
 	InfluxToken   string

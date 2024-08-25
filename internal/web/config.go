@@ -35,8 +35,10 @@ func saveConfigHandler(c *gin.Context) {
 	appConfig.Theme = c.PostForm("theme")
 	appConfig.Color = c.PostForm("color")
 	appConfig.NodePath = c.PostForm("node")
+	appConfig.LogLevel = c.PostForm("log")
 	appConfig.ArpArgs = c.PostForm("arpargs")
 	appConfig.Ifaces = c.PostForm("ifaces")
+	appConfig.ShoutURL = c.PostForm("shout")
 
 	timeout := c.PostForm("timeout")
 	trimHist := c.PostForm("trim")
@@ -46,6 +48,8 @@ func saveConfigHandler(c *gin.Context) {
 	conf.Write(appConfig)
 
 	slog.Info("writing new config to " + appConfig.ConfPath)
+
+	updateRoutines() // routines-upd.go
 
 	c.Redirect(http.StatusFound, "/config")
 }

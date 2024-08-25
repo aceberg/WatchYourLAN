@@ -24,7 +24,8 @@ func Gui(dirPath, nodePath string) {
 	appConfig.DBPath = dirPath + "/scan.db"
 	appConfig.NodePath = nodePath
 
-	updateScan() // scan.go
+	quitScan = make(chan bool)
+	updateRoutines() // routines-upd.go
 
 	slog.Info("config", "path", appConfig.DirPath)
 
@@ -35,7 +36,9 @@ func Gui(dirPath, nodePath string) {
 	slog.Info("=================================== ")
 
 	gin.SetMode(gin.ReleaseMode)
-	router := gin.Default()
+	// router := gin.Default()
+	router := gin.New()
+	router.Use(gin.Recovery())
 
 	templ := template.Must(template.New("").ParseFS(templFS, "templates/*"))
 	router.SetHTMLTemplate(templ) // templates
@@ -45,7 +48,7 @@ func Gui(dirPath, nodePath string) {
 	router.GET("/api/all", apiAll)                    // api.go
 	router.GET("/api/edit/:id/:name/*known", apiEdit) // api.go
 	router.GET("/api/history/*mac", apiHistory)       // api.go
-	router.GET("/api/host", apiHost)                  // api.go
+	router.GET("/api/host/:id", apiHost)              // api.go
 	router.GET("/api/host/del/:id", apiHostDel)       // api.go
 	router.GET("/api/port/:addr/:port", apiPort)      // api.go
 

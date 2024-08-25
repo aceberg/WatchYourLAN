@@ -39,6 +39,23 @@
                   <td><input name="node" type="text" class="form-control" value="{{ .Config.NodePath }}"></td>
                 </tr>
                 <tr>
+                  <td>Shoutrrr URL</td>
+                  <td>
+                    <textarea name="shout" class="form-control" style="width: 100%;" rows="3" wrap="soft">{{ .Config.ShoutURL }}</textarea>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Log level</td>
+                  <td><select name="log" class="form-select">
+                    <option selected>{{ .Config.LogLevel }}</option>
+                    <option value="debug">debug</option>
+                    <option value="info">info</option>
+                    <option value="warn">warn</option>
+                    <option value="error">error</option>
+                  </select></td>
+                </tr>
+                <tr>
+                <tr>
                   <td>Interfaces</td>
                   <td><input name="ifaces" type="text" class="form-control" value="{{ .Config.Ifaces }}"></td>
                 </tr>

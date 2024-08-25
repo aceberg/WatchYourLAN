@@ -1,7 +1,7 @@
 package web
 
 import (
-	"log"
+	// "log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -25,7 +25,6 @@ func apiHistory(c *gin.Context) {
 
 	if mac != "/" {
 		mac = mac[1:]
-		log.Println("MAC", mac)
 		hosts = getHostsByMAC(mac, histHosts)
 	} else {
 		hosts = histHosts

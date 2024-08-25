@@ -1,7 +1,7 @@
 package arp
 
 import (
-	"log"
+	"log/slog"
 	"os/exec"
 	"strings"
 	"time"
@@ -49,8 +49,8 @@ func Scan(ifaces string) []models.Host {
 	for _, iface := range perString {
 		text = scanIface(iface)
 
-		log.Println("INFO: scanning interface", iface)
-		log.Println("INFO: found IPs:", text)
+		slog.Debug("Scanning interface " + iface)
+		slog.Debug("Found IPs: \n" + text)
 
 		foundHosts = append(foundHosts, parseOutput(text, iface)...)
 	}
