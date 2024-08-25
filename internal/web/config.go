@@ -47,7 +47,7 @@ func saveConfigHandler(c *gin.Context) {
 
 	conf.Write(appConfig)
 
-	slog.Info("writing new config to " + appConfig.ConfPath)
+	slog.Info("Writing new config to " + appConfig.ConfPath)
 
 	updateRoutines() // routines-upd.go
 
@@ -76,7 +76,7 @@ func saveInfluxHandler(c *gin.Context) {
 
 	conf.Write(appConfig)
 
-	slog.Info("writing new config to " + appConfig.ConfPath)
+	slog.Info("Writing new config to " + appConfig.ConfPath)
 
 	c.Redirect(http.StatusFound, "/config")
 }

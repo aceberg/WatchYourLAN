@@ -1,7 +1,7 @@
 package web
 
 import (
-	// "log"
+	"log/slog"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -48,6 +48,8 @@ func apiHostDel(c *gin.Context) {
 	host := getHostByID(idStr, allHosts) // functions.go
 	db.Delete(appConfig.DBPath, "now", host.ID)
 	allHosts = db.Select(appConfig.DBPath, "now")
+
+	slog.Info("Deleting from DB", "host", host)
 
 	c.IndentedJSON(http.StatusOK, "OK")
 }

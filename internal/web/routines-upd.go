@@ -7,6 +7,7 @@ import (
 )
 
 func updateRoutines() {
+	slog.Debug("Restarting go routines")
 
 	close(quitScan)
 
@@ -26,15 +27,20 @@ func setLogLevel() {
 
 	switch appConfig.LogLevel {
 	case "debug":
+		slog.Info("Log level=DEBUG")
 		level = slog.LevelDebug
 	case "info":
+		slog.Info("Log level=INFO")
 		level = slog.LevelInfo
 	case "warn":
+		slog.Info("Log level=WARN")
 		level = slog.LevelWarn
 	case "error":
+		slog.Info("Log level=ERROR")
 		level = slog.LevelError
 	default:
-		// invalid log level, handle error
+		slog.Error("Invalid log level. Setting default level INFO")
+		slog.SetLogLoggerLevel(slog.LevelInfo)
 	}
 	slog.SetLogLoggerLevel(level)
 }
