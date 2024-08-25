@@ -12,10 +12,6 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/notify"
 )
 
-var foundHostsMap map[string]models.Host
-var aHost, fHost models.Host
-var exists bool
-
 func startScan(quit chan bool) {
 	var lastDate, nowDate, plusDate time.Time
 	var foundHosts []models.Host
@@ -33,7 +29,6 @@ func startScan(quit chan bool) {
 				foundHosts = arp.Scan(appConfig.Ifaces)
 				compareHosts(foundHosts)
 				allHosts = db.Select(appConfig.DBPath, "now")
-				histHosts = db.Select(appConfig.DBPath, "history")
 
 				lastDate = time.Now()
 			}
@@ -46,14 +41,14 @@ func startScan(quit chan bool) {
 func compareHosts(foundHosts []models.Host) {
 
 	// Make map of found hosts
-	foundHostsMap = make(map[string]models.Host)
-	for _, fHost = range foundHosts {
+	foundHostsMap := make(map[string]models.Host)
+	for _, fHost := range foundHosts {
 		foundHostsMap[fHost.Mac] = fHost
 	}
 
-	for _, aHost = range allHosts {
+	for _, aHost := range allHosts {
 
-		fHost, exists = foundHostsMap[aHost.Mac]
+		fHost, exists := foundHostsMap[aHost.Mac]
 		if exists {
 
 			aHost.Iface = fHost.Iface
@@ -75,7 +70,7 @@ func compareHosts(foundHosts []models.Host) {
 		}
 	}
 
-	for _, fHost = range foundHostsMap {
+	for _, fHost := range foundHostsMap {
 
 		msg := fmt.Sprintf("Unknown host IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
 		slog.Warn(msg)

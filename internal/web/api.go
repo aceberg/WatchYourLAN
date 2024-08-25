@@ -21,6 +21,8 @@ func apiAll(c *gin.Context) {
 func apiHistory(c *gin.Context) {
 	var hosts []models.Host
 
+	histHosts := db.Select(appConfig.DBPath, "history")
+
 	mac := c.Param("mac")
 
 	if mac != "/" {

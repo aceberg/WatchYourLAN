@@ -10,8 +10,8 @@ var (
 	// appConfig - config for Web Gui
 	appConfig models.Conf
 
-	allHosts  []models.Host
-	histHosts []models.Host
+	allHosts []models.Host
+	// histHosts []models.Host
 
 	quitScan chan bool
 )

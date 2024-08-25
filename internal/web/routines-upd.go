@@ -16,7 +16,6 @@ func updateRoutines() {
 	db.Create(appConfig.DBPath)
 
 	allHosts = db.Select(appConfig.DBPath, "now")
-	histHosts = db.Select(appConfig.DBPath, "history")
 
 	quitScan = make(chan bool)
 	go startScan(quitScan) // scan-routine.go
