@@ -2,20 +2,24 @@ package models
 
 // Conf - app config
 type Conf struct {
-	Host          string
-	Port          string
-	Theme         string
-	Color         string
-	DirPath       string
-	ConfPath      string
-	DBPath        string
-	NodePath      string
-	LogLevel      string
-	Ifaces        string
-	ArpArgs       string
-	Timeout       int
-	TrimHist      int
-	ShoutURL      string
+	Host     string
+	Port     string
+	Theme    string
+	Color    string
+	DirPath  string
+	ConfPath string
+	DBPath   string
+	NodePath string
+	LogLevel string
+	Ifaces   string
+	ArpArgs  string
+	Timeout  int
+	TrimHist int
+	ShoutURL string
+	// PostgreSQL
+	UseDB     string
+	PGConnect string
+	// InfluxDB
 	InfluxEnable  bool
 	InfluxAddr    string
 	InfluxToken   string

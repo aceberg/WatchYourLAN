@@ -40,6 +40,9 @@ func saveConfigHandler(c *gin.Context) {
 	appConfig.Ifaces = c.PostForm("ifaces")
 	appConfig.ShoutURL = c.PostForm("shout")
 
+	appConfig.UseDB = c.PostForm("usedb")
+	appConfig.PGConnect = c.PostForm("pgconnect")
+
 	timeout := c.PostForm("timeout")
 	trimHist := c.PostForm("trim")
 	appConfig.Timeout, _ = strconv.Atoi(timeout)

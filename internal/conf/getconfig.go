@@ -21,6 +21,10 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("TIMEOUT", 60)
 	viper.SetDefault("TRIM_HIST", 48)
 	viper.SetDefault("SHOUTRRR_URL", "")
+
+	viper.SetDefault("USE_DB", "sqlite")
+	viper.SetDefault("PG_CONNECT", "")
+
 	viper.SetDefault("INFLUX_ENABLE", false)
 
 	viper.SetConfigFile(path)
@@ -41,6 +45,9 @@ func Get(path string) (config models.Conf) {
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.TrimHist = viper.GetInt("TRIM_HIST")
 	config.ShoutURL = viper.Get("SHOUTRRR_URL").(string)
+
+	config.UseDB = viper.Get("USE_DB").(string)
+	config.PGConnect = viper.Get("PG_CONNECT").(string)
 
 	config.InfluxEnable = viper.GetBool("INFLUX_ENABLE")
 	config.InfluxSkipTLS = viper.GetBool("INFLUX_SKIP_TLS")
@@ -69,6 +76,9 @@ func Write(config models.Conf) {
 	viper.Set("TIMEOUT", config.Timeout)
 	viper.Set("TRIM_HIST", config.TrimHist)
 	viper.Set("SHOUTRRR_URL", config.ShoutURL)
+
+	viper.Set("USE_DB", config.UseDB)
+	viper.Set("PG_CONNECT", config.PGConnect)
 
 	viper.Set("influx_enable", config.InfluxEnable)
 	viper.Set("influx_skip_tls", config.InfluxSkipTLS)

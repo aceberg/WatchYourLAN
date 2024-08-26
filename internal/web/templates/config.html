@@ -45,6 +45,20 @@
                   </td>
                 </tr>
                 <tr>
+                  <td>Use DB</td>
+                  <td><select name="usedb" class="form-select">
+                    <option selected>{{ .Config.UseDB }}</option>
+                    <option value="sqlite">sqlite</option>
+                    <option value="postgres">postgres</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <td>PG Connect URL</td>
+                  <td>
+                    <textarea name="pgconnect" class="form-control" style="width: 100%;" rows="3" wrap="soft">{{ .Config.PGConnect }}</textarea>
+                  </td>
+                </tr>
+                <tr>
                   <td>Log level</td>
                   <td><select name="log" class="form-select">
                     <option selected>{{ .Config.LogLevel }}</option>

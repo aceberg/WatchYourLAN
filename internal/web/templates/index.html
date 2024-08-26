@@ -2,15 +2,17 @@
 </head>
 <script src="/fs/public/js/index.js"></script>
 <script src="/fs/public/js/sort.js"></script>
-<script src="/fs/public/js/filter.js"></script>
+<script src="/fs/public/js/filter-search.js"></script>
 <body>
 <div class="container-lg">
   <div class="row">
     <div class="col-md mt-4 mb-4">
       <div class="card border-primary">
         <div class="card-header">
-          <div class="d-flex justify-content-between">
-            <div class="d-flex justify-content-left gap-3">
+          <!-- <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-left gap-3"> -->
+          <div class="row">
+            <div class="col-md mt-1 mb-1">
               <button class="btn btn-outline-primary" disabled>Filter by</button>
               <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Iface</button>
               <ul class="dropdown-menu">
@@ -30,7 +32,12 @@
               </ul>
               <button class="btn btn-outline-primary" onclick="resetFilter()">Reset filter</button>
             </div>
-            <button class="btn btn-outline-primary" id="edit" onclick="editClick()">Edit names</button>
+            <div class="col-md mt-1 mb-1">
+              <div class="d-flex justify-content-between">
+                <input class="form-control" id="search" oninput="searchFunc()" placeholder="Search" style="max-width: 10em;">
+                <button class="btn btn-outline-primary" id="edit" onclick="editClick()">Edit names</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-body table-responsive">

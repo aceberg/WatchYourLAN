@@ -27,7 +27,7 @@ func Gui(dirPath, nodePath string) {
 	quitScan = make(chan bool)
 	updateRoutines() // routines-upd.go
 
-	slog.Info("config", "path", appConfig.DirPath)
+	slog.Info("Config dir", "path", appConfig.DirPath)
 
 	address := appConfig.Host + ":" + appConfig.Port
 
