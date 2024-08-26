@@ -13,9 +13,10 @@ func updateRoutines() {
 
 	setLogLevel()
 
-	db.Create(appConfig.DBPath)
+	db.SetCurrent(appConfig)
+	db.Create()
 
-	allHosts = db.Select(appConfig.DBPath, "now")
+	allHosts = db.Select("now")
 
 	quitScan = make(chan bool)
 	go startScan(quitScan) // scan-routine.go

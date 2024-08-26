@@ -13,7 +13,7 @@ import (
 
 func apiAll(c *gin.Context) {
 
-	allHosts = db.Select(appConfig.DBPath, "now")
+	allHosts = db.Select("now")
 
 	c.IndentedJSON(http.StatusOK, allHosts)
 }
@@ -21,7 +21,7 @@ func apiAll(c *gin.Context) {
 func apiHistory(c *gin.Context) {
 	var hosts []models.Host
 
-	histHosts := db.Select(appConfig.DBPath, "history")
+	histHosts := db.Select("history")
 
 	mac := c.Param("mac")
 
@@ -48,8 +48,8 @@ func apiHostDel(c *gin.Context) {
 
 	idStr := c.Param("id")
 	host := getHostByID(idStr, allHosts) // functions.go
-	db.Delete(appConfig.DBPath, "now", host.ID)
-	allHosts = db.Select(appConfig.DBPath, "now")
+	db.Delete("now", host.ID)
+	allHosts = db.Select("now")
 
 	slog.Info("Deleting from DB", "host", host)
 
@@ -80,8 +80,8 @@ func apiEdit(c *gin.Context) {
 		}
 		// log.Println("EDIT: ", host)
 
-		db.Update(appConfig.DBPath, "now", host)
-		allHosts = db.Select(appConfig.DBPath, "now")
+		db.Update("now", host)
+		allHosts = db.Select("now")
 	}
 
 	c.IndentedJSON(http.StatusOK, "OK")

@@ -28,7 +28,7 @@ func startScan(quit chan bool) {
 
 				foundHosts = arp.Scan(appConfig.Ifaces)
 				compareHosts(foundHosts)
-				allHosts = db.Select(appConfig.DBPath, "now")
+				allHosts = db.Select("now")
 
 				lastDate = time.Now()
 			}
@@ -61,10 +61,10 @@ func compareHosts(foundHosts []models.Host) {
 		} else {
 			aHost.Now = 0
 		}
-		db.Update(appConfig.DBPath, "now", aHost)
+		db.Update("now", aHost)
 
 		aHost.Date = time.Now().Format("2006-01-02 15:04:05")
-		db.Insert(appConfig.DBPath, "history", aHost)
+		db.Insert("history", aHost)
 		if appConfig.InfluxEnable {
 			influx.Add(appConfig, aHost)
 		}
@@ -77,6 +77,6 @@ func compareHosts(foundHosts []models.Host) {
 		notify.Shout(msg, appConfig.ShoutURL) // Notify through Shoutrrr
 
 		fHost.Name, fHost.DNS = updateDNS(fHost)
-		db.Insert(appConfig.DBPath, "now", fHost)
+		db.Insert("now", fHost)
 	}
 }

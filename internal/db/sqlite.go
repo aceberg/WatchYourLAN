@@ -14,10 +14,10 @@ import (
 
 var mu sync.Mutex
 
-func dbExec(path, sqlStatement string) {
+func dbExecLite(sqlStatement string) {
 
 	mu.Lock()
-	db, err := sqlx.Connect("sqlite", path)
+	db, err := sqlx.Connect("sqlite", currentDB.SQLitePath)
 	check.IfError(err)
 	defer db.Close()
 
@@ -27,13 +27,12 @@ func dbExec(path, sqlStatement string) {
 	check.IfError(err)
 }
 
-// Select - select all hosts
-func Select(path, table string) (dbHosts []models.Host) {
+func selectLite(table string) (dbHosts []models.Host) {
 
 	sqlStatement := "SELECT * FROM " + table + " ORDER BY DATE DESC"
 
 	mu.Lock()
-	db, _ := sqlx.Connect("sqlite", path)
+	db, _ := sqlx.Connect("sqlite", currentDB.SQLitePath)
 	defer db.Close()
 
 	err := db.Select(&dbHosts, sqlStatement)
