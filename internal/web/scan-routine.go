@@ -26,7 +26,7 @@ func startScan(quit chan bool) {
 
 			if nowDate.After(plusDate) {
 
-				foundHosts = arp.Scan(appConfig.Ifaces)
+				foundHosts = arp.Scan(appConfig.Ifaces, appConfig.ArpArgs)
 				compareHosts(foundHosts)
 				allHosts = db.Select("now")
 

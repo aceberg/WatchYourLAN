@@ -44,9 +44,10 @@ func SetCurrent(config models.Conf) {
 	currentDB.SQLitePath = config.DBPath
 	currentDB.PGConnect = config.PGConnect
 
-	if currentDB.Use == "postgres" {
+	if currentDB.Use == "postgres" && currentDB.PGConnect != "" {
 		currentDB.PrimaryKey = "BIGSERIAL PRIMARY KEY"
 	} else {
+		currentDB.Use = "sqlite"
 		currentDB.PrimaryKey = "INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE"
 	}
 

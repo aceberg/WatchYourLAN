@@ -6,15 +6,27 @@ import (
 	"strings"
 	"time"
 
+	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
+var arpArgs string
+
 func scanIface(iface string) string {
-	cmd, err := exec.Command("arp-scan", "-glNx", "-I", iface).Output()
-	if err != nil {
+	var cmd *exec.Cmd
+
+	if arpArgs != "" {
+		cmd = exec.Command("arp-scan", "-glNx", arpArgs, "-I", iface)
+	} else {
+		cmd = exec.Command("arp-scan", "-glNx", "-I", iface)
+	}
+	out, err := cmd.Output()
+	slog.Debug(cmd.String())
+
+	if check.IfError(err) {
 		return string("")
 	}
-	return string(cmd)
+	return string(out)
 }
 
 func parseOutput(text, iface string) []models.Host {
@@ -40,16 +52,16 @@ func parseOutput(text, iface string) []models.Host {
 }
 
 // Scan all interfaces
-func Scan(ifaces string) []models.Host {
+func Scan(ifaces, args string) []models.Host {
 	var text string
 	var foundHosts = []models.Host{}
+	arpArgs = args
 
 	perString := strings.Split(ifaces, " ")
 
 	for _, iface := range perString {
-		text = scanIface(iface)
-
 		slog.Debug("Scanning interface " + iface)
+		text = scanIface(iface)
 		slog.Debug("Found IPs: \n" + text)
 
 		foundHosts = append(foundHosts, parseOutput(text, iface)...)

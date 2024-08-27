@@ -1,7 +1,7 @@
 package db
 
 import (
-	// "log/slog"
+	"log/slog"
 
 	"github.com/jmoiron/sqlx"
 
@@ -17,7 +17,11 @@ func dbExecPG(sqlStatement string) {
 	// slog.Debug("PG Exec " + sqlStatement)
 
 	db, err := sqlx.Connect("postgres", currentDB.PGConnect)
-	check.IfError(err)
+	if check.IfError(err) {
+		slog.Warn("PostgreSQL connection error. Falling back to SQLite.")
+		currentDB.Use = "sqlite"
+		Create()
+	}
 	defer db.Close()
 
 	_, err = db.Exec(sqlStatement)
@@ -30,10 +34,15 @@ func selectPG(table string) (dbHosts []models.Host) {
 
 	// slog.Debug("PG Select " + sqlStatement)
 
-	db, _ := sqlx.Connect("postgres", currentDB.PGConnect)
+	db, err := sqlx.Connect("postgres", currentDB.PGConnect)
+	if check.IfError(err) {
+		slog.Warn("PostgreSQL connection error. Falling back to SQLite.")
+		currentDB.Use = "sqlite"
+		Create()
+	}
 	defer db.Close()
 
-	err := db.Select(&dbHosts, sqlStatement)
+	err = db.Select(&dbHosts, sqlStatement)
 	check.IfError(err)
 
 	return dbHosts
