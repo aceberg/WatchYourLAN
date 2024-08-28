@@ -25,7 +25,8 @@ func Gui(dirPath, nodePath string) {
 	appConfig.NodePath = nodePath
 
 	quitScan = make(chan bool)
-	updateRoutines() // routines-upd.go
+	updateRoutines()        // routines-upd.go
+	go trimHistoryRoutine() // trim-history.go
 
 	slog.Info("Config dir", "path", appConfig.DirPath)
 
@@ -57,8 +58,9 @@ func Gui(dirPath, nodePath string) {
 	router.GET("/host/:id", hostHandler)    // host.go
 	router.GET("/config/", configHandler)   // config.go
 
-	router.POST("/config/", saveConfigHandler)        // config.go
-	router.POST("/config_influx/", saveInfluxHandler) // config.go
+	router.POST("/config/", saveConfigHandler)            // config.go
+	router.POST("/config_settings/", saveSettingsHandler) // config.go
+	router.POST("/config_influx/", saveInfluxHandler)     // config.go
 
 	err := router.Run(address)
 	check.IfError(err)

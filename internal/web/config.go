@@ -35,10 +35,20 @@ func saveConfigHandler(c *gin.Context) {
 	appConfig.Theme = c.PostForm("theme")
 	appConfig.Color = c.PostForm("color")
 	appConfig.NodePath = c.PostForm("node")
+	appConfig.ShoutURL = c.PostForm("shout")
+
+	conf.Write(appConfig)
+
+	slog.Info("Writing new config to " + appConfig.ConfPath)
+
+	c.Redirect(http.StatusFound, "/config")
+}
+
+func saveSettingsHandler(c *gin.Context) {
+
 	appConfig.LogLevel = c.PostForm("log")
 	appConfig.ArpArgs = c.PostForm("arpargs")
 	appConfig.Ifaces = c.PostForm("ifaces")
-	appConfig.ShoutURL = c.PostForm("shout")
 
 	appConfig.UseDB = c.PostForm("usedb")
 	appConfig.PGConnect = c.PostForm("pgconnect")

@@ -7,7 +7,7 @@ import (
 )
 
 func updateRoutines() {
-	slog.Debug("Restarting go routines")
+	slog.Debug("Restarting scan routine")
 
 	close(quitScan)
 
