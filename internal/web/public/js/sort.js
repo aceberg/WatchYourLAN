@@ -17,11 +17,7 @@ function sortByAny(someArray, field) {
     if (field != oldField) {
         
         if (field == 'IP') {
-            someArray.sort((a, b) => {
-                const num1 = Number(a.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
-                const num2 = Number(b.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
-                return num1-num2;
-            });
+            someArray.sort((a, b) => sortIP(a, b, true));
         } else {
             someArray.sort(byFieldDown(field));
         }
@@ -30,11 +26,7 @@ function sortByAny(someArray, field) {
     } else {
         
         if (field == 'IP') {
-            someArray.sort((a, b) => {
-                const num1 = Number(a.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
-                const num2 = Number(b.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
-                return num2-num1;
-            });
+            someArray.sort((a, b) => sortIP(a, b, false));
         } else {
             someArray.sort(byFieldUp(field));
         }
@@ -51,4 +43,15 @@ function byFieldUp(fieldName){
 
 function byFieldDown(fieldName){
     return (a, b) => a[fieldName] > b[fieldName] ? 1 : -1;
+}
+
+function sortIP(a, b, down) {
+    const num1 = Number(a.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
+    const num2 = Number(b.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
+    if (down) {
+        return num1-num2;
+    } else {
+        return num2-num1;
+    }
+    
 }

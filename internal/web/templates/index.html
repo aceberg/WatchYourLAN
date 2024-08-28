@@ -3,14 +3,21 @@
 <script src="/fs/public/js/index.js"></script>
 <script src="/fs/public/js/sort.js"></script>
 <script src="/fs/public/js/filter-search.js"></script>
+<script src="/fs/public/js/refresh.js"></script>
 <body>
 <div class="container-lg">
   <div class="row">
-    <div class="col-md mt-4 mb-4">
+    <div class="col-md mt-2">
+      <div class="form-check form-switch">
+        <input type="hidden" id="ref-timeout" value="{{ .Config.Timeout }}">
+        <input class="form-check-input" type="checkbox" id="ref" onclick="toggleRefresh()" title="Auto refresh">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md mt-2 mb-4">
       <div class="card border-primary">
         <div class="card-header">
-          <!-- <div class="d-flex justify-content-between">
-            <div class="d-flex justify-content-left gap-3"> -->
           <div class="row">
             <div class="col-md mt-1 mb-1">
               <button class="btn btn-outline-primary" disabled>Filter by</button>
