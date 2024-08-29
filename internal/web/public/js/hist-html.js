@@ -1,6 +1,8 @@
 
 function getHistHTML(hist) {
 
+    hist = sortHistByDate(hist);
+
     let html = '', col, title;
 
     for (let h of hist) {
@@ -17,4 +19,11 @@ function getHistHTML(hist) {
         </svg></i>`;
     }
     return html;
+}
+
+function sortHistByDate(hist) {
+
+    hist.sort((a, b) => (a.Date > b.Date));
+
+    return hist;
 }
