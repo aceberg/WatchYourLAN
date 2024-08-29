@@ -58,6 +58,13 @@ func saveSettingsHandler(c *gin.Context) {
 	appConfig.Timeout, _ = strconv.Atoi(timeout)
 	appConfig.TrimHist, _ = strconv.Atoi(trimHist)
 
+	histdb := c.PostForm("histdb")
+	if histdb == "on" {
+		appConfig.HistInDB = true
+	} else {
+		appConfig.HistInDB = false
+	}
+
 	conf.Write(appConfig)
 
 	slog.Info("Writing new config to " + appConfig.ConfPath)

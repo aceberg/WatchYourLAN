@@ -20,6 +20,7 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("IFACES", "")
 	viper.SetDefault("TIMEOUT", 120)
 	viper.SetDefault("TRIM_HIST", 48)
+	viper.SetDefault("HIST_IN_DB", false)
 	viper.SetDefault("SHOUTRRR_URL", "")
 
 	viper.SetDefault("USE_DB", "sqlite")
@@ -44,6 +45,7 @@ func Get(path string) (config models.Conf) {
 	config.Ifaces = viper.Get("IFACES").(string)
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.TrimHist = viper.GetInt("TRIM_HIST")
+	config.HistInDB = viper.GetBool("HIST_IN_DB")
 	config.ShoutURL = viper.Get("SHOUTRRR_URL").(string)
 
 	config.UseDB = viper.Get("USE_DB").(string)
@@ -75,6 +77,7 @@ func Write(config models.Conf) {
 	viper.Set("IFACES", config.Ifaces)
 	viper.Set("TIMEOUT", config.Timeout)
 	viper.Set("TRIM_HIST", config.TrimHist)
+	viper.Set("HIST_IN_DB", config.HistInDB)
 	viper.Set("SHOUTRRR_URL", config.ShoutURL)
 
 	viper.Set("USE_DB", config.UseDB)

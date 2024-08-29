@@ -64,7 +64,10 @@ func compareHosts(foundHosts []models.Host) {
 		db.Update("now", aHost)
 
 		aHost.Date = time.Now().Format("2006-01-02 15:04:05")
-		db.Insert("history", aHost)
+		histHosts = append(histHosts, aHost)
+		if appConfig.HistInDB {
+			db.Insert("history", aHost)
+		}
 		if appConfig.InfluxEnable {
 			influx.Add(appConfig, aHost)
 		}
