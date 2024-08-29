@@ -12,46 +12,42 @@ function displayArrayData(someArray) {
 }
 
 function sortByAny(someArray, field) {
-    // console.log("Field =", field);
 
     if (field != oldField) {
-        
-        if (field == 'IP') {
-            someArray.sort((a, b) => sortIP(a, b, true));
-        } else {
-            someArray.sort(byFieldDown(field));
-        }
-
         oldField = field;
+        down = true;
     } else {
-        
-        if (field == 'IP') {
-            someArray.sort((a, b) => sortIP(a, b, false));
-        } else {
-            someArray.sort(byFieldUp(field));
-        }
-
         oldField = '';
+        down = false;
+    }
+
+    if (field == 'IP') {
+        someArray.sort((a, b) => sortIP(a, b, down));
+    } else {
+        someArray.sort((a, b) => byField(a, b, field, down));
     }
 
     displayArrayData(someArray);
 }
 
-function byFieldUp(fieldName){
-    return (a, b) => a[fieldName] < b[fieldName] ? 1 : -1;
-}
-
-function byFieldDown(fieldName){
-    return (a, b) => a[fieldName] > b[fieldName] ? 1 : -1;
+function byField(a, b, fieldName, down){
+    if (a[fieldName] > b[fieldName]) {
+        return down;
+    } else {
+        return !down;
+    }
 }
 
 function sortIP(a, b, down) {
-    const num1 = Number(a.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
-    const num2 = Number(b.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
+    const num1 = numIP(a);
+    const num2 = numIP(b);
     if (down) {
         return num1-num2;
     } else {
         return num2-num1;
-    }
-    
+    } 
+}
+
+function numIP(a) {
+    return Number(a.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
 }

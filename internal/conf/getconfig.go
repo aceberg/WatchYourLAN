@@ -12,13 +12,13 @@ func Get(path string) (config models.Conf) {
 
 	viper.SetDefault("HOST", "0.0.0.0")
 	viper.SetDefault("PORT", "8840")
-	viper.SetDefault("THEME", "solar")
+	viper.SetDefault("THEME", "sand")
 	viper.SetDefault("COLOR", "dark")
 	viper.SetDefault("NODEPATH", "")
 	viper.SetDefault("LOG_LEVEL", "info")
 	viper.SetDefault("ARP_ARGS", "")
 	viper.SetDefault("IFACES", "")
-	viper.SetDefault("TIMEOUT", 60)
+	viper.SetDefault("TIMEOUT", 120)
 	viper.SetDefault("TRIM_HIST", 48)
 	viper.SetDefault("SHOUTRRR_URL", "")
 

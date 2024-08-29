@@ -6,8 +6,6 @@ builds:
     env: [CGO_ENABLED=0]
     goos:
       - linux
-      # - windows
-      # - darwin
     goarch:
       - 386
       - amd64
@@ -17,15 +15,6 @@ builds:
       - "5"
       - "6"
       - "7"
-    # ignore:
-    #   - goos: darwin
-    #     goarch: 386
-    #   - goos: darwin
-    #     goarch: arm
-    #   - goos: windows
-    #     goarch: 386
-    #   - goos: windows
-    #     goarch: arm
 
 nfpms:
   - maintainer: aceberg <aceberg_a@proton.me>
