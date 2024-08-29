@@ -21,6 +21,7 @@ async function loadHistory(m) {
     const url = '/api/history/'+mac;
 
     let hist = await (await fetch(url)).json();
+    hist = sortHistByDate(hist);
     if (show > 0) {
         hist = hist.slice(0, show);
     }

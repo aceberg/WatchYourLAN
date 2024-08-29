@@ -1,8 +1,6 @@
 
 function getHistHTML(hist) {
 
-    hist = sortHistByDate(hist);
-
     let html = '', col, title;
 
     for (let h of hist) {
@@ -23,7 +21,7 @@ function getHistHTML(hist) {
 
 function sortHistByDate(hist) {
 
-    hist.sort((a, b) => (a.Date > b.Date));
+    hist.sort((a, b) => (a.Date < b.Date ? 1 : -1));
 
     return hist;
 }

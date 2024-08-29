@@ -26,6 +26,8 @@ async function loadHistory() {
     for (let a of addrsArray) {
         url = '/api/history/'+a.Mac;
         hist = await (await fetch(url)).json();
+        hist = sortHistByDate(hist);
+
         if (show > 0) {
             hist = hist.slice(0, show);
         }
