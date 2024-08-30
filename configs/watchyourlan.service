@@ -5,7 +5,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/watchyourlan -c /etc/watchyourlan/config.yaml
+ExecStart=/usr/bin/watchyourlan -d /etc/watchyourlan/
 Restart=on-failure
 
 [Install]

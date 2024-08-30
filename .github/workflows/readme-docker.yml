@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Sync README.md to DockerHub
         uses: ms-jpq/sync-dockerhub-readme@v1

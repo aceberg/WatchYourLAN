@@ -1,18 +1,17 @@
 version: "3"
 services:
   wyl:
-    image: aceberg/watchyourlan
+    image: aceberg/watchyourlan:v2
     network_mode: "host"        
     restart: unless-stopped
     volumes:
     - ~/.dockerdata/wyl:/data/WatchYourLAN
     environment:
       TZ: Asia/Novosibirsk              # required: needs your TZ for correct time
-      IFACE: "virbr-bw wlxf4ec3892dd51" # required: 1 or more interface
-      DBPATH: "/data/db.sqlite"         # optional, default: /data/db.sqlite
-      GUIIP: "0.0.0.0"                  # optional, default: localhost
-      GUIPORT: "8840"                   # optional, default: 8840
-      TIMEOUT: "120"                    # optional, time in seconds, default: 60
+      IFACES: "enp4s0 wlxf4ec3892dd51"  # required: 1 or more interface
+      HOST: "0.0.0.0"                   # optional, default: 0.0.0.0
+      PORT: "8840"                      # optional, default: 8840
+      TIMEOUT: "120"                    # optional, time in seconds, default: 120
       SHOUTRRR_URL: ""                  # optional, set url to notify
-      THEME: "darkly"                   # optional
-      IGNOREIP: "no"                    # optional
+      THEME: "sand"                     # optional
+      COLOR: "dark"                     # optional
