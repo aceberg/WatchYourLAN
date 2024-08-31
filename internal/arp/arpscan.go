@@ -16,7 +16,7 @@ func scanIface(iface string) string {
 	var cmd *exec.Cmd
 
 	if arpArgs != "" {
-		cmd = exec.Command("arp-scan", "-glNx", arpArgs, "-I", iface)
+		cmd = exec.Command("arp-scan", arpArgs, "-I", iface)
 	} else {
 		cmd = exec.Command("arp-scan", "-glNx", "-I", iface)
 	}
