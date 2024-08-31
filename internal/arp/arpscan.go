@@ -16,10 +16,24 @@ func scanIface(iface string) string {
 	var cmd *exec.Cmd
 
 	if arpArgs != "" {
-		cmd = exec.Command("arp-scan", arpArgs, "-I", iface)
+		cmd = exec.Command("arp-scan", "-glNx", arpArgs, "-I", iface)
 	} else {
 		cmd = exec.Command("arp-scan", "-glNx", "-I", iface)
 	}
+	out, err := cmd.Output()
+	slog.Debug(cmd.String())
+
+	if check.IfError(err) {
+		return string("")
+	}
+	return string(out)
+}
+
+func scanStr(str string) string {
+
+	args := strings.Split(str, " ")
+	cmd := exec.Command("arp-scan", args...)
+
 	out, err := cmd.Output()
 	slog.Debug(cmd.String())
 
@@ -52,7 +66,7 @@ func parseOutput(text, iface string) []models.Host {
 }
 
 // Scan all interfaces
-func Scan(ifaces, args string) []models.Host {
+func Scan(ifaces, args string, strs []string) []models.Host {
 	var text string
 	var foundHosts = []models.Host{}
 	arpArgs = args
@@ -65,6 +79,14 @@ func Scan(ifaces, args string) []models.Host {
 		slog.Debug("Found IPs: \n" + text)
 
 		foundHosts = append(foundHosts, parseOutput(text, iface)...)
+	}
+
+	for _, s := range strs {
+		slog.Debug("Scanning string " + s)
+		text = scanStr(s)
+		slog.Debug("Found IPs: \n" + text)
+
+		foundHosts = append(foundHosts, parseOutput(text, "")...)
 	}
 
 	return foundHosts

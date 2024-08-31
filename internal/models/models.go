@@ -13,6 +13,7 @@ type Conf struct {
 	LogLevel string
 	Ifaces   string
 	ArpArgs  string
+	ArpStrs  []string
 	Timeout  int
 	TrimHist int
 	HistInDB bool
