@@ -13,9 +13,8 @@ Lightweight network IP scanner with web GUI
 > [!WARNING]  
 > This is version 2.0. Version 1.0 can be found in this brunch: [v1](https://github.com/aceberg/WatchYourLAN/tree/v1)
 >    
-> <span style="font-size:1.5em;color:orange">Breaking Changes</span>
->
-> Version 2.0 is not compatible with v1.0. For now v2.0 docker images will be released under `v2` tag. It will be tagged `latest` in a few weeks (probably, in October).
+> [!CAUTION]   
+> **BREAKING CHANGES!** Version 2.0 is not compatible with v1.0. For now v2.0 docker images will be released under `v2` tag. It will be tagged `latest` in a few weeks (probably, in October).
 
 ![Screenshot_1](https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/Screenshot_1.png)  
 
