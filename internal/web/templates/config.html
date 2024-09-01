@@ -1,5 +1,5 @@
 {{ define "config.html" }}
-
+<script src="/fs/public/js/config.js"></script>
 <body>
   <div class="container-lg">
     <div class="row">
@@ -69,6 +69,13 @@
                 <tr>
                   <td>Args for arp-scan</td>
                   <td><input name="arpargs" type="text" class="form-control" value="{{ .Config.ArpArgs }}"></td>
+                </tr>
+                <tr>
+                  <td>Arp Strings</td>
+                  <td>{{ range .Config.ArpStrs }}
+                    <input name="arpstrs" type="text" class="form-control" value="{{ . }}">{{ end }}
+                    <input name="arpstrs" type="text" class="form-control">
+                  </td>
                 </tr>
                 <tr>
                   <td>Log level</td>

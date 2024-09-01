@@ -46,9 +46,9 @@ func scanStr(str string) string {
 func parseOutput(text, iface string) []models.Host {
 	var foundHosts = []models.Host{}
 
-	perString := strings.Split(text, "\n")
+	p := strings.Split(text, "\n")
 
-	for _, host := range perString {
+	for _, host := range p {
 		if host != "" {
 			var oneHost models.Host
 			p := strings.Split(host, "	")
@@ -71,9 +71,9 @@ func Scan(ifaces, args string, strs []string) []models.Host {
 	var foundHosts = []models.Host{}
 	arpArgs = args
 
-	perString := strings.Split(ifaces, " ")
+	p := strings.Split(ifaces, " ")
 
-	for _, iface := range perString {
+	for _, iface := range p {
 		slog.Debug("Scanning interface " + iface)
 		text = scanIface(iface)
 		slog.Debug("Found IPs: \n" + text)
@@ -85,8 +85,9 @@ func Scan(ifaces, args string, strs []string) []models.Host {
 		slog.Debug("Scanning string " + s)
 		text = scanStr(s)
 		slog.Debug("Found IPs: \n" + text)
+		p = strings.Split(s, " ")
 
-		foundHosts = append(foundHosts, parseOutput(text, "")...)
+		foundHosts = append(foundHosts, parseOutput(text, p[len(p)-1])...)
 	}
 
 	return foundHosts

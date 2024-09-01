@@ -65,8 +65,17 @@ func saveSettingsHandler(c *gin.Context) {
 		appConfig.HistInDB = false
 	}
 
+	arpStrs := c.PostFormArray("arpstrs")
+	appConfig.ArpStrs = []string{}
+	for _, s := range arpStrs {
+		if s != "" {
+			appConfig.ArpStrs = append(appConfig.ArpStrs, s)
+		}
+	}
+
 	conf.Write(appConfig)
 
+	slog.Debug("ARP_STRS", "", appConfig.ArpArgs)
 	slog.Info("Writing new config to " + appConfig.ConfPath)
 
 	updateRoutines() // routines-upd.go
