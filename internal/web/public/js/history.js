@@ -40,7 +40,7 @@ async function loadHistory() {
             <td style="opacity: 45%;">${i}.</td>
             <td>
                 <p>${a.Name}</p>
-                <p><a href="http://${a.IP}" target="blank">${a.IP}</a></p>
+                <p><a href="http://${a.IP}" target="_blank">${a.IP}</a></p>
                 <p><a href="/host/${a.ID}">${a.Mac}</a></p>
             </td>
             <td>${td}</td>

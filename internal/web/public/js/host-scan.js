@@ -47,6 +47,6 @@ async function scanAddr() {
 }
 
 function genHTML(addr, port) {
-    html = `<a href="http://${addr}:${port}">${port}</a>&nbsp;&nbsp;&nbsp;`;
+    html = `<a href="http://${addr}:${port}" target="_blank">${port}</a>&nbsp;&nbsp;&nbsp;`;
     return html;
 }
