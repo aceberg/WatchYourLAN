@@ -1,4 +1,5 @@
 var oldField = '';
+var field = '';
 
 function displayArrayData(someArray) {
     document.getElementById('tBody').innerHTML = "";
@@ -11,7 +12,7 @@ function displayArrayData(someArray) {
     }
 }
 
-function sortByAny(someArray, field) {
+function sortByAny(someArray) {
 
     if (field != oldField) {
         oldField = field;

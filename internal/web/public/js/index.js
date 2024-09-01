@@ -49,17 +49,32 @@ async function loadAddrs() {
     addrsArray = await (await fetch(url)).json();
     bkpArray = addrsArray;
 
-    displayArrayData(addrsArray);
+    field = localStorage.getItem("sortField");
+
+    checkNotEmpty(addrsArray);
 }
 
-function sortBy(field) {
-    sortByAny(addrsArray, field);
+function sortBy(f) {
+    field = f;
+    localStorage.setItem("sortField", field);
+    checkNotEmpty(addrsArray);
 }
 
 function editClick() {
 
     edit = 1 - edit;
     loadAddrs();
+}
+
+function checkNotEmpty(someArray) {
+
+    if (someArray.length > 0) {
+        if (field != null) {
+            sortByAny(someArray);
+        } else {
+            displayArrayData(someArray);
+        }
+    }
 }
 
 async function editForm(id, known) {
