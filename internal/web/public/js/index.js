@@ -26,7 +26,7 @@ function createHTML(addr, i) {
         <td>${name}</td>
         <td>${addr.Iface}</td>
         <td>
-            <a href="http://${addr.IP}" target="blank">${addr.IP}</a>
+            <a href="http://${addr.IP}" target="_blank">${addr.IP}</a>
         </td>
         <td><a href="/host/${addr.ID}">${addr.Mac}</a></td>
         <td>${addr.Hw}</td>
