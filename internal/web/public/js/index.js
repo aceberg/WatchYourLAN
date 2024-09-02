@@ -15,7 +15,7 @@ function createHTML(addr, i) {
     }
 
     // Needs option to use value in js
-    let name = `<option id="name${addr.ID}" value="${addr.Name}">${addr.Name}</option>`;
+    let name = `<data id="name${addr.ID}" value="${addr.Name}">${addr.Name}</data>`;
     if (edit == 1) {
         name = `<input id="name${addr.ID}" onchange="editForm(${addr.ID},'')" type="text" class="form-control" value="${addr.Name}">`;
     }
