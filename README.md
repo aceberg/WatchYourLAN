@@ -21,6 +21,9 @@ Lightweight network IP scanner with web GUI. Features:
 > [!CAUTION]   
 > **BREAKING CHANGES!** Version 2.0 is not compatible with v1.0. For now v2.0 docker images will be released under `v2` tag. It will be tagged `latest` in a few weeks (probably, in October).
 
+> [!TIP]   
+> WatchYourLAN supports `vlan`s, `docker0` and other complicated scans since `v2.0.1`. How-to [here](https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md).
+
 ![Screenshot_1](https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/Screenshot_1.png)  
 
 ## More screenshots
