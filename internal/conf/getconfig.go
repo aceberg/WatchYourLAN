@@ -1,6 +1,9 @@
 package conf
 
 import (
+	"log/slog"
+	"strings"
+
 	"github.com/spf13/viper"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
@@ -17,6 +20,7 @@ func Get(path string) (config models.Conf) {
 	viper.SetDefault("NODEPATH", "")
 	viper.SetDefault("LOG_LEVEL", "info")
 	viper.SetDefault("ARP_ARGS", "")
+	viper.SetDefault("ARP_STRS_JOINED", "")
 	viper.SetDefault("IFACES", "")
 	viper.SetDefault("TIMEOUT", 120)
 	viper.SetDefault("TRIM_HIST", 48)
@@ -58,6 +62,13 @@ func Get(path string) (config models.Conf) {
 	config.InfluxToken, _ = viper.Get("INFLUX_TOKEN").(string)
 	config.InfluxOrg, _ = viper.Get("INFLUX_ORG").(string)
 	config.InfluxBucket, _ = viper.Get("INFLUX_BUCKET").(string)
+
+	joined := viper.Get("ARP_STRS_JOINED").(string)
+	slog.Info("ARP_STRS_JOINED: " + joined)
+
+	if joined != "" {
+		config.ArpStrs = strings.Split(joined, ",")
+	}
 
 	return config
 }

@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [v2.0.1] - 2024-09-01
 ### Added
 - Remember `sort` field
+- InfluxDB error handling
 
 ### Fixed
 - Bug [#103](https://github.com/aceberg/WatchYourLAN/issues/103)

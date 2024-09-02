@@ -75,11 +75,12 @@ func compareHosts(foundHosts []models.Host) {
 
 	for _, fHost := range foundHostsMap {
 
-		msg := fmt.Sprintf("Unknown host IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
+		fHost.Name, fHost.DNS = updateDNS(fHost)
+
+		msg := fmt.Sprintf("Unknown host Names: '%s', IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.DNS, fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
 		slog.Warn(msg)
 		notify.Shout(msg, appConfig.ShoutURL) // Notify through Shoutrrr
 
-		fHost.Name, fHost.DNS = updateDNS(fHost)
 		db.Insert("now", fHost)
 	}
 }
