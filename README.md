@@ -73,9 +73,10 @@ Configuration can be done through config file, GUI or environment variables
 ### Scan settings
 | Variable  | Description | Default |
 | --------  | ----------- | ------- |
-| IFACES | Interfaces to scan. Could be one or more, separated by space. Currently `docker0` is not supported, as `arp-scan` wouldn't work with it correctly | |
+| IFACES | Interfaces to scan. Could be one or more, separated by space. See [docs/VLAN_ARP_SCAN.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md). | |
 | TIMEOUT | Time between scans (seconds) | 120 |
-| ARP_ARGS | Arguments for `arp-scan`. See `man arp-scan` for more. Enable `debug` log level to see resulting command. (Example: `-r 1`) | |
+| ARP_ARGS | Arguments for `arp-scan`. Enable `debug` log level to see resulting command. (Example: `-r 1`). See [docs/VLAN_ARP_SCAN.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md). | |
+| ARP_STRS ARP_STRS_JOINED | See [docs/VLAN_ARP_SCAN.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md). | |
 | LOG_LEVEL | Log level: `debug`, `info`, `warn` or `error` | info |
 | TRIM_HIST | Remove history after (hours) | 48 |
 | HIST_IN_DB | Store History in DB - if `false`, the History will be stored only in memory and will be lost on app restart. Though, it will keep the app DB smaller (and InfluxDB is recommended for long term History storage) | false |
@@ -168,7 +169,7 @@ Or use [docker-compose](docker-compose-local.yml)
 <details>
   <summary>Expand</summary>
 
-Moved to [docs/API.md](./docs/API.md)
+Moved to [docs/API.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/API.md)
 </details> 
 
 ## Thanks

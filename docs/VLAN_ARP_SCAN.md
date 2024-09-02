@@ -2,7 +2,7 @@
 
 ### 1. IFACES
 
-`IFACES` is a required variable for WYL to work. It can be set through GUI, config file or environment variables.   
+`IFACES` is a required variable for WYL to work. It can be set through `GUI`, config file or environment variables.   
 `IFACES` is a list of network interfaces to scan, space separated. For example 
 ```sh
 IFACES: "enp4s0 wlxf4ec3892dd51"
@@ -14,7 +14,7 @@ arp-scan -glNx -I $ONE_IFACE
 ```
 
 ### 2. ARP_ARGS
-Setting `ARP_ARGS` is optional. It can be set through GUI, config file or environment variables.   
+Setting `ARP_ARGS` is optional. It can be set through `GUI`, config file or environment variables.   
 `ARP_ARGS` is additional arguments for `arp-scan`, that will be applied for **every** one of `IFACES`. For example:
 ```sh
 ARP_ARGS: "-r 1"
@@ -25,10 +25,10 @@ arp-scan -glNx -r 1 -I $ONE_IFACE
 See `man arp-scan` for all arguments available.   
 
 
-### 3. ARP_STRS
+### 3. ARP_STRS for VLANs, docker0 and other complicated scans
 If `ARP_STRS` is set, it will initiate a completely separate from `IFACES` scan.   
 > [!WARNING]   
-> `ARP_STRS` can be set only through GUI or config file. For environment (docker-compose) see `ARP_STRS_JOINED`.   
+> `ARP_STRS` can be set only through `GUI` or config file. For environment (docker-compose) see `ARP_STRS_JOINED`.   
 
 `ARP_STRS` is a list of strings. `arp-scan` will run for each of them:
 ```sh
@@ -40,8 +40,27 @@ arp-scan -gNx 10.0.107.0/24 -Q 107 -I eth0
 ```
 Where `-Q` is a `vlan` id. **Warning:** the last element of string (`eth0` in this example) will be set as `Interface` for found hosts, so it is recommended to put interface at the end.
 
+
+Setting `ARP_STRS` from config file:
+```yaml
+arp_strs:
+    - -gNx 172.17.0.1/24 -I docker0
+    - -glNx -I virbr0
+```
+From `GUI` put one string in `Arp Strings` input field, click `Save`, then another empty string will appear.
+
 ### 4. ARP_STRS_JOINED
 `ARP_STRS_JOINED` is a way to set `ARP_STRS` from ENV. It's a list of strings, comma separated, without spaces before or after comma.
 ```sh
-ARP_STRS_JOINED: "-glNx -I enp1s0,-glNx -I enp1s0"
+ARP_STRS_JOINED: "-gNx 172.17.0.1/24 -I docker0,-gNx 10.0.107.0/24 -Q 107 -I eth0"
+```
+
+### 5. Examples
+vlan id 107
+```sh
+ARP_STRS_JOINED: "-gNx 10.0.107.0/24 -Q 107 -I eth0"
+```
+docker0
+```sh
+ARP_STRS_JOINED: "-gNx 172.17.0.1/24 -I docker0"
 ```

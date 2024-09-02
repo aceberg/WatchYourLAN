@@ -26,13 +26,17 @@ async function loadHistory() {
     for (let a of addrsArray) {
         url = '/api/history/'+a.Mac;
         hist = await (await fetch(url)).json();
-        hist = sortHistByDate(hist);
 
-        if (show > 0) {
-            hist = hist.slice(0, show);
+        if (hist != null) {
+            hist = sortHistByDate(hist);
+
+            if (show > 0) {
+                hist = hist.slice(0, show);
+            }
+
+            td = getHistHTML(hist); // hist-html.js
         }
-
-        td = getHistHTML(hist); // hist-html.js
+           
         i = i + 1;
 
         tr = `
