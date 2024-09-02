@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Bug [#103](https://github.com/aceberg/WatchYourLAN/issues/103)
+- Bug [#104](https://github.com/aceberg/WatchYourLAN/issues/104)
 
 ## [v2.0.0] - 2024-08-30
 ### Added
