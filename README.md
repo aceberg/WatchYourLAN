@@ -7,7 +7,8 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/aceberg/WatchYourLAN)](https://goreportcard.com/report/github.com/aceberg/WatchYourLAN)
 [![Maintainability](https://api.codeclimate.com/v1/badges/46b17f99edc1726b5d7d/maintainability)](https://codeclimate.com/github/aceberg/WatchYourLAN/maintainability)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)
-![GitHub Discussions](https://img.shields.io/github/discussions/aceberg/WatchYourLAN)
+![GitHub Discussions](https://img.shields.io/github/discussions/aceberg/WatchYourLAN?link=https%3A%2F%2Fgithub.com%2Faceberg%2FWatchYourLAN%2Fdiscussions)
+
 
 
 Lightweight network IP scanner with web GUI. Features:
