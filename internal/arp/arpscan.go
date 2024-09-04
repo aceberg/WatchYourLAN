@@ -68,17 +68,21 @@ func parseOutput(text, iface string) []models.Host {
 // Scan all interfaces
 func Scan(ifaces, args string, strs []string) []models.Host {
 	var text string
+	var p []string
 	var foundHosts = []models.Host{}
 	arpArgs = args
 
-	p := strings.Split(ifaces, " ")
+	if ifaces != "" {
 
-	for _, iface := range p {
-		slog.Debug("Scanning interface " + iface)
-		text = scanIface(iface)
-		slog.Debug("Found IPs: \n" + text)
+		p = strings.Split(ifaces, " ")
 
-		foundHosts = append(foundHosts, parseOutput(text, iface)...)
+		for _, iface := range p {
+			slog.Debug("Scanning interface " + iface)
+			text = scanIface(iface)
+			slog.Debug("Found IPs: \n" + text)
+
+			foundHosts = append(foundHosts, parseOutput(text, iface)...)
+		}
 	}
 
 	for _, s := range strs {

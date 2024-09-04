@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v2.0.2] - 2024-09-
+### Fixed
+- Error when `IFACES`=""
+
 ## [v2.0.1] - 2024-09-02
 ### Added
 - `Vlans` and `docker0` support [#47](https://github.com/aceberg/WatchYourLAN/issues/47). Thanks [thehijacker](https://github.com/thehijacker)!
