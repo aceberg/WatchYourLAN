@@ -33,6 +33,9 @@ func Add(appConfig models.Conf, oneHist models.Host) {
 		oneHist.Name = strings.ReplaceAll(oneHist.Name, " ", "\\ ")
 		oneHist.Name = strings.ReplaceAll(oneHist.Name, ",", "\\,")
 		oneHist.Name = strings.ReplaceAll(oneHist.Name, "=", "\\=")
+		if oneHist.Name == "" {
+			oneHist.Name = "unknown"
+		}
 
 		line := fmt.Sprintf("WatchYourLAN,IP=%s,iface=%s,name=%s,mac=%s,known=%d state=%d", oneHist.IP, oneHist.Iface, oneHist.Name, oneHist.Mac, oneHist.Known, oneHist.Now)
 		// slog.Debug("Writing to InfluxDB", "line", line)
