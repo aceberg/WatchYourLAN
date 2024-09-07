@@ -1,5 +1,6 @@
-var oldField = '';
-var field = '';
+let oldField = '';
+let field = '';
+let down = false;
 
 function displayArrayData(someArray) {
     document.getElementById('tBody').innerHTML = "";
@@ -13,14 +14,6 @@ function displayArrayData(someArray) {
 }
 
 function sortByAny(someArray) {
-
-    if (field != oldField) {
-        oldField = field;
-        down = true;
-    } else {
-        oldField = '';
-        down = false;
-    }
 
     if (field == 'IP') {
         someArray.sort((a, b) => sortIP(a, b, down));

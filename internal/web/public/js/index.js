@@ -50,12 +50,22 @@ async function loadAddrs() {
     bkpArray = addrsArray;
 
     field = localStorage.getItem("sortField");
+    down = JSON.parse(localStorage.getItem("sortDown"));
 
     checkNotEmpty(addrsArray);
 }
 
 function sortBy(f) {
     field = f;
+    if (field != oldField) {
+        oldField = field;
+        down = !down;
+    } else {
+        oldField = '';
+        down = !down;
+    }
+
+    localStorage.setItem("sortDown", down);
     localStorage.setItem("sortField", field);
     checkNotEmpty(addrsArray);
 }
@@ -69,7 +79,7 @@ function editClick() {
 function checkNotEmpty(someArray) {
 
     if (someArray.length > 0) {
-        if (field != null) {
+        if ((field != null) && (down != null)) {
             sortByAny(someArray);
         } else {
             displayArrayData(someArray);
