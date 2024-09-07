@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [v2.0.2] - 2024-09-07
 ### Added
-- Remember Refresh setting by browser
+- Remember Refresh setting in browser [#123](https://github.com/aceberg/WatchYourLAN/issues/123)
 
 ### Fixed
 - Error when `IFACES` are empty
