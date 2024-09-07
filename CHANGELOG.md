@@ -1,9 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [v2.0.2] - 2024-09-
+## [v2.0.2] - 2024-09-07
+### Added
+- Remember Refresh setting by browser
+
 ### Fixed
-- Error when `IFACES`=""
+- Error when `IFACES` are empty
+- Sticky sort bug fix
+- Bug [#124](https://github.com/aceberg/WatchYourLAN/issues/124)
+- Bug [#128](https://github.com/aceberg/WatchYourLAN/issues/128)
+
 
 ## [v2.0.1] - 2024-09-02
 ### Added

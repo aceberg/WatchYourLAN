@@ -1,8 +1,5 @@
 {{ define "host.html" }}
 
-<script src="/fs/public/js/host-scan.js"></script>
-<script src="/fs/public/js/host.js"></script>
-<script src="/fs/public/js/hist-html.js"></script>
 <body>
   <div class="container-lg">
     <div class="row">
@@ -112,6 +109,9 @@
       </div>
     </div>
   </div>      
+  <script src="/fs/public/js/host-scan.js"></script>
+  <script src="/fs/public/js/host.js"></script>
+  <script src="/fs/public/js/hist-html.js"></script>
   <script>
     loadHistory('{{ .Host.Mac }}');
   </script>
