@@ -9,6 +9,8 @@ async function scanAddr() {
     let begin = document.getElementById("begin").value;
     let end = document.getElementById("end").value;
 
+    document.getElementById('foundPorts').innerHTML = "";
+
     if (begin == "") {
         begin = 1
     }
