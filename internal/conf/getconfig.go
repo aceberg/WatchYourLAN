@@ -87,6 +87,7 @@ func Write(config models.Conf) {
 	viper.Set("LOG_LEVEL", config.LogLevel)
 	viper.Set("ARP_ARGS", config.ArpArgs)
 	viper.Set("ARP_STRS", config.ArpStrs)
+	viper.Set("ARP_STRS_JOINED", "") // Can be set only with ENV
 	viper.Set("IFACES", config.Ifaces)
 	viper.Set("TIMEOUT", config.Timeout)
 	viper.Set("TRIM_HIST", config.TrimHist)
