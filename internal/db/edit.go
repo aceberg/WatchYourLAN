@@ -67,6 +67,23 @@ func Delete(table string, id int) {
 	dbExec(sqlStatement)
 }
 
+// DeleteList - delete a list of hosts from History
+func DeleteList(ids []int) {
+	if len(ids) > 0 {
+		idString := ""
+
+		for _, id := range ids {
+			idString = idString + fmt.Sprintf("%d, ", id)
+		}
+		idString = idString[:len(idString)-2]
+
+		sqlStatement := `DELETE FROM history WHERE "ID" IN (%s);`
+		sqlStatement = fmt.Sprintf(sqlStatement, idString)
+
+		dbExec(sqlStatement)
+	}
+}
+
 // Clear - delete all hosts from table
 func Clear(table string) {
 	sqlStatement := `DELETE FROM %s;`

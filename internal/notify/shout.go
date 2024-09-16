@@ -10,7 +10,7 @@ func Shout(message string, url string) {
 	if url != "" {
 		err := shoutrrr.Send(url, message)
 		if err != nil {
-			slog.Error("Notification failed (shoutrrr): ", err)
+			slog.Error("Notification failed (shoutrrr): ", "", err)
 		}
 	}
 }

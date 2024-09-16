@@ -1,6 +1,6 @@
 module github.com/aceberg/WatchYourLAN
 
-go 1.22.6
+go 1.23.1
 
 require (
 	github.com/containrrr/shoutrrr v0.8.0
@@ -9,7 +9,7 @@ require (
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/lib/pq v1.10.9
 	github.com/spf13/viper v1.19.0
-	modernc.org/sqlite v1.32.0
+	modernc.org/sqlite v1.33.1
 )
 
 require (

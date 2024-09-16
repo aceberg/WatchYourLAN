@@ -25,28 +25,31 @@ func trimHistory() {
 	now, _ := time.Parse("2006-01-02 15:04:05", nowStr) // in one format
 	nowMinus := now.Add(-time.Duration(hours) * time.Hour)
 
-	history := histHosts
-
 	if appConfig.HistInDB {
-		history = db.Select("history")
+		histHosts = db.Select("history")
 	}
 
 	slog.Info("Removing all History before", "date", nowMinus.Format("2006-01-02 15:04:05"))
 
 	n := 0
-	histHosts = []models.Host{}
-	for _, hist := range history {
+	newHistHosts := []models.Host{}
+	ids := []int{}
+
+	for _, hist := range histHosts {
 		date, _ := time.Parse("2006-01-02 15:04:05", hist.Date)
 
 		if date.Before(nowMinus) {
 			n = n + 1
 			if appConfig.HistInDB {
-				db.Delete("history", hist.ID)
+				ids = append(ids, hist.ID)
 			}
 		} else {
-			histHosts = append(histHosts, hist)
+			newHistHosts = append(newHistHosts, hist)
 		}
 	}
+	
+	db.DeleteList(ids)
+	histHosts = newHistHosts
 
 	slog.Info("Removed records from History", "n", n)
 }
