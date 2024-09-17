@@ -169,12 +169,16 @@ Or use [docker-compose](docker-compose-local.yml)
 
 </details> 
 
-## API
+## API & Integrations
 
 <details>
   <summary>Expand</summary>
 
+### API
 Moved to [docs/API.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/API.md)
+
+### Integrations
+- [Python API client](https://github.com/drwahl/py-watchyourlanclient) by [drwahl](https://github.com/drwahl)
 </details> 
 
 ## Thanks

@@ -47,7 +47,7 @@ func trimHistory() {
 			newHistHosts = append(newHistHosts, hist)
 		}
 	}
-	
+
 	db.DeleteList(ids)
 	histHosts = newHistHosts
 
