@@ -73,7 +73,7 @@ Configuration can be done through config file, GUI or environment variables
 | THEME | Any theme name from https://bootswatch.com in lowcase or [additional](https://github.com/aceberg/aceberg-bootswatch-fork) | sand |
 | COLOR | Background color: light or dark | dark |
 | NODEPATH | Path to local node modules |  |
-| SHOUTRRR_URL | Link to any notification service supported by [Shoutrrr](https://github.com/containrrr/shoutrrr) (gotify, email, telegram and others) or [Generic Webhook](https://github.com/containrrr/shoutrrr/blob/main/docs/services/generic.md) | |
+| SHOUTRRR_URL | WatchYourLAN uses [Shoutrrr](https://github.com/containrrr/shoutrrr) to send notifications. It is already integrated, just needs a correct URL. Examples for Discord, Email, Gotify, Matrix, Ntfy, Pushover, Slack, Telegram, Generic Webhook and etc are [here](https://containrrr.dev/shoutrrr/v0.8/services/gotify/) | |
 
 ### Scan settings
 | Variable  | Description | Default |
