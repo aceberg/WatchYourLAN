@@ -106,9 +106,8 @@
                 <tr>
                   <td>Use DB</td>
                   <td><select name="usedb" class="form-select">
-                    <option selected>{{ .Config.UseDB }}</option>
-                    <option value="sqlite">sqlite</option>
-                    <option value="postgres">postgres</option>
+                    <option value="sqlite" {{ if eq "sqlite" .Config.UseDB }}selected{{ end }}>sqlite</option>
+                    <option value="postgres" {{ if eq "postgres" .Config.UseDB }}selected{{ end }}>postgres</option>
                   </select></td>
                 </tr>
                 <tr>
