@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v2.0.4] - 2024-
+### Fixed
+- [#101](https://github.com/aceberg/WatchYourLAN/issues/101) 
+- The same problem for Theme, Color mode, Log level
+
 ## [v2.0.3] - 2024-09-17
 ### Fixed
 - `ARP_STRS_JOINED` should be empty in config file

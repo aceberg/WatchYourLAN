@@ -20,18 +20,16 @@
                 <tr>
                   <td>Theme</td>
                   <td><select name="theme" class="form-select">
-                    <option selected>{{ .Config.Theme }}</option>
                     {{ range .Themes }}
-                        <option value="{{ . }}">{{ . }}</option>
+                      <option value="{{ . }}" {{ if eq . $.Config.Theme }}selected{{ end }}>{{ . }}</option>
                     {{ end }}
                   </select></td>
                 </tr>
                 <tr>
                   <td>Color mode</td>
                   <td><select name="color" class="form-select">
-                    <option selected>{{ .Config.Color }}</option>
-                    <option value="light">light</option>
-                    <option value="dark">dark</option>
+                    <option value="light" {{ if eq "light" .Config.Color }}selected{{ end }}>light</option>
+                    <option value="dark" {{ if eq "dark" .Config.Color }}selected{{ end }}>dark</option>
                   </select></td>
                 </tr>
                 <tr>
@@ -80,11 +78,10 @@
                 <tr>
                   <td>Log level</td>
                   <td><select name="log" class="form-select">
-                    <option selected>{{ .Config.LogLevel }}</option>
-                    <option value="debug">debug</option>
-                    <option value="info">info</option>
-                    <option value="warn">warn</option>
-                    <option value="error">error</option>
+                    <option value="debug" {{ if eq "debug" .Config.LogLevel }}selected{{ end }}>debug</option>
+                    <option value="info" {{ if eq "info" .Config.LogLevel }}selected{{ end }}>info</option>
+                    <option value="warn" {{ if eq "warn" .Config.LogLevel }}selected{{ end }}>warn</option>
+                    <option value="error" {{ if eq "error" .Config.LogLevel }}selected{{ end }}>error</option>
                   </select></td>
                 </tr>
                 <tr>
