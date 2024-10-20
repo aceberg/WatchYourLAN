@@ -8,6 +8,7 @@ import (
 
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
+	"github.com/aceberg/WatchYourLAN/internal/notify"
 	"github.com/aceberg/WatchYourLAN/internal/portscan"
 )
 
@@ -87,4 +88,12 @@ func apiEdit(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, "OK")
+}
+
+func testNotifyHandler(c *gin.Context) {
+
+	msg := "Test notification from WatchYourLAN"
+	notify.Shout(msg, appConfig.ShoutURL)
+
+	c.Status(http.StatusOK)
 }
