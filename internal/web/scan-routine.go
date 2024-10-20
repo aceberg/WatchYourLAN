@@ -77,7 +77,7 @@ func compareHosts(foundHosts []models.Host) {
 
 		fHost.Name, fHost.DNS = updateDNS(fHost)
 
-		msg := fmt.Sprintf("Unknown host Names: '%s', IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.DNS, fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
+		msg := fmt.Sprintf("WatchYourLAN: unknown host found. Names: '%s', IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.DNS, fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
 		slog.Warn(msg)
 		notify.Shout(msg, appConfig.ShoutURL) // Notify through Shoutrrr
 

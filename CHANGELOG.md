@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [v2.0.4] - 2024-
+### Added
+- Notification test [#147](https://github.com/aceberg/WatchYourLAN/issues/147) 
+- API status [#148](https://github.com/aceberg/WatchYourLAN/issues/148) 
+
 ### Fixed
 - [#101](https://github.com/aceberg/WatchYourLAN/issues/101) 
 - The same problem for Theme, Color mode, Log level

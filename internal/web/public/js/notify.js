@@ -1,5 +1,5 @@
 async function testNotifications() {
 
-    const url = '/api/test_notify'
-    await fetch(url, { method: 'post' })
+    const url = '/api/notify_test';
+    await fetch(url);
 }

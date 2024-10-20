@@ -90,10 +90,45 @@ func apiEdit(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, "OK")
 }
 
-func testNotifyHandler(c *gin.Context) {
+func apiNotifyTest(c *gin.Context) {
 
-	msg := "Test notification from WatchYourLAN"
+	msg := "WatchYourLAN: test notification"
 	notify.Shout(msg, appConfig.ShoutURL)
 
 	c.Status(http.StatusOK)
+}
+
+func apiStatus(c *gin.Context) {
+	var status models.Stat
+	var searchHosts []models.Host
+
+	iface := c.Param("iface")
+	iface = iface[1:]
+
+	if iface != "" {
+		for _, host := range allHosts {
+			if iface == host.Iface {
+				searchHosts = append(searchHosts, host)
+			}
+		}
+	} else {
+		searchHosts = allHosts
+	}
+
+	for _, host := range searchHosts {
+		status.Total = status.Total + 1
+
+		if host.Known > 0 {
+			status.Known = status.Known + 1
+		} else {
+			status.Unknown = status.Unknown + 1
+		}
+		if host.Now > 0 {
+			status.Online = status.Online + 1
+		} else {
+			status.Offline = status.Offline + 1
+		}
+	}
+
+	c.IndentedJSON(http.StatusOK, status)
 }

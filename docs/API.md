@@ -40,3 +40,15 @@ Edit host with ID `id`. Can change `name`. `known` is optional, when set to `tog
 GET /api/host/del/:id
 ```
 Remove host with ID `id`.
+
+
+```http
+GET /api/notify_test
+```
+Send test notification.
+
+
+```http
+GET /api/status/*iface
+```
+Show status (Total number of hosts, online/offline, known/unknown). The `iface` parameter is optional and shows status for one interface only. For all interfaces just call `/api/status/`.

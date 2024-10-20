@@ -44,6 +44,15 @@ type Host struct {
 	Now   int    `db:"NOW"`
 }
 
+// Stat - status
+type Stat struct {
+	Total   int
+	Online  int
+	Offline int
+	Known   int
+	Unknown int
+}
+
 // GuiData - all data sent to html page
 type GuiData struct {
 	Config  Conf
