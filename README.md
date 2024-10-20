@@ -18,10 +18,7 @@ Lightweight network IP scanner with web GUI. Features:
 - Send data to `InfluxDB2` to make a `Grafana` dashboard 
 
 > [!WARNING]  
-> This is version 2.0. Version 1.0 can be found in this branch: [v1](https://github.com/aceberg/WatchYourLAN/tree/v1)
-
-> [!CAUTION]   
-> **BREAKING CHANGES!** Version 2.0 is not compatible with v1.0. For now v2.0 docker images will be released under `v2` tag. It will be tagged `latest` in a few weeks (probably, in October).
+> This is version 2.0, which is now tagged `latest`. Version 1.0 can be found in this branch: [v1](https://github.com/aceberg/WatchYourLAN/tree/v1). **BREAKING CHANGES!** Version 2.0 is not compatible with v1.0. 
 
 > [!TIP]   
 > WatchYourLAN supports `vlan`s, `docker0` and other complicated scans since `v2.0.1`. How-to [here](https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md).
@@ -55,6 +52,20 @@ docker run --name wyl \
     aceberg/watchyourlan:v2
 ```
 Web GUI should be at http://localhost:8840
+
+</details> 
+
+## Install on Linux
+
+<details>
+  <summary>Expand</summary>
+
+All binary packages can be found in [latest](https://github.com/aceberg/WatchYourLAN/releases/latest) release. There are `.deb`, `.rpm`, `.apk` (Alpine Linux) and `.tar.gz` files.   
+
+Supported architectures: `amd64`, `i386`, `arm_v5`, `arm_v6`, `arm_v7`.   
+Dependencies: `arp-scan`, `tzdata`.
+
+For `amd64` there is a `deb` repo [available](https://github.com/aceberg/ppa)
 
 </details> 
 

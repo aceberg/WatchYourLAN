@@ -26,9 +26,9 @@ function sortByAny(someArray) {
 
 function byField(a, b, fieldName, down){
     if (a[fieldName] > b[fieldName]) {
-        return down;
+        return down ? 1 : -1;
     } else {
-        return !down;
+        return !down ? 1 : -1;
     }
 }
 

@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [v2.0.4] - 2024-
+## [v2.0.4] - 2024-10-21
 ### Added
 - Notification test [#147](https://github.com/aceberg/WatchYourLAN/issues/147) 
 - API status [#148](https://github.com/aceberg/WatchYourLAN/issues/148) 
@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - [#101](https://github.com/aceberg/WatchYourLAN/issues/101) 
 - The same problem for Theme, Color mode, Log level
+- Sort bug in Chrome [#140](https://github.com/aceberg/WatchYourLAN/issues/140) 
 
 ## [v2.0.3] - 2024-09-17
 ### Fixed
