@@ -49,7 +49,7 @@ docker run --name wyl \
 	-e "TZ=$YOURTIMEZONE" \
 	--network="host" \
 	-v $DOCKERDATAPATH/wyl:/data/WatchYourLAN \
-    aceberg/watchyourlan:v2
+    aceberg/watchyourlan
 ```
 Web GUI should be at http://localhost:8840
 
@@ -174,7 +174,7 @@ docker run --name wyl \
 	-e "TZ=$YOURTIMEZONE" \
 	--network="host" \
 	-v $DOCKERDATAPATH/wyl:/data/WatchYourLAN \
-    aceberg/watchyourlan:v2 -n "http://$YOUR_IP:8850"
+    aceberg/watchyourlan -n "http://$YOUR_IP:8850"
 ```
 Or use [docker-compose](docker-compose-local.yml)
 
