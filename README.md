@@ -17,12 +17,6 @@ Lightweight network IP scanner with web GUI. Features:
 - Keep a list of all hosts in the network
 - Send data to `InfluxDB2` to make a `Grafana` dashboard 
 
-> [!WARNING]  
-> This is version 2.0, which is now tagged `latest`. Version 1.0 can be found in this branch: [v1](https://github.com/aceberg/WatchYourLAN/tree/v1). **BREAKING CHANGES!** Version 2.0 is not compatible with v1.0. 
-
-> [!TIP]   
-> WatchYourLAN supports `vlan`s, `docker0` and other complicated scans since `v2.0.1`. How-to [here](https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md).
-
 ![Screenshot_1](https://raw.githubusercontent.com/aceberg/WatchYourLAN/main/assets/Screenshot_1.png)  
 
 ## More screenshots
@@ -63,8 +57,8 @@ Web GUI should be at http://localhost:8840
 **WatchYourLAN** does not have built-in auth option. But you can use it with SSO tools like Authelia, or my simple auth app [ForAuth](https://github.com/aceberg/ForAuth).   
 Here is an example [docker-compose-auth.yml](https://github.com/aceberg/WatchYourLAN/blob/main/docker-compose-auth.yml).
 
-> [!WARNING]  
-> Please, don't forget that WYL needs `host` network mode to work. So, WYL port will be exposed in this setup. You need to limit access to it with firewall or other measures.
+> :warning:  **WARNING!**   
+> Please, don't forget that WYL needs `host` network mode to work. So, WYL port will be exposed in this setup. You need to limit access to it with firewall or other measures.   
 
 </details> 
 
