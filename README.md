@@ -55,6 +55,19 @@ Web GUI should be at http://localhost:8840
 
 </details> 
 
+## Auth
+
+<details>
+  <summary>Expand</summary>
+
+**WatchYourLAN** does not have built-in auth option. But you can use it with SSO tools like Authelia, or my simple auth app [ForAuth](https://github.com/aceberg/ForAuth).   
+Here is an example [docker-compose-auth.yml](https://github.com/aceberg/WatchYourLAN/blob/main/docker-compose-auth.yml).
+
+> [!WARNING]  
+> Please, don't forget that WYL needs `host` network mode to work. So, WYL port will be exposed in this setup. You need to limit access to it with firewall or other measures.
+
+</details> 
+
 ## Install on Linux
 
 <details>
@@ -73,7 +86,7 @@ For `amd64` there is a `deb` repo [available](https://github.com/aceberg/ppa)
 <details>
   <summary>Expand</summary>
 
-Configuration can be done through config file, GUI or environment variables
+Configuration can be done through config file, GUI or environment variables. Variable names is `config_v2.yaml` file are the same, but in lowcase.
 
 ### Basic config
 | Variable  | Description | Default |

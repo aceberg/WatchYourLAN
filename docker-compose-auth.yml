@@ -1,0 +1,37 @@
+version: "3"
+services:
+  wyl:
+    image: aceberg/watchyourlan
+    network_mode: "host"        
+    restart: unless-stopped
+    volumes:
+    - ~/.dockerdata/wyl:/data/WatchYourLAN
+    environment:
+      TZ: Asia/Novosibirsk              # required: needs your TZ for correct time
+      IFACES: "enp4s0 wlxf4ec3892dd51"  # required: 1 or more interface
+      HOST: "0.0.0.0"                   # optional, default: 0.0.0.0
+      PORT: "8840"                      # optional, default: 8840
+      TIMEOUT: "120"                    # optional, time in seconds, default: 120
+      SHOUTRRR_URL: ""                  # optional, set url to notify
+      THEME: "sand"                     # optional
+      COLOR: "dark"                     # optional
+
+# WARNING! WYL needs 'host' network mode to work. So, WYL port will be exposed in this setup. You need to limit access to it with firewall or other measures
+
+  forauth:
+    image: aceberg/forauth      
+    restart: unless-stopped
+    ports:
+    - 8800:8800 # Proxy port
+    - 8801:8801 # Config port
+    volumes:
+    - ~/.dockerdata/forauth:/data/ForAuth
+    environment:
+      TZ: Asia/Novosibirsk          # required: needs your TZ for correct time
+      FA_TARGET: "YOUR_IP:8840"     # optional: path to wyl host:port  
+      FA_AUTH: "true"               # optional: true - enabled, default: false
+      FA_AUTH_EXPIRE: 7d            # optional: expiration time, default: 7d
+      FA_AUTH_PASSWORD: "$$2a$$10$$wGLUHXh2cRN1257uGg1s5eZvYgnjw8wB9vAcfcHqqqrxm5hvBqAzK" 
+      # WARNING! If password is set as environment variable, every '$' character must be escaped with another '$', like this '$$'
+      # optional: password encrypted with bcrypt, how-to: https://github.com/aceberg/ForAuth/blob/main/docs/BCRYPT.md 
+      FA_AUTH_USER: user            # optional: username
