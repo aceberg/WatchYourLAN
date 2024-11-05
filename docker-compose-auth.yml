@@ -33,5 +33,5 @@ services:
       FA_AUTH_EXPIRE: 7d            # optional: expiration time, default: 7d
       FA_AUTH_PASSWORD: "$$2a$$10$$wGLUHXh2cRN1257uGg1s5eZvYgnjw8wB9vAcfcHqqqrxm5hvBqAzK" 
       # WARNING! If password is set as environment variable, every '$' character must be escaped with another '$', like this '$$'
-      # optional: password encrypted with bcrypt, how-to: https://github.com/aceberg/ForAuth/blob/main/docs/BCRYPT.md 
+      # optional: password encrypted with bcrypt, how-to: https://github.com/aceberg/ForAuth/blob/main/docs/BCRYPT.md (In this example FA_AUTH_PASSWORD=pw)
       FA_AUTH_USER: user            # optional: username
