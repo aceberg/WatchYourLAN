@@ -41,6 +41,10 @@
                 <td>{{ .Host.Date }}</td>
               </tr>
               <tr>
+                <td>First Seen</td>
+                <td>{{ .Host.FirstSeen }}</td>
+              </tr>
+              <tr>
                 <td>Known</td>
                 <td>{{ if eq .Host.Known 1 }}Yes{{ else }}No{{ end }}</td>
               </tr>

@@ -31,6 +31,7 @@ function createHTML(addr, i) {
         <td><a href="/host/${addr.ID}">${addr.Mac}</a></td>
         <td>${addr.Hw}</td>
         <td>${addr.Date}</td>
+        <td>${addr.FirstSeen}</td>
         <td>
             <div class="form-check form-switch">
                 <input onclick="editForm(${addr.ID}, 'toggle')" class="form-check-input" type="checkbox" ${known}>

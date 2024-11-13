@@ -32,16 +32,17 @@ type Conf struct {
 
 // Host - one host
 type Host struct {
-	ID    int    `db:"ID"`
-	Name  string `db:"NAME"`
-	DNS   string `db:"DNS"`
-	Iface string `db:"IFACE"`
-	IP    string `db:"IP"`
-	Mac   string `db:"MAC"`
-	Hw    string `db:"HW"`
-	Date  string `db:"DATE"`
-	Known int    `db:"KNOWN"`
-	Now   int    `db:"NOW"`
+	ID        int    `db:"ID"`
+	Name      string `db:"NAME"`
+	DNS       string `db:"DNS"`
+	Iface     string `db:"IFACE"`
+	IP        string `db:"IP"`
+	Mac       string `db:"MAC"`
+	Hw        string `db:"HW"`
+	Date      string `db:"DATE"`
+	FirstSeen string `db:"FIRSTSEEN"`
+	Known     int    `db:"KNOWN"`
+	Now       int    `db:"NOW"`
 }
 
 // Stat - status

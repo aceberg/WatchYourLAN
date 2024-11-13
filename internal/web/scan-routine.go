@@ -76,6 +76,7 @@ func compareHosts(foundHosts []models.Host) {
 	for _, fHost := range foundHostsMap {
 
 		fHost.Name, fHost.DNS = updateDNS(fHost)
+		fHost.FirstSeen = time.Now().Format("2006-01-02 15:04:05")
 
 		msg := fmt.Sprintf("WatchYourLAN: unknown host found. Names: '%s', IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.DNS, fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
 		slog.Warn(msg)
