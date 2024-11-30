@@ -1,8 +1,10 @@
-version: "3"
 services:
   wyl:
     image: aceberg/watchyourlan
-    network_mode: "host"        
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     restart: unless-stopped
     volumes:
     - ~/.dockerdata/wyl:/data/WatchYourLAN
