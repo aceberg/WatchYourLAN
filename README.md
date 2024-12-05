@@ -196,7 +196,10 @@ Or use [docker-compose](docker-compose-local.yml)
 Moved to [docs/API.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/API.md)
 
 ### Integrations
+- [ArchLinux (AUR)](https://aur.archlinux.org/packages/watch-your-lan) by `gilcu3`
 - [Python API client](https://github.com/drwahl/py-watchyourlanclient) by [drwahl](https://github.com/drwahl)
+- [Umbrel](https://apps.umbrel.com/app/watch-your-lan) by [Jasper](https://github.com/ceramicwhite)
+- [YunoHost](https://apps.yunohost.org/app/watchyourlan)
 </details> 
 
 ## Thanks
