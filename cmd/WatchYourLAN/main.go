@@ -5,7 +5,6 @@ import (
 	// "net/http"
 
 	// _ "net/http/pprof"
-	_ "time/tzdata"
 
 	"github.com/aceberg/WatchYourLAN/internal/web"
 )
