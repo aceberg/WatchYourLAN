@@ -2,7 +2,7 @@ FROM golang:alpine AS builder
 
 RUN apk add build-base
 COPY . /src
-RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -o /WatchYourLAN .
+RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -ldflags='-w -s' -o /WatchYourLAN .
 
 
 FROM alpine
