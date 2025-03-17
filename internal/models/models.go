@@ -28,6 +28,8 @@ type Conf struct {
 	InfluxOrg     string
 	InfluxBucket  string
 	InfluxSkipTLS bool
+	// Prometheus
+	PrometheusEnable bool
 }
 
 // Host - one host

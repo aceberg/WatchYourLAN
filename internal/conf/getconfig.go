@@ -32,6 +32,8 @@ func Get(path string) (config models.Conf) {
 
 	viper.SetDefault("INFLUX_ENABLE", false)
 
+	viper.SetDefault("PROMETHEUS_ENABLE", false)
+
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
 	err := viper.ReadInConfig()
@@ -62,6 +64,8 @@ func Get(path string) (config models.Conf) {
 	config.InfluxToken, _ = viper.Get("INFLUX_TOKEN").(string)
 	config.InfluxOrg, _ = viper.Get("INFLUX_ORG").(string)
 	config.InfluxBucket, _ = viper.Get("INFLUX_BUCKET").(string)
+
+	config.PrometheusEnable = viper.GetBool("PROMETHEUS_ENABLE")
 
 	joined := viper.Get("ARP_STRS_JOINED").(string)
 	slog.Info("ARP_STRS_JOINED: " + joined)
@@ -103,6 +107,8 @@ func Write(config models.Conf) {
 	viper.Set("influx_token", config.InfluxToken)
 	viper.Set("influx_org", config.InfluxOrg)
 	viper.Set("influx_bucket", config.InfluxBucket)
+
+	viper.Set("PROMETHEUS_ENABLE", config.PrometheusEnable)
 
 	err := viper.WriteConfig()
 	check.IfError(err)

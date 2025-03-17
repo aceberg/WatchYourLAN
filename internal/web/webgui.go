@@ -5,10 +5,10 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
+	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 // Gui - start web server
@@ -63,6 +63,10 @@ func Gui(dirPath, nodePath string) {
 	router.POST("/config/", saveConfigHandler)            // config.go
 	router.POST("/config_settings/", saveSettingsHandler) // config.go
 	router.POST("/config_influx/", saveInfluxHandler)     // config.go
+
+	if appConfig.PrometheusEnable {
+		router.GET("/metrics", gin.WrapH(promhttp.Handler()))
+	}
 
 	err := router.Run(address)
 	check.IfError(err)
