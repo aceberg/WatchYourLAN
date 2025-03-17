@@ -1,8 +1,14 @@
 FROM golang:alpine AS builder
 
 RUN apk add build-base
-COPY . /src
-RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -o /WatchYourLAN .
+
+WORKDIR /src
+COPY go.mod go.sum .
+RUN go mod download
+
+COPY . .
+WORKDIR /src/cmd/WatchYourLAN
+RUN CGO_ENABLED=0 go build -o /WatchYourLAN .
 
 
 FROM alpine
