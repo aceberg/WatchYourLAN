@@ -1,0 +1,10 @@
+/* Sort button */
+.my-btn {
+    height: 100%;
+    background-color: #00000000;
+    color: var(--bs-primary);
+    text-align: center;
+}
+.my-btn:hover {
+    background-color: #0000001a;
+}

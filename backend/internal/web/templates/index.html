@@ -1,73 +1,10 @@
 {{ define "index.html" }}
-</head>
-<body>
-<div class="container-lg">
-  <div class="row">
-    <div class="col-md mt-2">
-      <div class="form-check form-switch">
-        <input type="hidden" id="ref-timeout" value="{{ .Config.Timeout }}">
-        <input class="form-check-input" type="checkbox" id="ref" onclick="toggleRefresh()" title="Auto refresh">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md mt-2 mb-4">
-      <div class="card border-primary">
-        <div class="card-header">
-          <div class="row">
-            <div class="col-md mt-1 mb-1">
-              <button class="btn btn-outline-primary" disabled>Filter by</button>
-              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Iface</button>
-              <ul class="dropdown-menu">
-                {{ range .Themes }}
-                <li><a class="dropdown-item" onclick="filterFunc('iface', '{{ . }}')">{{ . }}</a></li>
-                {{ end }}
-              </ul>
-              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Known</button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" onclick="filterFunc('known', 1)">Known</a></li>
-                <li><a class="dropdown-item" onclick="filterFunc('known', 0)">Unknown</a></li>
-              </ul>
-              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Online</button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" onclick="filterFunc('line', 1)">Online</a></li>
-                <li><a class="dropdown-item" onclick="filterFunc('line', 0)">Offline</a></li>
-              </ul>
-              <button class="btn btn-outline-primary" onclick="resetFilter()">Reset filter</button>
-            </div>
-            <div class="col-md mt-1 mb-1">
-              <div class="d-flex justify-content-between">
-                <input class="form-control" id="search" oninput="searchFunc()" placeholder="Search" style="max-width: 10em;">
-                <button class="btn btn-outline-primary" id="edit" onclick="editClick()">Edit names</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <th style="width: 3em;"></th>
-              <th>Name <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Name')"></i></th>
-              <th>Iface <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Iface')"></i></th>
-              <th>IP <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('IP')"></i></th>
-              <th>MAC <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Mac')"></i></th>
-              <th>Hardware <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Hw')"></i></th>
-              <th>Date <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Date')"></i></th>
-              <th>Known <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Known')"></i></th>
-              <th>Online <i class="bi bi-sort-down-alt my-btn" onclick="sortBy('Now')"></i></th>
-            </thead>
-            <tbody id="tBody"></tbody> 
-            <!-- index.js -->
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<script src="/fs/public/js/index.js"></script>
-<script src="/fs/public/js/sort.js"></script>
-<script src="/fs/public/js/filter-search.js"></script>
-<script src="/fs/public/js/refresh.js"></script>
+    <script type="module" crossorigin src="/fs/public/assets/index.js"></script>
+    <link rel="stylesheet" crossorigin href="/fs/public/assets/index.css">
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
 
 {{ template "footer.html" }}
 {{ end }}

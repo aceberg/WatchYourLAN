@@ -2,6 +2,7 @@ import { onMount } from "solid-js";
 import { allHosts, setAllHosts } from "../functions/exports";
 import { getAllHosts } from "../functions/api";
 import { For } from "solid-js";
+import TableRow from "../components/TableRow";
 
 
 function Body() {
@@ -33,21 +34,12 @@ function Body() {
             <th>Date <i class="bi bi-sort-down-alt my-btn" onclick={[handleSort, "Date"]}></i></th>
             <th>Known <i class="bi bi-sort-down-alt my-btn" onclick={[handleSort, "Known"]}></i></th>
             <th>Online <i class="bi bi-sort-down-alt my-btn" onclick={[handleSort, "Now"]}></i></th>
+            <th style="width: 2em;"></th>
             </tr>
           </thead>
           <tbody>
             <For each={allHosts()}>{(host, index) =>
-            <tr>
-              <td class="opacity-50">{index()+1}.</td>
-              <td>{host.Name}</td>
-              <td>{host.Iface}</td>
-              <td><a href="http://{host.IP}" target="_blank">{host.IP}</a></td>
-              <td>{host.Mac}</td>
-              <td>{host.Hw}</td>
-              <td>{host.Date}</td>
-              <td>{host.Known}</td>
-              <td>{host.Now}</td>
-            </tr>
+            <TableRow host={host} index={index}></TableRow>
             }</For>
           </tbody> 
         </table>
