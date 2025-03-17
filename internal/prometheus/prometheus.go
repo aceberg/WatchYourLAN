@@ -22,26 +22,14 @@ func Handler(appConfig *models.Conf) func(c *gin.Context) {
 	}
 }
 
-var up *prometheus.GaugeVec
-
-func NewMetrics() {
-	up = promauto.NewGaugeVec(prometheus.GaugeOpts{
-		Namespace: "watch_your_lan",
-		Name:      "up",
-		Help:      "Whether the host is up (1 for yes, 0 for no)",
-	}, []string{"ip", "iface", "name", "mac", "known"})
-}
-
-func RemoveMetrics() {
-	up = nil
-}
+var up = promauto.NewGaugeVec(prometheus.GaugeOpts{
+	Namespace: "watch_your_lan",
+	Name:      "up",
+	Help:      "Whether the host is up (1 for yes, 0 for no)",
+}, []string{"ip", "iface", "name", "mac", "known"})
 
 // Add a Prometheus metric
 func Add(oneHist models.Host) {
-	if up == nil {
-		return
-	}
-
 	if oneHist.Name == "" {
 		oneHist.Name = "unknown"
 	}

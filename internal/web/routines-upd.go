@@ -4,7 +4,6 @@ import (
 	"log/slog"
 
 	"github.com/aceberg/WatchYourLAN/internal/db"
-	"github.com/aceberg/WatchYourLAN/internal/prometheus"
 )
 
 func updateRoutines() {
@@ -18,12 +17,6 @@ func updateRoutines() {
 	db.Create()
 
 	allHosts = db.Select("now")
-
-	if appConfig.PrometheusEnable {
-		prometheus.NewMetrics()
-	} else {
-		prometheus.RemoveMetrics()
-	}
 
 	quitScan = make(chan bool)
 	go startScan(quitScan) // scan-routine.go
