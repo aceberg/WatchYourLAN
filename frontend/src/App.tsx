@@ -1,7 +1,16 @@
+import { onMount } from 'solid-js';
 import './App.css'
+import { apiGetAllHosts } from './functions/api';
+import { setAllHosts } from './functions/exports';
 import Body from './pages/Body'
 
 function App() {
+
+  onMount(async () => {
+
+    const hosts = await apiGetAllHosts();
+    setAllHosts(hosts);
+  });
 
   return (
     <div class="container-lg">
