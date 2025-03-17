@@ -21,6 +21,8 @@ func updateRoutines() {
 
 	if appConfig.PrometheusEnable {
 		prometheus.NewMetrics()
+	} else {
+		prometheus.RemoveMetrics()
 	}
 
 	quitScan = make(chan bool)

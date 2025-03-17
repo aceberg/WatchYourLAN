@@ -109,3 +109,15 @@ func saveInfluxHandler(c *gin.Context) {
 
 	c.Redirect(http.StatusFound, "/config")
 }
+
+func savePrometheusHandler(c *gin.Context) {
+	enable := c.PostForm("enable")
+
+	appConfig.PrometheusEnable = enable == "on"
+
+	conf.Write(appConfig)
+
+	slog.Info("Writing new config to " + appConfig.ConfPath)
+
+	c.Redirect(http.StatusFound, "/config")
+}
