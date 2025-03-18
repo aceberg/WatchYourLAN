@@ -7,6 +7,7 @@ function TableRow(_props: any) {
   const [name, setName] = createSignal(_props.host.Name);
 
   const link = "http://" + _props.host.IP;
+  const edit = "/host/" + _props.host.ID;
   
   let now = <i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>;
   if (_props.host.Now == 1) {
@@ -51,7 +52,9 @@ function TableRow(_props: any) {
         </div>
       </td>
       <td>{now}</td>
-      <td><i class="bi bi-pencil-square my-btn"></i></td>
+      <td>
+        <a href={edit}><i class="bi bi-pencil-square my-btn"></i></a>
+      </td>
     </tr>
   )
 }

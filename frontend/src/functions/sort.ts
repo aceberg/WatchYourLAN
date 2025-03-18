@@ -1,7 +1,15 @@
 import { allHosts, Host, setAllHosts } from "./exports";
 
 let down = false;
-let oldField = "Name";
+let oldField = '';
+
+export function sortAtStart() {
+  const field = localStorage.getItem("sortField") as keyof Host;
+  down = JSON.parse(localStorage.getItem("sortDown") as string);
+  down = !down;
+
+  sortByAnyField(field);
+}
 
 export function sortByAnyField(field: keyof Host) {
 
@@ -13,8 +21,8 @@ export function sortByAnyField(field: keyof Host) {
     down = !down;
   }
 
-  // localStorage.setItem("sortDown", down);
-  // localStorage.setItem("sortField", field);
+  localStorage.setItem("sortDown", down.toString());
+  localStorage.setItem("sortField", field);
   // checkNotEmpty(addrsArray);
 
   let someArray = allHosts();
