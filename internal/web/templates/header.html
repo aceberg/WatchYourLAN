@@ -20,8 +20,6 @@
     <link href="{{ .Config.NodePath }}/node_modules/bootswatch/dist/{{ .Config.Theme }}/bootstrap.min.css" rel="stylesheet">
     <script src="{{ .Config.NodePath }}/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     {{ end }}
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/fs/public/css/index.css" />
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
@@ -42,10 +40,10 @@
                   <a class="nav-link active" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="/config/">Config</a>
+                  <a class="nav-link active" target="_self" href="/config/">Config</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="/history/">History</a>
+                  <a class="nav-link active" target="_self" href="/history/">History</a>
                 </li>
             </ul>
           </div>

@@ -57,8 +57,8 @@ func Gui(dirPath, nodePath string) {
 
 	router.GET("/", indexHandler)           // index.go
 	router.GET("/history/", historyHandler) // index.go
-	router.GET("/host/:id", hostHandler)    // host.go
-	router.GET("/config/", configHandler)   // config.go
+	// router.GET("/host/:id", hostHandler)    // host.go
+	router.GET("/config/", configHandler) // config.go
 
 	router.POST("/config/", saveConfigHandler)                // config.go
 	router.POST("/config_settings/", saveSettingsHandler)     // config.go
