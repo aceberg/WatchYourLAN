@@ -5,10 +5,10 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
+	"github.com/aceberg/WatchYourLAN/internal/prometheus"
+	"github.com/gin-gonic/gin"
 )
 
 // Gui - start web server
@@ -60,9 +60,12 @@ func Gui(dirPath, nodePath string) {
 	// router.GET("/host/:id", hostHandler)    // host.go
 	router.GET("/config/", configHandler) // config.go
 
-	router.POST("/config/", saveConfigHandler)            // config.go
-	router.POST("/config_settings/", saveSettingsHandler) // config.go
-	router.POST("/config_influx/", saveInfluxHandler)     // config.go
+	router.POST("/config/", saveConfigHandler)                // config.go
+	router.POST("/config_settings/", saveSettingsHandler)     // config.go
+	router.POST("/config_influx/", saveInfluxHandler)         // config.go
+	router.POST("/config_prometheus/", savePrometheusHandler) // config.go
+
+	router.GET("/metrics", prometheus.Handler(&appConfig))
 
 	err := router.Run(address)
 	check.IfError(err)

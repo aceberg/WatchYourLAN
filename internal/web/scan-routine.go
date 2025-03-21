@@ -10,6 +10,7 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/influx"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/notify"
+	"github.com/aceberg/WatchYourLAN/internal/prometheus"
 )
 
 func startScan(quit chan bool) {
@@ -70,6 +71,9 @@ func compareHosts(foundHosts []models.Host) {
 		}
 		if appConfig.InfluxEnable {
 			influx.Add(appConfig, aHost)
+		}
+		if appConfig.PrometheusEnable {
+			prometheus.Add(aHost)
 		}
 	}
 
