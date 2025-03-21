@@ -1,6 +1,6 @@
 import { createSignal, Show } from "solid-js";
-import { editNames } from "../functions/exports";
-import { apiEditHost } from "../functions/api";
+import { editNames } from "../../functions/exports";
+import { apiEditHost } from "../../functions/api";
 
 function TableRow(_props: any) {
 

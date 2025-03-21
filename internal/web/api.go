@@ -43,6 +43,7 @@ func apiHost(c *gin.Context) {
 	idStr := c.Param("id")
 
 	host := getHostByID(idStr, allHosts) // functions.go
+	_, host.DNS = updateDNS(host)
 
 	c.IndentedJSON(http.StatusOK, host)
 }

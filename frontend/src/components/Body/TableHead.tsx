@@ -1,5 +1,5 @@
-import { Host } from "../functions/exports";
-import { sortByAnyField } from "../functions/sort";
+import { Host } from "../../functions/exports";
+import { sortByAnyField } from "../../functions/sort";
 
 function TableHead() {
 

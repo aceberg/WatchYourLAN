@@ -1,10 +1,11 @@
 import { useParams } from "@solidjs/router";
-import { apiGetHost } from "../functions/api";
-
-import HostPageHost from "../components/HostPageHost";
-import { setCurrentHost } from "../functions/exports";
 import { onMount } from "solid-js";
-import HostPagePing from "../components/HostPagePing";
+
+import { apiGetHost } from "../functions/api";
+import { setCurrentHost } from "../functions/exports";
+
+import HostCard from "../components/HostPage/HostCard";
+import Ping from "../components/HostPage/Ping";
 
 function HostPage() {
 
@@ -18,10 +19,10 @@ function HostPage() {
   return (
     <div class="row">
       <div class="col-md">
-        <HostPageHost></HostPageHost>
+        <HostCard></HostCard>
       </div>
       <div class="col-md">
-        <HostPagePing></HostPagePing>
+        <Ping></Ping>
       </div>
     </div>
   )

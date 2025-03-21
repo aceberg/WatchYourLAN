@@ -1,9 +1,9 @@
 import { createSignal, For } from "solid-js";
-import { apiPortScan } from "../functions/api";
-import { currentHost } from "../functions/exports";
+import { apiPortScan } from "../../functions/api";
+import { currentHost } from "../../functions/exports";
 
 
-function HostPagePing() {
+function Ping() {
 
   let stop = false;
 
@@ -75,4 +75,4 @@ function HostPagePing() {
   )
 }
 
-export default HostPagePing
+export default Ping

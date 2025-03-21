@@ -1,9 +1,9 @@
 import { Show } from "solid-js";
-import { editNames, setEditNames } from "../functions/exports";
-import Filter from "./Filter";
-import Search from "./Search";
+import { editNames, setEditNames } from "../../functions/exports";
+import Filter from "../Filter";
+import Search from "../Search";
 
-function BodyCardHead() {
+function CardHead() {
 
   return (
     <div class="row">
@@ -25,4 +25,4 @@ function BodyCardHead() {
   )
 }
 
-export default BodyCardHead
+export default CardHead

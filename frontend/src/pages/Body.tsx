@@ -2,16 +2,16 @@ import { For } from "solid-js";
 
 import { allHosts } from "../functions/exports";
 
-import TableRow from "../components/TableRow";
-import TableHead from "../components/TableHead";
-import BodyCardHead from "../components/BodyCardHead";
+import TableRow from "../components/Body/TableRow";
+import TableHead from "../components/Body/TableHead";
+import CardHead from "../components/Body/CardHead";
 
 function Body() {
 
   return (
     <div class="card border-primary">
       <div class="card-header">
-        <BodyCardHead></BodyCardHead>
+        <CardHead></CardHead>
       </div>
       <div class="card-body table-responsive">
         <table class="table table-striped table-hover">

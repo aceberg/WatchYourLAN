@@ -27,8 +27,10 @@ export const emptyHost:Host = {
 };
 
 export interface Conf {
+	Theme:	 string;
 	Color:   string;
 	Timeout: number;
+	NodePath: string;
 };
 
 

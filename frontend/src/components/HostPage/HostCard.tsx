@@ -1,7 +1,7 @@
-import { apiDelHost, apiEditHost } from "../functions/api";
-import { currentHost } from "../functions/exports";
+import { apiDelHost, apiEditHost } from "../../functions/api";
+import { currentHost } from "../../functions/exports";
 
-function HostPageHost() {
+function HostCard() {
 
   let name:string = "";
 
@@ -98,4 +98,4 @@ function HostPageHost() {
   )
 }
 
-export default HostPageHost
+export default HostCard

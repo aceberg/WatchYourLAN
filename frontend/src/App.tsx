@@ -4,6 +4,7 @@ import './App.css';
 import { runAtStart } from './functions/atstart';
 
 import Body from './pages/Body';
+import Header from './components/Header';
 
 function App() {
 
@@ -14,6 +15,8 @@ function App() {
   const HostPage = lazy(() => import("./pages/HostPage"));
 
   return (
+    <>
+    <Header></Header>
     <div class="container-lg">
       <div class="row">
         <div class="col-md mt-4 mb-4">
@@ -24,6 +27,7 @@ function App() {
         </div>
       </div>
     </div>
+    </>
   )
 }
 
