@@ -12,7 +12,6 @@ function Filter() {
   return (
     <div class="row">
       <div class="col input-group">
-        <span class="input-group-text">Filter by</span>
         <select class="form-select">
           <option selected disabled>Iface</option>
           <For each={ifaces()}>{(iface) =>

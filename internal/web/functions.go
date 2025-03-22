@@ -2,7 +2,6 @@ package web
 
 import (
 	"net"
-	"slices"
 	"strconv"
 	"strings"
 
@@ -45,14 +44,4 @@ func getHostsByMAC(mac string, hosts []models.Host) (foundHosts []models.Host) {
 	}
 
 	return foundHosts
-}
-
-func getAllIfaces(hosts []models.Host) (ifaces []string) {
-
-	for _, host := range hosts {
-		if !slices.Contains(ifaces, host.Iface) {
-			ifaces = append(ifaces, host.Iface)
-		}
-	}
-	return ifaces
 }

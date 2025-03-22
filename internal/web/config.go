@@ -7,26 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/models"
 )
-
-func configHandler(c *gin.Context) {
-	var guiData models.GuiData
-
-	guiData.Config = appConfig
-
-	guiData.Themes = []string{"cerulean", "cosmo", "cyborg", "darkly", "emerald", "flatly", "grass", "grayscale", "journal", "litera", "lumen", "lux", "materia", "minty", "morph", "ocean", "pulse", "quartz", "sand", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "vapor", "wood", "yeti", "zephyr"}
-
-	file, err := pubFS.ReadFile("public/version")
-	check.IfError(err)
-	version := string(file)
-	guiData.Version = version[8:]
-
-	c.HTML(http.StatusOK, "header.html", guiData)
-	c.HTML(http.StatusOK, "config.html", guiData)
-}
 
 func saveConfigHandler(c *gin.Context) {
 
@@ -41,7 +23,7 @@ func saveConfigHandler(c *gin.Context) {
 
 	slog.Info("Writing new config to " + appConfig.ConfPath)
 
-	c.Redirect(http.StatusFound, "/config")
+	c.Redirect(http.StatusFound, c.Request.Referer())
 }
 
 func saveSettingsHandler(c *gin.Context) {
@@ -80,7 +62,7 @@ func saveSettingsHandler(c *gin.Context) {
 
 	updateRoutines() // routines-upd.go
 
-	c.Redirect(http.StatusFound, "/config")
+	c.Redirect(http.StatusFound, c.Request.Referer())
 }
 
 func saveInfluxHandler(c *gin.Context) {
@@ -107,7 +89,7 @@ func saveInfluxHandler(c *gin.Context) {
 
 	slog.Info("Writing new config to " + appConfig.ConfPath)
 
-	c.Redirect(http.StatusFound, "/config")
+	c.Redirect(http.StatusFound, c.Request.Referer())
 }
 
 func savePrometheusHandler(c *gin.Context) {
@@ -119,5 +101,5 @@ func savePrometheusHandler(c *gin.Context) {
 
 	slog.Info("Writing new config to " + appConfig.ConfPath)
 
-	c.Redirect(http.StatusFound, "/config")
+	c.Redirect(http.StatusFound, c.Request.Referer())
 }

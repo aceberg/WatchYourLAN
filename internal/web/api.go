@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/notify"
@@ -17,6 +18,20 @@ func apiAll(c *gin.Context) {
 	allHosts = db.Select("now")
 
 	c.IndentedJSON(http.StatusOK, allHosts)
+}
+
+func apiVersion(c *gin.Context) {
+
+	file, err := pubFS.ReadFile("public/version")
+	check.IfError(err)
+	version := string(file)[8:]
+
+	c.IndentedJSON(http.StatusOK, version)
+}
+
+func apiGetConfig(c *gin.Context) {
+
+	c.IndentedJSON(http.StatusOK, appConfig)
 }
 
 func apiHistory(c *gin.Context) {

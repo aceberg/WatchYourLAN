@@ -1,15 +1,37 @@
-const api = 'http://0.0.0.0:8840';
+export const apiPath = 'http://0.0.0.0:8840';
 
 export const apiGetAllHosts = async () => {
-  const url = api+'/api/all';
+  const url = apiPath+'/api/all';
   const hosts = await (await fetch(url)).json();
 
   return hosts;
 };
 
+export const apiGetConfig = async () => {
+
+  const url = apiPath+'/api/config/';
+  const res = await (await fetch(url)).json();
+
+  return res;
+};
+
+export const apiGetVersion = async () => {
+
+  const url = apiPath+'/api/version';
+  const res = await (await fetch(url)).json();
+
+  return res;
+};
+
+export const apiTestNotify = async () => {
+
+  const url = apiPath+'/api/notify_test';
+  await fetch(url);
+};
+
 export const apiEditHost = async (id:number, name:string, known:string) => {
 
-  const url = api+'/api/edit/'+id+'/'+name+'/'+known;
+  const url = apiPath+'/api/edit/'+id+'/'+name+'/'+known;
   const res = await (await fetch(url)).json();
 
   return res;
@@ -17,7 +39,7 @@ export const apiEditHost = async (id:number, name:string, known:string) => {
 
 export const apiGetHost = async (id:string) => {
 
-  const url = api+'/api/host/'+id;
+  const url = apiPath+'/api/host/'+id;
   const res = await (await fetch(url)).json();
 
   return res;
@@ -25,7 +47,7 @@ export const apiGetHost = async (id:string) => {
 
 export const apiDelHost = async (id:number) => {
 
-  const url = api+'/api/host/del/'+id;
+  const url = apiPath+'/api/host/del/'+id;
   const res = await (await fetch(url)).json();
 
   return res;
@@ -33,7 +55,7 @@ export const apiDelHost = async (id:number) => {
 
 export const apiPortScan = async (ip:string, port:number) => {
 
-  const url = api+'/api/port/'+ip+'/'+port;
+  const url = apiPath+'/api/port/'+ip+'/'+port;
   const res = await (await fetch(url)).json();
 
   return res;

@@ -11,6 +11,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
+// Handler - display Prometheus metrics
 func Handler(appConfig *models.Conf) func(c *gin.Context) {
 	h := promhttp.Handler()
 	return func(c *gin.Context) {

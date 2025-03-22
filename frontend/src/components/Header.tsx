@@ -1,21 +1,24 @@
 import { createSignal } from "solid-js";
-import { Conf } from "../functions/exports";
+import { appConfig, setAppConfig } from "../functions/exports";
+import { apiGetConfig } from "../functions/api";
 
 function Header() {
 
   const [themePath, setThemePath] = createSignal('');
   const [iconsPath, setIconsPath] = createSignal('');
   
-  const setCurrentTheme = (appConfig:Conf) => {
-    const theme = appConfig.Theme?appConfig.Theme:"sand";
-    const color = appConfig.Color?appConfig.Color:"dark";
+  const setCurrentTheme = async () => {
+    setAppConfig(await apiGetConfig());
+
+    const theme = appConfig().Theme?appConfig().Theme:"minty";
+    const color = appConfig().Color?appConfig().Color:"dark";
     
-    if (appConfig.NodePath == '') {
+    if (appConfig().NodePath == '') {
       setThemePath("https://cdn.jsdelivr.net/npm/aceberg-bootswatch-fork@v5.3.3-2/dist/"+theme+"/bootstrap.min.css");
       setIconsPath("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css");
     } else {
-      setThemePath(appConfig.NodePath+"/node_modules/bootswatch/dist/"+theme+"/bootstrap.min.css");
-      setIconsPath(appConfig.NodePath+"/node_modules/bootstrap-icons/font/bootstrap-icons.css");
+      setThemePath(appConfig().NodePath+"/node_modules/bootswatch/dist/"+theme+"/bootstrap.min.css");
+      setIconsPath(appConfig().NodePath+"/node_modules/bootstrap-icons/font/bootstrap-icons.css");
     }
 
     document.documentElement.setAttribute("data-bs-theme", color);
@@ -23,12 +26,7 @@ function Header() {
       ? document.documentElement.style.setProperty('--transparent-light', '#ffffff15')
       : document.documentElement.style.setProperty('--transparent-light', '#00000015');
   }
-  setCurrentTheme({
-    Theme: "sand",
-    Color: "dark",
-    Timeout: 120,
-    NodePath: "",
-  });
+  setCurrentTheme();
 
   return (
     <>
@@ -52,7 +50,7 @@ function Header() {
                   <a class="nav-link active" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" target="_self" href="/config/">Config</a>
+                  <a class="nav-link active" href="/config/">Config</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" href="/history/">History</a>
