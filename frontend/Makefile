@@ -8,16 +8,7 @@ build:
 
 replace:
 	cd ../internal/web/public/assets/ && \
-	cat index-*.js | sed 's/assets/fs\/public\/assets/g;s/http:\/\/0.0.0.0:8840//' > index.js && \
-	cat index-*.css | sed 's/assets/fs\/public\/assets/g' > index.css && \
-	cat Config-*.js | sed 's/index-.*\.js/index.js/g' > tmp && \
-	cp tmp Config-*.js && \
-	cat History-*.js | sed 's/index-.*\.js/index.js/g' > tmp && \
-	cp tmp History-*.js && \
-	cat HostPage-*.js | sed 's/index-.*\.js/index.js/g' > tmp && \
-	cp tmp HostPage-*.js && \
-	cat MacHistory-*.js | sed 's/index-.*\.js/index.js/g' > tmp && \
-	cp tmp MacHistory-*.js && \
-	rm tmp index-*
+	cat index.js | sed 's/assets/fs\/public\/assets/g;s/http:\/\/0.0.0.0:8840//' > tmp && \
+	mv tmp index.js
 
 all: build replace
