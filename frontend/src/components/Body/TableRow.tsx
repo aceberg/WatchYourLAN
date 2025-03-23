@@ -1,31 +1,28 @@
 import { createSignal, Show } from "solid-js";
 import { editNames } from "../../functions/exports";
 import { apiEditHost } from "../../functions/api";
+import { getHosts } from "../../functions/atstart";
 
 function TableRow(_props: any) {
 
   const [name, setName] = createSignal(_props.host.Name);
-
-  const link = "http://" + _props.host.IP;
-  const edit = "/host/" + _props.host.ID;
   
   let now = <i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>;
   if (_props.host.Now == 1) {
     now = <i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>;
   };
 
-  let known = false;
-  if (_props.host.Known == 1) {
-    known = true;
-  }
+  let known:boolean;
+  _props.host.Known === 1 ? known = true : known = false;
 
   const handleInput = async (n: string) => {
-    // console.log('Edit:', n);
     setName(n);
     await apiEditHost(_props.host.ID, name(), '');
+    getHosts();
   };
   const handleToggle = async () => {
     await apiEditHost(_props.host.ID, name(), 'toggle');
+    getHosts();
   };
 
   return (
@@ -41,7 +38,7 @@ function TableRow(_props: any) {
         </Show>
       </td>
       <td>{_props.host.Iface}</td>
-      <td><a href={link} target="_blank">{_props.host.IP}</a></td>
+      <td><a href={"http://" + _props.host.IP} target="_blank">{_props.host.IP}</a></td>
       <td>{_props.host.Mac}</td>
       <td>{_props.host.Hw}</td>
       <td>{_props.host.Date}</td>
@@ -53,7 +50,9 @@ function TableRow(_props: any) {
       </td>
       <td>{now}</td>
       <td>
-        <a href={edit}><i class="bi bi-three-dots-vertical my-btn p-2"></i></a>
+        <a href={"/host/" + _props.host.ID}>
+          <i class="bi bi-three-dots-vertical my-btn p-2" title="More"></i>
+        </a>
       </td>
     </tr>
   )

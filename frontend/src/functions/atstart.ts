@@ -12,15 +12,17 @@ export function runAtStart() {
   }, 60000); // 60000 ms = 1 minute
 }
 
-async function getHosts() {
+export async function getHosts() {
   const hosts = await apiGetAllHosts();
-  setAllHosts(hosts);
-  setBkpHosts(hosts);
 
-  sortAtStart();
-  filterAtStart();
-  listIfaces();
-  // console.log("UPD");
+  if (hosts !== null && hosts.length > 0) {
+    setAllHosts(hosts);
+    setBkpHosts(hosts);
+
+    listIfaces();
+    sortAtStart();
+    filterAtStart();
+  }
 }
 
 function listIfaces() {

@@ -23,7 +23,7 @@ function Prometheus() {
             <tr>
               <td><button type="submit" class="btn btn-primary">Save</button></td>
               <td>
-                <a href="/metrics" target="_self">/metrics</a>
+                <a href="/metrics" target="_blank">/metrics</a>
               </td>
             </tr>
           </tbody></table>

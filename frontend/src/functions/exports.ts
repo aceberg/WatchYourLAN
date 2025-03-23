@@ -89,3 +89,5 @@ export const [ifaces, setIfaces] = createSignal<string[]>([]);
 export const [appConfig, setAppConfig] = createSignal<Conf>(emptyConf);
 
 export const [editNames, setEditNames] = createSignal(false);
+
+export const [show, setShow] = createSignal<number>(198);
