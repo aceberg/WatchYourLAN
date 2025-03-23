@@ -54,11 +54,3 @@ type Stat struct {
 	Known   int
 	Unknown int
 }
-
-// GuiData - all data sent to html page
-type GuiData struct {
-	Config  Conf
-	Host    Host
-	Themes  []string
-	Version string
-}

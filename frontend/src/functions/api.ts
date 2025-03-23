@@ -60,3 +60,10 @@ export const apiPortScan = async (ip:string, port:number) => {
 
   return res;
 };
+
+export const apiGetHistory = async (mac:string) => {
+  const url = apiPath+'/api/history/'+mac;
+  const hosts = await (await fetch(url)).json();
+
+  return hosts;
+};

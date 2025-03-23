@@ -10,7 +10,7 @@ function TableHead() {
   return (
     <thead>
       <tr>
-        <th style="width: 3em;"></th>
+        <th style="width: 2em;"></th>
         <th>Name <i class="bi bi-sort-down-alt my-btn" onclick={[handleSort, "Name"]}></i></th>
         <th>Iface <i class="bi bi-sort-down-alt my-btn" onclick={[handleSort, "Iface"]}></i></th>
         <th>IP <i class="bi bi-sort-down-alt my-btn" onclick={[handleSort, "IP"]}></i></th>

@@ -53,7 +53,7 @@ function TableRow(_props: any) {
       </td>
       <td>{now}</td>
       <td>
-        <a href={edit}><i class="bi bi-pencil-square my-btn"></i></a>
+        <a href={edit}><i class="bi bi-three-dots-vertical my-btn p-2"></i></a>
       </td>
     </tr>
   )

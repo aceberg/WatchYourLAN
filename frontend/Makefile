@@ -16,6 +16,8 @@ replace:
 	cp tmp History-*.js && \
 	cat HostPage-*.js | sed 's/index-.*\.js/index.js/g' > tmp && \
 	cp tmp HostPage-*.js && \
+	cat MacHistory-*.js | sed 's/index-.*\.js/index.js/g' > tmp && \
+	cp tmp MacHistory-*.js && \
 	rm tmp index-*
 
 all: build replace

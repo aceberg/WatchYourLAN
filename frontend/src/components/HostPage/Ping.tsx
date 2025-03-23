@@ -1,9 +1,7 @@
 import { createSignal, For } from "solid-js";
 import { apiPortScan } from "../../functions/api";
-import { currentHost } from "../../functions/exports";
 
-
-function Ping() {
+function Ping(_props: any) {
 
   let stop = false;
 
@@ -31,7 +29,7 @@ function Ping() {
           break;
       }
       setCurPort(i.toString());
-      portOpened = await apiPortScan(currentHost().IP, i);
+      portOpened = await apiPortScan(_props.IP, i);
       if (portOpened) {
         setFoundPorts([...foundPorts(), i]);
       }
@@ -67,7 +65,7 @@ function Ping() {
         }
         <div class="mt-2">
         <For each={foundPorts()}>{(port) =>
-          <a class="me-4" href={"http://" + currentHost().IP + ":" + port} target="_blank">{port}</a>
+          <a class="me-4" href={"http://" + _props.IP + ":" + port} target="_blank">{port}</a>
         }</For>
         </div>
       </div>

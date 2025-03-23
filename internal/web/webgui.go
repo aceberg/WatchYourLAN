@@ -46,8 +46,10 @@ func Gui(dirPath, nodePath string) {
 
 	router.StaticFS("/fs/", http.FS(pubFS)) // public
 
-	router.GET("/", indexHandler)       // index.go
-	router.GET("/config", indexHandler) // index.go
+	router.GET("/", indexHandler)          // index.go
+	router.GET("/config", indexHandler)    // index.go
+	router.GET("/history", indexHandler)   // index.go
+	router.GET("/host/*any", indexHandler) // index.go
 	router.GET("/metrics", prometheus.Handler(&appConfig))
 
 	router.GET("/api/all", apiAll)                    // api.go
