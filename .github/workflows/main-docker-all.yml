@@ -57,3 +57,5 @@ jobs:
             ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:v2
             ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
             ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

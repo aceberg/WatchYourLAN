@@ -1,8 +1,18 @@
-FROM golang:alpine AS builder
+FROM --platform=$BUILDPLATFORM tonistiigi/xx AS xx
 
-RUN apk add build-base
-COPY . /src
-RUN cd /src/cmd/WatchYourLAN/ && CGO_ENABLED=0 go build -o /WatchYourLAN .
+FROM --platform=$BUILDPLATFORM golang:alpine AS builder
+
+COPY --from=xx / /
+
+WORKDIR /src
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+ARG TARGETPLATFORM
+RUN CGO_ENABLED=0 xx-go build -ldflags='-w -s' -o /WatchYourLAN ./cmd/WatchYourLAN
 
 
 FROM alpine
