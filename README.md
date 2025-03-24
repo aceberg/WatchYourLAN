@@ -5,7 +5,6 @@
 
 [![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/aceberg/WatchYourLAN)](https://goreportcard.com/report/github.com/aceberg/WatchYourLAN)
-[![Maintainability](https://api.codeclimate.com/v1/badges/46b17f99edc1726b5d7d/maintainability)](https://codeclimate.com/github/aceberg/WatchYourLAN/maintainability)
 [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)](https://hub.docker.com/r/aceberg/watchyourlan)
 [![GitHub Discussions](https://img.shields.io/github/discussions/aceberg/WatchYourLAN)](https://github.com/aceberg/WatchYourLAN/discussions)
 
