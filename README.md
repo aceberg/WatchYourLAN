@@ -41,6 +41,7 @@ docker run --name wyl \
 	-e "IFACES=$YOURIFACE" \
 	-e "TZ=$YOURTIMEZONE" \
 	--network="host" \
+	--cap-add=NET_ADMIN --cap-add=NET_RAW \
 	-v $DOCKERDATAPATH/wyl:/data/WatchYourLAN \
     aceberg/watchyourlan
 ```
@@ -187,12 +188,13 @@ docker run --name wyl \
 	-e "IFACES=$YOURIFACE" \
 	-e "TZ=$YOURTIMEZONE" \
 	--network="host" \
+	--cap-add=NET_ADMIN --cap-add=NET_RAW \
 	-v $DOCKERDATAPATH/wyl:/data/WatchYourLAN \
     aceberg/watchyourlan -n "http://$YOUR_IP:8850"
 ```
 Or use [docker-compose](docker-compose-local.yml)
 
-</details> 
+</details>
 
 ## API & Integrations
 
