@@ -9,7 +9,7 @@ export const apiGetAllHosts = async () => {
 
 export const apiGetConfig = async () => {
 
-  const url = apiPath+'/api/config/';
+  const url = apiPath+'/api/config';
   const res = await (await fetch(url)).json();
 
   return res;

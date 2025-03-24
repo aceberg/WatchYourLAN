@@ -18,7 +18,7 @@ function Body() {
           <TableHead></TableHead>
           <tbody>
             <For each={allHosts()}>{(host, index) =>
-            <TableRow host={host} index={index}></TableRow>
+            <TableRow host={host} index={index() + 1}></TableRow>
             }</For>
           </tbody> 
         </table>

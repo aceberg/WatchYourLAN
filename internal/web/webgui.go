@@ -22,7 +22,9 @@ func Gui(dirPath, nodePath string) {
 	appConfig.DirPath = dirPath
 	appConfig.ConfPath = confPath
 	appConfig.DBPath = dirPath + "/scan.db"
-	appConfig.NodePath = nodePath
+	if nodePath != "" {
+		appConfig.NodePath = nodePath
+	}
 
 	quitScan = make(chan bool)
 	updateRoutines()        // routines-upd.go
@@ -37,8 +39,8 @@ func Gui(dirPath, nodePath string) {
 	slog.Info("=================================== ")
 
 	gin.SetMode(gin.ReleaseMode)
-	router := gin.Default()
-	// router := gin.New()
+	// router := gin.Default()
+	router := gin.New()
 	router.Use(gin.Recovery())
 
 	templ := template.Must(template.New("").ParseFS(templFS, "templates/*"))
@@ -53,7 +55,7 @@ func Gui(dirPath, nodePath string) {
 	router.GET("/metrics", prometheus.Handler(&appConfig))
 
 	router.GET("/api/all", apiAll)                    // api.go
-	router.GET("/api/config/", apiGetConfig)          // api.go
+	router.GET("/api/config", apiGetConfig)           // api.go
 	router.GET("/api/edit/:id/:name/*known", apiEdit) // api.go
 	router.GET("/api/history/*mac", apiHistory)       // api.go
 	router.GET("/api/host/:id", apiHost)              // api.go

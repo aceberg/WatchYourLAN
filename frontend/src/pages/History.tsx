@@ -8,7 +8,7 @@ function History() {
 
   const showStr = localStorage.getItem("histShow") as string;
   setShow(+showStr);
-  (show() === 0 || isNaN(show())) ? setShow(198) : '';
+  (show() === 0 || isNaN(show())) ? setShow(200) : '';
   
   return (
     <div class="card border-primary">

@@ -7,7 +7,7 @@ function TableHead() {
   const handleSort = (sortBy: string) => {
     sortBy === "MAC" ? sortBy = "Mac" : '';
     sortBy === "Hardware" ? sortBy = "Hw" : '';
-    sortBy === "Online" ? sortBy = "Now" : '';
+    sortBy === "On" ? sortBy = "Now" : '';
     sortByAnyField(sortBy as keyof Host);
   };
 
@@ -15,7 +15,7 @@ function TableHead() {
     <thead>
       <tr>
         <th style="width: 2em;"></th>
-        <For each={["Name", "Iface", "IP", "MAC", "Hardware", "Date", "Known", "Online"]}>{(key) =>
+        <For each={["Name", "Iface", "IP", "MAC", "Hardware", "Date", "Known", "On"]}>{(key) =>
           <th>{key} <i class="bi bi-sort-down-alt my-btn" 
                       onClick={[handleSort, key]}
                       title={"Sort by " + key}

@@ -6,7 +6,7 @@ function HistShow(_props: any) {
     localStorage.setItem(_props.name, showStr);
 
     setShow(+showStr);
-    show() == 0 ? setShow(198) : '';
+    show() == 0 ? setShow(200) : '';
   };
 
   return (

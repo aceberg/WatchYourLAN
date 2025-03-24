@@ -6,7 +6,7 @@ function HistCard(_props: any) {
 
   const showStr = localStorage.getItem("hostShow") as string;
   setShow(+showStr);
-  (show() === 0 || isNaN(show())) ? setShow(570) : '';
+  (show() === 0 || isNaN(show())) ? setShow(500) : '';
 
   return (
     <div class="card border-primary">

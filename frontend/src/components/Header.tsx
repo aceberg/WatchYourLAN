@@ -10,7 +10,7 @@ function Header() {
   const setCurrentTheme = async () => {
     setAppConfig(await apiGetConfig());
 
-    const theme = appConfig().Theme?appConfig().Theme:"minty";
+    const theme = appConfig().Theme?appConfig().Theme:"sand";
     const color = appConfig().Color?appConfig().Color:"dark";
     
     if (appConfig().NodePath == '') {

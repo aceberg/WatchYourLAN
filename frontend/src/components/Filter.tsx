@@ -25,8 +25,8 @@ function Filter() {
         </select>
         <select class="form-select" title="Filter by Online">
           <option selected disabled>Online</option>
-          <option onClick={()=>{handleFilter("Now", 1)}}>Online</option>
-          <option onClick={()=>{handleFilter("Now", 0)}}>Offline</option>
+          <option onClick={()=>{handleFilter("Now", 1)}}>On</option>
+          <option onClick={()=>{handleFilter("Now", 0)}}>Off</option>
         </select>
         <button onClick={()=>{handleFilter("ID", 0)}} class="btn btn-outline-primary" title="Reset filter">Reset filter</button>
       </div>
