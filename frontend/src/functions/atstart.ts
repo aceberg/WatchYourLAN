@@ -29,7 +29,7 @@ function listIfaces() {
 
   let ifaces:string[] = [];
 
-  for (let host of allHosts()) {
+  for (let host of allHosts) {
     if (!ifaces.includes(host.Iface)) {
       ifaces.push(host.Iface);
     }

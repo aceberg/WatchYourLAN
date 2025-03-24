@@ -1,4 +1,4 @@
-import { allHosts, Host, setAllHosts } from "./exports";
+import { bkpHosts, Host, setAllHosts } from "./exports";
 
 let down = false;
 let oldField = '';
@@ -23,16 +23,14 @@ export function sortByAnyField(field: keyof Host) {
 
   localStorage.setItem("sortDown", down.toString());
   localStorage.setItem("sortField", field);
-  // checkNotEmpty(addrsArray);
 
-  let someArray = allHosts();
+  let someArray = bkpHosts();
   if (field == 'IP') {
     someArray.sort((a, b) => sortIP(a, b, down));
   } else {
     someArray.sort((a, b) => byField(a, b, field, down));
   }
   
-  setAllHosts([]);
   setAllHosts(someArray);
 }
 

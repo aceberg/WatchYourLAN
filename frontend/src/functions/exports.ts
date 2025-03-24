@@ -1,4 +1,5 @@
 import { createSignal } from "solid-js";
+import { createStore } from "solid-js/store";
 
 export interface Host {
 	ID:    number;
@@ -80,8 +81,7 @@ export const emptyConf:Conf = {
 	PrometheusEnable: false,
 };
 
-
-export const [allHosts, setAllHosts] = createSignal<Host[]>([]);
+export const [allHosts, setAllHosts] = createStore<Host[]>([]);
 export const [bkpHosts, setBkpHosts] = createSignal<Host[]>([]);
 
 export const [ifaces, setIfaces] = createSignal<string[]>([]);

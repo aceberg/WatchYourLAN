@@ -7,18 +7,15 @@ export function searchFunc(s: string) {
     const sl = s.toLowerCase();
     let newArray:Host[] = [];
 
-    for (let item of allHosts()) {
+    for (let item of allHosts) {
         
       if (searchItem(item, sl)) {
           newArray.push(item);
       }
     }
 
-    setAllHosts([]);
     setAllHosts(newArray);
-
   } else {
-    setAllHosts([]);
     setAllHosts(bkpHosts());
   }    
 }

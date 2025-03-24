@@ -17,7 +17,7 @@ function Body() {
         <table class="table table-striped table-hover">
           <TableHead></TableHead>
           <tbody>
-            <For each={allHosts()}>{(host, index) =>
+            <For each={allHosts}>{(host, index) =>
             <TableRow host={host} index={index() + 1}></TableRow>
             }</For>
           </tbody> 

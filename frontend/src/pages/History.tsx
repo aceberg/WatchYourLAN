@@ -19,9 +19,9 @@ function History() {
       <div class="card-body">
         <table class="table table-striped table-hover">
           <tbody>
-          <For each={allHosts()}>{(host, index) =>
+          <For each={allHosts}>{(host, index) =>
           <tr>
-            <td class="opacity-50" style="width: 2em;">{index()}.</td>
+            <td class="opacity-50" style="width: 2em;">{index()+1}.</td>
             <td>
               <a href={"/host/"+host.ID}>{host.Name}</a><br></br>
               <a href={"http://"+host.IP}>{host.IP}</a>

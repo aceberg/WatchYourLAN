@@ -11,7 +11,7 @@ export function filterAtStart() {
 
 export function filterFunc(field: keyof Host, value: any) {
 
-  let addrsArray = allHosts();
+  let addrsArray = allHosts;
   
   if (oldFilter == field) {
     addrsArray = bkpHosts();
@@ -35,6 +35,5 @@ export function filterFunc(field: keyof Host, value: any) {
       addrsArray = bkpHosts();
   }
 
-  setAllHosts([]);
   setAllHosts(addrsArray);
 }
