@@ -190,7 +190,7 @@ docker run --name wyl \
 	-v $DOCKERDATAPATH/wyl:/data/WatchYourLAN \
     aceberg/watchyourlan -n "http://$YOUR_IP:8850"
 ```
-Or use [docker-compose](docker-compose-local.yml)
+Or use [docker-compose](docker-compose.yml)
 
 </details> 
 

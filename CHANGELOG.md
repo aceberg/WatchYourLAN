@@ -1,10 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [v2.1.0] - 2025-
+## [v2.1.0] - 2025-03-25
 ### Added
-- Rewrited GUI in SolidJS and TypeScript
+- Rewrited GUI in `SolidJS` and `TypeScript`
 - Prometheus integration [#181](https://github.com/aceberg/WatchYourLAN/pull/181)
+- Optimized Docker build [#180](https://github.com/aceberg/WatchYourLAN/pull/180)
 
 ### Fixed
 - Vite: file names
