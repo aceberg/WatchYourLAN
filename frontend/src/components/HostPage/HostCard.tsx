@@ -1,4 +1,5 @@
 import { apiDelHost, apiEditHost } from "../../functions/api";
+import { getHosts } from "../../functions/atstart";
 
 function HostCard(_props: any) {
 
@@ -8,6 +9,7 @@ function HostCard(_props: any) {
     
     name = n;
     await apiEditHost(_props.host.ID, name, '');
+    getHosts();
   };
 
   const handleToggle = async () => {
@@ -17,6 +19,7 @@ function HostCard(_props: any) {
     }
 
     await apiEditHost(_props.host.ID, name, 'toggle');
+    getHosts();
   };
 
   const handleDel = async () => {

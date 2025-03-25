@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v2.1.1] - 2025-03-26
+### Fixed
+- Filter bug in Chrome
+
 ## [v2.1.0] - 2025-03-25
 ### Added
 - Rewrited GUI in `SolidJS` and `TypeScript`
