@@ -1,22 +1,29 @@
-import { createSignal, For, onMount, Show } from "solid-js";
-import { apiGetHistory } from "../functions/api";
+import { For, onCleanup, onMount, Show } from "solid-js";
+import { getHistoryForMac } from "../functions/history";
 import { Host, show } from "../functions/exports";
+import { createStore } from "solid-js/store";
 
 function MacHistory(_props: any) {
 
-  const [hist, setHist] = createSignal<Host[]>([]);
+  const [hist, setHist] = createStore<Host[]>([]);
+  let interval: number;
 
   onMount(async () => {
-    let h:Host[] = [];
-    h = await apiGetHistory(_props.mac);
-    if (h != null) {
-      h.sort((a:Host, b:Host) => (a.Date < b.Date ? 1 : -1));
-      setHist(h);
-    }
+    const newHistory = await getHistoryForMac(_props.mac);
+    setHist(newHistory);
+    interval = setInterval(async () => {
+      // console.log("Upd Hist", new Date());
+      const newHistory = await getHistoryForMac(_props.mac);
+      setHist(newHistory);
+    }, 60000); // 60000 ms = 1 minute
+  });
+
+  onCleanup(() => {
+    clearInterval(interval);
   });
 
   return (
-    <For each={hist()}>{(h, index) =>
+    <For each={hist}>{(h, index) =>
       <Show
         when={index() < show()}
       >

@@ -2,8 +2,16 @@ import { Show } from "solid-js";
 import { editNames, setEditNames } from "../../functions/exports";
 import Filter from "../Filter";
 import Search from "../Search";
+import { getHosts } from "../../functions/atstart";
 
 function CardHead() {
+
+  const handleEditNames = (toggle: boolean) => {
+    if (!toggle) {
+      getHosts();
+    }
+    setEditNames(toggle);
+  };
 
   return (
     <div class="row">
@@ -17,9 +25,9 @@ function CardHead() {
         <Search></Search>
         <Show
           when={editNames()}
-          fallback={<button class="btn btn-outline-primary" title="Click to edit names" onClick={[setEditNames, true]}>Edit names</button>}
+          fallback={<button class="btn btn-outline-primary" title="Click to edit names" onClick={[handleEditNames, true]}>Edit names</button>}
         >
-          <button class="btn btn-primary" onClick={[setEditNames, false]}>Edit names</button>
+          <button class="btn btn-primary" onClick={[handleEditNames, false]}>Edit names</button>
         </Show>
         </div>
       </div>

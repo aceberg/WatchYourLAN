@@ -1,7 +1,6 @@
 import { createSignal, Show } from "solid-js";
 import { editNames } from "../../functions/exports";
 import { apiEditHost } from "../../functions/api";
-import { getHosts } from "../../functions/atstart";
 
 function TableRow(_props: any) {
 
@@ -18,11 +17,9 @@ function TableRow(_props: any) {
   const handleInput = async (n: string) => {
     setName(n);
     await apiEditHost(_props.host.ID, name(), '');
-    getHosts();
   };
   const handleToggle = async () => {
     await apiEditHost(_props.host.ID, name(), 'toggle');
-    getHosts();
   };
 
   return (
