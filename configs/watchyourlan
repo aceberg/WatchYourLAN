@@ -1,0 +1,6 @@
+#!/sbin/openrc-run
+name="WatchYourLAN"
+description="Lightweight network IP scanner with web GUI"
+command="/usr/bin/watchyourlan"
+command_background=true
+pidfile="/run/watchyourlan.pid"

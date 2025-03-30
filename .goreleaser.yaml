@@ -47,6 +47,9 @@ nfpms:
     dependencies: # Don't forget to edit!
     - arp-scan
     - tzdata
+    contents:
+    - src: ./configs/watchyourlan
+      dst: /etc/init.d/watchyourlan
 
 archives:
   - files:
