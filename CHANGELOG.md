@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v2.1.2] - 2025-03-30
+### Fixed
+- Edit names bug
+- History page full rerenders replaced with only rerendering updated data
+- Select options reset
+
 ## [v2.1.1] - 2025-03-26
 ### Fixed
 - Filter bug in Chrome
