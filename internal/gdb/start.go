@@ -6,13 +6,11 @@ import (
 	"os"
 	"time"
 
+	sqlite "github.com/aceberg/gorm-sqlite"
+
 	"gorm.io/driver/postgres"
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-
-	// import SQLite
-	_ "modernc.org/sqlite"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
@@ -54,6 +52,12 @@ func Start() {
 
 		db, err = gorm.Open(sqlite.Open(conf.AppConfig.DBPath), gormConf)
 		check.IfError(err)
+
+		db.Exec("PRAGMA journal_mode = wal;")
+		db.Exec("PRAGMA busy_timeout = 5000;")
+		// sqlDB, _ := db.DB()
+		// sqlDB.SetMaxOpenConns(1) // only one writer at a time
+		// sqlDB.SetMaxIdleConns(1)
 	}
 
 	// Migrate the schema
