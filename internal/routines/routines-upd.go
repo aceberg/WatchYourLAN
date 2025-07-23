@@ -4,7 +4,7 @@ import (
 	"log/slog"
 
 	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/db"
+	"github.com/aceberg/WatchYourLAN/internal/gdb"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -24,10 +24,9 @@ func Update() {
 
 	setLogLevel()
 
-	db.SetCurrent(conf.AppConfig)
-	db.Create()
+	gdb.Start()
 
-	allHosts = db.Select("now")
+	allHosts = gdb.Select("now")
 
 	quitScan = make(chan bool)
 	go startScan(quitScan) // scan-routine.go

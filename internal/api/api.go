@@ -8,7 +8,7 @@ import (
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/db"
+	"github.com/aceberg/WatchYourLAN/internal/gdb"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/notify"
 	"github.com/aceberg/WatchYourLAN/internal/portscan"
@@ -16,7 +16,7 @@ import (
 
 func apiAll(c *gin.Context) {
 
-	allHosts = db.Select("now")
+	allHosts = gdb.Select("now")
 
 	c.IndentedJSON(http.StatusOK, allHosts)
 }
@@ -39,7 +39,7 @@ func apiHistory(c *gin.Context) {
 	var hosts []models.Host
 
 	if conf.AppConfig.HistInDB {
-		histHosts = db.Select("history")
+		histHosts = gdb.Select("history")
 	}
 
 	mac := c.Param("mac")
@@ -68,8 +68,8 @@ func apiHostDel(c *gin.Context) {
 
 	idStr := c.Param("id")
 	host := getHostByID(idStr, allHosts) // functions.go
-	db.Delete("now", host.ID)
-	allHosts = db.Select("now")
+	gdb.Delete("now", host.ID)
+	allHosts = gdb.Select("now")
 
 	slog.Info("Deleting from DB", "host", host)
 
@@ -100,8 +100,8 @@ func apiEdit(c *gin.Context) {
 		}
 		// log.Println("EDIT: ", host)
 
-		db.Update("now", host)
-		allHosts = db.Select("now")
+		gdb.Update("now", host)
+		allHosts = gdb.Select("now")
 	}
 
 	c.IndentedJSON(http.StatusOK, "OK")

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/db"
+	"github.com/aceberg/WatchYourLAN/internal/gdb"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
@@ -30,7 +30,7 @@ func trimHistory() {
 	nowMinus := now.Add(-time.Duration(hours) * time.Hour)
 
 	if conf.AppConfig.HistInDB {
-		histHosts = db.Select("history")
+		histHosts = gdb.Select("history")
 	}
 
 	slog.Info("Removing all History before", "date", nowMinus.Format("2006-01-02 15:04:05"))
@@ -52,7 +52,7 @@ func trimHistory() {
 		}
 	}
 
-	db.DeleteList(ids)
+	gdb.DeleteList(ids)
 	histHosts = newHistHosts
 
 	slog.Info("Removed records from History", "n", n)

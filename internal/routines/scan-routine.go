@@ -8,7 +8,7 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/arp"
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/db"
+	"github.com/aceberg/WatchYourLAN/internal/gdb"
 	"github.com/aceberg/WatchYourLAN/internal/influx"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/notify"
@@ -31,7 +31,7 @@ func startScan(quit chan bool) {
 
 				foundHosts = arp.Scan(conf.AppConfig.Ifaces, conf.AppConfig.ArpArgs, conf.AppConfig.ArpStrs)
 				compareHosts(foundHosts)
-				allHosts = db.Select("now")
+				allHosts = gdb.Select("now")
 
 				lastDate = time.Now()
 			}
@@ -64,12 +64,12 @@ func compareHosts(foundHosts []models.Host) {
 		} else {
 			aHost.Now = 0
 		}
-		db.Update("now", aHost)
+		gdb.Update("now", aHost)
 
 		aHost.Date = time.Now().Format("2006-01-02 15:04:05")
 		histHosts = append(histHosts, aHost)
 		if conf.AppConfig.HistInDB {
-			db.Insert("history", aHost)
+			gdb.Update("history", aHost)
 		}
 		if conf.AppConfig.InfluxEnable {
 			influx.Add(conf.AppConfig, aHost)
@@ -87,6 +87,6 @@ func compareHosts(foundHosts []models.Host) {
 		slog.Warn(msg)
 		notify.Shout(msg, conf.AppConfig.ShoutURL) // Notify through Shoutrrr
 
-		db.Insert("now", fHost)
+		gdb.Update("now", fHost)
 	}
 }
