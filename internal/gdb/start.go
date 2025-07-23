@@ -11,6 +11,9 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
+	// import SQLite
+	_ "modernc.org/sqlite"
+
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/models"
