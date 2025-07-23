@@ -1,9 +1,7 @@
-package web
+package api
 
 import (
-	"net"
 	"strconv"
-	"strings"
 
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
@@ -20,18 +18,6 @@ func getHostByID(idStr string, hosts []models.Host) (oneHost models.Host) {
 	}
 
 	return oneHost
-}
-
-func updateDNS(host models.Host) (name, dns string) {
-
-	dnsNames, _ := net.LookupAddr(host.IP)
-
-	if len(dnsNames) > 0 {
-		name = dnsNames[0]
-		dns = strings.Join(dnsNames, " ")
-	}
-
-	return name, dns
 }
 
 func getHostsByMAC(mac string, hosts []models.Host) (foundHosts []models.Host) {

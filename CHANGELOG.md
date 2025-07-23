@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v2.1.3] - 2025-0
+### Added
+- go 1.24.5
+
 ## [v2.1.2] - 2025-03-30
 ### Fixed
 - Edit names bug

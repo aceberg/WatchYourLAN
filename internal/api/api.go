@@ -1,4 +1,4 @@
-package web
+package api
 
 import (
 	"log/slog"
@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
+	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/notify"
@@ -20,24 +21,24 @@ func apiAll(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, allHosts)
 }
 
-func apiVersion(c *gin.Context) {
+// func apiVersion(c *gin.Context) {
 
-	file, err := pubFS.ReadFile("public/version")
-	check.IfError(err)
-	version := string(file)[8:]
+// 	file, err := pubFS.ReadFile("public/version")
+// 	check.IfError(err)
+// 	version := string(file)[8:]
 
-	c.IndentedJSON(http.StatusOK, version)
-}
+// 	c.IndentedJSON(http.StatusOK, version)
+// }
 
 func apiGetConfig(c *gin.Context) {
 
-	c.IndentedJSON(http.StatusOK, appConfig)
+	c.IndentedJSON(http.StatusOK, conf.AppConfig)
 }
 
 func apiHistory(c *gin.Context) {
 	var hosts []models.Host
 
-	if appConfig.HistInDB {
+	if conf.AppConfig.HistInDB {
 		histHosts = db.Select("history")
 	}
 
@@ -58,7 +59,7 @@ func apiHost(c *gin.Context) {
 	idStr := c.Param("id")
 
 	host := getHostByID(idStr, allHosts) // functions.go
-	_, host.DNS = updateDNS(host)
+	_, host.DNS = check.DNS(host)
 
 	c.IndentedJSON(http.StatusOK, host)
 }
@@ -109,7 +110,7 @@ func apiEdit(c *gin.Context) {
 func apiNotifyTest(c *gin.Context) {
 
 	msg := "WatchYourLAN: test notification"
-	notify.Shout(msg, appConfig.ShoutURL)
+	notify.Shout(msg, conf.AppConfig.ShoutURL)
 
 	c.Status(http.StatusOK)
 }

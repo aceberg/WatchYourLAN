@@ -12,10 +12,10 @@ import (
 )
 
 // Handler - display Prometheus metrics
-func Handler(appConfig *models.Conf) func(c *gin.Context) {
+func Handler(enabled bool) func(c *gin.Context) {
 	h := promhttp.Handler()
 	return func(c *gin.Context) {
-		if !appConfig.PrometheusEnable {
+		if !enabled {
 			c.AbortWithStatus(http.StatusNotFound)
 			return
 		}

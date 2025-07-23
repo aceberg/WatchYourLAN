@@ -1,31 +1,35 @@
-package web
+package routines
 
 import (
 	"log/slog"
 	"time"
 
+	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
-func trimHistoryRoutine() {
+// HistoryTrim - routine for History
+func HistoryTrim() {
 
-	for {
-		trimHistory()
+	go func() {
+		for {
+			trimHistory()
 
-		time.Sleep(time.Duration(1) * time.Hour) // Every hour
-	}
+			time.Sleep(time.Duration(1) * time.Hour) // Every hour
+		}
+	}()
 }
 
 func trimHistory() {
 
-	hours := appConfig.TrimHist
+	hours := conf.AppConfig.TrimHist
 
 	nowStr := time.Now().Format("2006-01-02 15:04:05")  // This needed so all time is
 	now, _ := time.Parse("2006-01-02 15:04:05", nowStr) // in one format
 	nowMinus := now.Add(-time.Duration(hours) * time.Hour)
 
-	if appConfig.HistInDB {
+	if conf.AppConfig.HistInDB {
 		histHosts = db.Select("history")
 	}
 
@@ -40,7 +44,7 @@ func trimHistory() {
 
 		if date.Before(nowMinus) {
 			n = n + 1
-			if appConfig.HistInDB {
+			if conf.AppConfig.HistInDB {
 				ids = append(ids, hist.ID)
 			}
 		} else {

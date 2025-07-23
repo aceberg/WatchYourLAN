@@ -1,4 +1,4 @@
-package web
+package routines
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/aceberg/WatchYourLAN/internal/arp"
+	"github.com/aceberg/WatchYourLAN/internal/check"
+	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/db"
 	"github.com/aceberg/WatchYourLAN/internal/influx"
 	"github.com/aceberg/WatchYourLAN/internal/models"
@@ -23,11 +25,11 @@ func startScan(quit chan bool) {
 			return
 		default:
 			nowDate = time.Now()
-			plusDate = lastDate.Add(time.Duration(appConfig.Timeout) * time.Second)
+			plusDate = lastDate.Add(time.Duration(conf.AppConfig.Timeout) * time.Second)
 
 			if nowDate.After(plusDate) {
 
-				foundHosts = arp.Scan(appConfig.Ifaces, appConfig.ArpArgs, appConfig.ArpStrs)
+				foundHosts = arp.Scan(conf.AppConfig.Ifaces, conf.AppConfig.ArpArgs, conf.AppConfig.ArpStrs)
 				compareHosts(foundHosts)
 				allHosts = db.Select("now")
 
@@ -66,24 +68,24 @@ func compareHosts(foundHosts []models.Host) {
 
 		aHost.Date = time.Now().Format("2006-01-02 15:04:05")
 		histHosts = append(histHosts, aHost)
-		if appConfig.HistInDB {
+		if conf.AppConfig.HistInDB {
 			db.Insert("history", aHost)
 		}
-		if appConfig.InfluxEnable {
-			influx.Add(appConfig, aHost)
+		if conf.AppConfig.InfluxEnable {
+			influx.Add(conf.AppConfig, aHost)
 		}
-		if appConfig.PrometheusEnable {
+		if conf.AppConfig.PrometheusEnable {
 			prometheus.Add(aHost)
 		}
 	}
 
 	for _, fHost := range foundHostsMap {
 
-		fHost.Name, fHost.DNS = updateDNS(fHost)
+		fHost.Name, fHost.DNS = check.DNS(fHost)
 
 		msg := fmt.Sprintf("WatchYourLAN: unknown host found. Names: '%s', IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.DNS, fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
 		slog.Warn(msg)
-		notify.Shout(msg, appConfig.ShoutURL) // Notify through Shoutrrr
+		notify.Shout(msg, conf.AppConfig.ShoutURL) // Notify through Shoutrrr
 
 		db.Insert("now", fHost)
 	}

@@ -6,6 +6,7 @@ import (
 
 	// _ "net/http/pprof"
 
+	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/web"
 )
 
@@ -26,5 +27,8 @@ func main() {
 	// 	http.ListenAndServe("localhost:8085", nil)
 	// }()
 
-	web.Gui(*dirPtr, *nodePtr) // webgui.go
+	// Generate AppConfig
+	conf.Generate(*dirPtr, *nodePtr)
+
+	web.Gui() // webgui.go
 }
