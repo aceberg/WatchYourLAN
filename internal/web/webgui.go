@@ -10,7 +10,6 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
 	"github.com/aceberg/WatchYourLAN/internal/prometheus"
-	"github.com/aceberg/WatchYourLAN/internal/routines"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,9 +25,6 @@ var pubFS embed.FS
 
 // Gui - start web server
 func Gui() {
-
-	routines.Update()
-	routines.HistoryTrim()
 
 	slog.Info("Config dir", "path", conf.AppConfig.DirPath)
 

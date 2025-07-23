@@ -4,29 +4,19 @@ import (
 	"log/slog"
 
 	"github.com/aceberg/WatchYourLAN/internal/conf"
-	"github.com/aceberg/WatchYourLAN/internal/gdb"
-	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
 var (
-	allHosts  []models.Host
-	histHosts []models.Host
-
 	quitScan = make(chan bool)
 )
 
-// Update - start or update routines
-func Update() {
-
-	slog.Debug("Restarting scan routine")
+// ScanRestart - start or update routines
+func ScanRestart() {
 
 	close(quitScan)
 
+	slog.Debug("Restarting scan routine")
 	setLogLevel()
-
-	gdb.Start()
-
-	allHosts = gdb.Select("now")
 
 	quitScan = make(chan bool)
 	go startScan(quitScan) // scan-routine.go

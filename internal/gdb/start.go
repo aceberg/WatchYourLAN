@@ -58,6 +58,7 @@ func Start() {
 		// sqlDB, _ := db.DB()
 		// sqlDB.SetMaxOpenConns(1) // only one writer at a time
 		// sqlDB.SetMaxIdleConns(1)
+		// sqlDB.SetConnMaxLifetime(time.Minute * 1)
 	}
 
 	// Migrate the schema

@@ -3,7 +3,7 @@ module github.com/aceberg/WatchYourLAN
 go 1.24.5
 
 require (
-	github.com/aceberg/gorm-sqlite v0.0.0-20250723202739-1dbc05378285
+	github.com/aceberg/gorm-sqlite v0.0.0-20250723203925-9af3950b56af
 	github.com/containrrr/shoutrrr v0.8.0
 	github.com/gin-gonic/gin v1.10.1
 	github.com/influxdata/influxdb-client-go/v2 v2.14.0

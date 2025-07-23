@@ -31,12 +31,11 @@ func startScan(quit chan bool) {
 
 				foundHosts = arp.Scan(conf.AppConfig.Ifaces, conf.AppConfig.ArpArgs, conf.AppConfig.ArpStrs)
 				compareHosts(foundHosts)
-				allHosts = gdb.Select("now")
 
 				lastDate = time.Now()
 			}
 
-			time.Sleep(time.Duration(1) * time.Second)
+			time.Sleep(time.Duration(1) * time.Minute)
 		}
 	}
 }
@@ -49,6 +48,7 @@ func compareHosts(foundHosts []models.Host) {
 		foundHostsMap[fHost.Mac] = fHost
 	}
 
+	allHosts := gdb.Select("now")
 	for _, aHost := range allHosts {
 
 		fHost, exists := foundHostsMap[aHost.Mac]
@@ -67,10 +67,8 @@ func compareHosts(foundHosts []models.Host) {
 		gdb.Update("now", aHost)
 
 		aHost.Date = time.Now().Format("2006-01-02 15:04:05")
-		histHosts = append(histHosts, aHost)
-		if conf.AppConfig.HistInDB {
-			gdb.Update("history", aHost)
-		}
+		gdb.Update("history", aHost)
+
 		if conf.AppConfig.InfluxEnable {
 			influx.Add(conf.AppConfig, aHost)
 		}

@@ -7,6 +7,8 @@ import (
 	// _ "net/http/pprof"
 
 	"github.com/aceberg/WatchYourLAN/internal/conf"
+	"github.com/aceberg/WatchYourLAN/internal/gdb"
+	"github.com/aceberg/WatchYourLAN/internal/routines"
 	"github.com/aceberg/WatchYourLAN/internal/web"
 )
 
@@ -30,5 +32,10 @@ func main() {
 	// Generate AppConfig
 	conf.Generate(*dirPtr, *nodePtr)
 
-	web.Gui() // webgui.go
+	gdb.Start()
+
+	routines.ScanRestart()
+	routines.HistoryTrim()
+
+	web.Gui()
 }

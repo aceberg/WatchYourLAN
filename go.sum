@@ -1,6 +1,6 @@
 github.com/RaveNoX/go-jsoncommentstrip v1.0.0/go.mod h1:78ihd09MekBnJnxpICcwzCMzGrKSKYe4AqU6PDYYpjk=
-github.com/aceberg/gorm-sqlite v0.0.0-20250723202739-1dbc05378285 h1:svuY2NUI8ipveiNvy65cbzgAFUbRDuMrahQo5QUN6s8=
-github.com/aceberg/gorm-sqlite v0.0.0-20250723202739-1dbc05378285/go.mod h1:3g//0BOzaOv9dO8G9j7JZOJA6qIURpPaht9oDY7LKpA=
+github.com/aceberg/gorm-sqlite v0.0.0-20250723203925-9af3950b56af h1:Y/PE5LSSwLmVw2juDC+U20agHCO5HdAsGE4Efpd0WVg=
+github.com/aceberg/gorm-sqlite v0.0.0-20250723203925-9af3950b56af/go.mod h1:3g//0BOzaOv9dO8G9j7JZOJA6qIURpPaht9oDY7LKpA=
 github.com/apapsch/go-jsonmerge/v2 v2.0.0 h1:axGnT1gRIfimI7gJifB699GoE/oq+F2MU7Dml6nw9rQ=
 github.com/apapsch/go-jsonmerge/v2 v2.0.0/go.mod h1:lvDnEdqiQrp0O42VQGgmlKpxL1AP2+08jFMw88y4klk=
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=

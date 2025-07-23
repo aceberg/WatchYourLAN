@@ -30,12 +30,14 @@ func Delete(table string, id int) {
 	check.IfError(result.Error)
 }
 
-// DeleteList - delete a list of hosts from History
-func DeleteList(ids []int) {
+// DeleteOldHistory - delete a list of hosts from History
+func DeleteOldHistory(date string) int64 {
 
 	tab := db.Table("history")
-	result := tab.Where("ID IN ?", ids).Delete(&models.Host{})
+	result := tab.Where("DATE < ?", date).Delete(&models.Host{})
 	check.IfError(result.Error)
+
+	return result.RowsAffected
 }
 
 // Clear - delete all hosts from table
