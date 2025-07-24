@@ -40,13 +40,6 @@ func saveSettingsHandler(c *gin.Context) {
 	conf.AppConfig.Timeout, _ = strconv.Atoi(timeout)
 	conf.AppConfig.TrimHist, _ = strconv.Atoi(trimHist)
 
-	histdb := c.PostForm("histdb")
-	if histdb == "on" {
-		conf.AppConfig.HistInDB = true
-	} else {
-		conf.AppConfig.HistInDB = false
-	}
-
 	arpStrs := c.PostFormArray("arpstrs")
 	conf.AppConfig.ArpStrs = []string{}
 	for _, s := range arpStrs {

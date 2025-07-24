@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 ## [v2.1.3] - 2025-0
 ### Changed
 - Upd to `go 1.24.5`
-- Moved DB handling to GORM
+- Moved `DB` handling to `GORM`
+- Moved to `github.com/nicholas-fedor/shoutrrr` [#197](https://github.com/aceberg/WatchYourLAN/pull/197)
+- Removed `HIST_IN_DB` config option. Now history is always stored in `DB`
 
 ## [v2.1.2] - 2025-03-30
 ### Fixed

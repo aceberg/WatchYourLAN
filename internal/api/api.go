@@ -16,19 +16,15 @@ import (
 
 func apiAll(c *gin.Context) {
 
-	allHosts = gdb.Select("now")
+	allHosts := gdb.Select("now")
 
 	c.IndentedJSON(http.StatusOK, allHosts)
 }
 
-// func apiVersion(c *gin.Context) {
+func apiVersion(c *gin.Context) {
 
-// 	file, err := pubFS.ReadFile("public/version")
-// 	check.IfError(err)
-// 	version := string(file)[8:]
-
-// 	c.IndentedJSON(http.StatusOK, version)
-// }
+	c.IndentedJSON(http.StatusOK, conf.AppConfig.Version)
+}
 
 func apiGetConfig(c *gin.Context) {
 
@@ -37,10 +33,7 @@ func apiGetConfig(c *gin.Context) {
 
 func apiHistory(c *gin.Context) {
 	var hosts []models.Host
-
-	if conf.AppConfig.HistInDB {
-		histHosts = gdb.Select("history")
-	}
+	histHosts := gdb.Select("history")
 
 	mac := c.Param("mac")
 
@@ -58,7 +51,7 @@ func apiHost(c *gin.Context) {
 
 	idStr := c.Param("id")
 
-	host := getHostByID(idStr, allHosts) // functions.go
+	host := getHostByID(idStr) // functions.go
 	_, host.DNS = check.DNS(host)
 
 	c.IndentedJSON(http.StatusOK, host)
@@ -67,9 +60,8 @@ func apiHost(c *gin.Context) {
 func apiHostDel(c *gin.Context) {
 
 	idStr := c.Param("id")
-	host := getHostByID(idStr, allHosts) // functions.go
+	host := getHostByID(idStr) // functions.go
 	gdb.Delete("now", host.ID)
-	allHosts = gdb.Select("now")
 
 	slog.Info("Deleting from DB", "host", host)
 
@@ -91,26 +83,22 @@ func apiEdit(c *gin.Context) {
 	name := c.Param("name")
 	toggleKnown := c.Param("known")
 
-	host := getHostByID(idStr, allHosts) // functions.go
-	if host.Date != "" {
-		host.Name = name
+	host := getHostByID(idStr) // functions.go
 
-		if toggleKnown == "/toggle" {
-			host.Known = 1 - host.Known
-		}
-		// log.Println("EDIT: ", host)
+	host.Name = name
 
-		gdb.Update("now", host)
-		allHosts = gdb.Select("now")
+	if toggleKnown == "/toggle" {
+		host.Known = 1 - host.Known
 	}
+
+	gdb.Update("now", host)
 
 	c.IndentedJSON(http.StatusOK, "OK")
 }
 
 func apiNotifyTest(c *gin.Context) {
 
-	msg := "WatchYourLAN: test notification"
-	notify.Shout(msg, conf.AppConfig.ShoutURL)
+	notify.Test()
 
 	c.Status(http.StatusOK)
 }
@@ -118,6 +106,8 @@ func apiNotifyTest(c *gin.Context) {
 func apiStatus(c *gin.Context) {
 	var status models.Stat
 	var searchHosts []models.Host
+
+	allHosts := gdb.Select("now")
 
 	iface := c.Param("iface")
 	iface = iface[1:]

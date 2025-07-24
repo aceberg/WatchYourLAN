@@ -14,6 +14,15 @@ func Select(table string) (dbHosts []models.Host) {
 	return dbHosts
 }
 
+// SelectByID - get all hosts
+func SelectByID(id int) (host models.Host) {
+
+	tab := db.Table("now")
+	tab.First(&host, id)
+
+	return host
+}
+
 // Update - update or create host
 func Update(table string, oneHost models.Host) {
 

@@ -26,11 +26,16 @@ var pubFS embed.FS
 // Gui - start web server
 func Gui() {
 
+	file, err := pubFS.ReadFile("public/version")
+	check.IfError(err)
+	conf.AppConfig.Version = string(file)[8:]
+
 	slog.Info("Config dir", "path", conf.AppConfig.DirPath)
 
 	address := conf.AppConfig.Host + ":" + conf.AppConfig.Port
 
 	slog.Info("=================================== ")
+	slog.Info("Version: " + conf.AppConfig.Version)
 	slog.Info("Web GUI at http://" + address)
 	slog.Info("=================================== ")
 
@@ -51,6 +56,6 @@ func Gui() {
 
 	api.Routes(router)
 
-	err := router.Run(address)
+	err = router.Run(address)
 	check.IfError(err)
 }

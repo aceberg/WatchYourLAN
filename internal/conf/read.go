@@ -1,7 +1,6 @@
 package conf
 
 import (
-	"log/slog"
 	"strings"
 
 	"github.com/spf13/viper"
@@ -23,7 +22,6 @@ func read(path string) (config models.Conf) {
 	viper.SetDefault("IFACES", "")
 	viper.SetDefault("TIMEOUT", 120)
 	viper.SetDefault("TRIM_HIST", 48)
-	viper.SetDefault("HIST_IN_DB", false)
 	viper.SetDefault("SHOUTRRR_URL", "")
 
 	viper.SetDefault("USE_DB", "sqlite")
@@ -51,7 +49,6 @@ func read(path string) (config models.Conf) {
 	config.Ifaces = viper.Get("IFACES").(string)
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.TrimHist = viper.GetInt("TRIM_HIST")
-	config.HistInDB = viper.GetBool("HIST_IN_DB")
 	config.ShoutURL = viper.Get("SHOUTRRR_URL").(string)
 
 	config.UseDB = viper.Get("USE_DB").(string)
@@ -67,7 +64,7 @@ func read(path string) (config models.Conf) {
 	config.PrometheusEnable = viper.GetBool("PROMETHEUS_ENABLE")
 
 	joined := viper.Get("ARP_STRS_JOINED").(string)
-	slog.Info("ARP_STRS_JOINED: " + joined)
+	// slog.Info("ARP_STRS_JOINED: " + joined)
 
 	if joined != "" {
 		config.ArpStrs = strings.Split(joined, ",")

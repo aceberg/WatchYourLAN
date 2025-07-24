@@ -3,19 +3,14 @@ package api
 import (
 	"strconv"
 
+	"github.com/aceberg/WatchYourLAN/internal/gdb"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
-func getHostByID(idStr string, hosts []models.Host) (oneHost models.Host) {
+func getHostByID(idStr string) (oneHost models.Host) {
 
 	id, _ := strconv.Atoi(idStr)
-
-	for _, host := range hosts {
-		if host.ID == id {
-			oneHost = host
-			break
-		}
-	}
+	oneHost = gdb.SelectByID(id)
 
 	return oneHost
 }

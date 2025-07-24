@@ -1,8 +1,6 @@
 package routines
 
 import (
-	"fmt"
-	"log/slog"
 	"time"
 
 	"github.com/aceberg/WatchYourLAN/internal/arp"
@@ -30,7 +28,14 @@ func startScan(quit chan bool) {
 			if nowDate.After(plusDate) {
 
 				foundHosts = arp.Scan(conf.AppConfig.Ifaces, conf.AppConfig.ArpArgs, conf.AppConfig.ArpStrs)
-				compareHosts(foundHosts)
+
+				// Make map of found hosts
+				foundHostsMap := make(map[string]models.Host)
+				for _, fHost := range foundHosts {
+					foundHostsMap[fHost.Mac] = fHost
+				}
+
+				compareHosts(foundHostsMap)
 
 				lastDate = time.Now()
 			}
@@ -40,13 +45,7 @@ func startScan(quit chan bool) {
 	}
 }
 
-func compareHosts(foundHosts []models.Host) {
-
-	// Make map of found hosts
-	foundHostsMap := make(map[string]models.Host)
-	for _, fHost := range foundHosts {
-		foundHostsMap[fHost.Mac] = fHost
-	}
+func compareHosts(foundHostsMap map[string]models.Host) {
 
 	allHosts := gdb.Select("now")
 	for _, aHost := range allHosts {
@@ -66,6 +65,7 @@ func compareHosts(foundHosts []models.Host) {
 		}
 		gdb.Update("now", aHost)
 
+		aHost.ID = 0
 		aHost.Date = time.Now().Format("2006-01-02 15:04:05")
 		gdb.Update("history", aHost)
 
@@ -80,10 +80,7 @@ func compareHosts(foundHosts []models.Host) {
 	for _, fHost := range foundHostsMap {
 
 		fHost.Name, fHost.DNS = check.DNS(fHost)
-
-		msg := fmt.Sprintf("WatchYourLAN: unknown host found. Names: '%s', IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", fHost.DNS, fHost.IP, fHost.Mac, fHost.Hw, fHost.Iface)
-		slog.Warn(msg)
-		notify.Shout(msg, conf.AppConfig.ShoutURL) // Notify through Shoutrrr
+		notify.Unknown(fHost) // Log and Shoutrrr
 
 		gdb.Update("now", fHost)
 	}

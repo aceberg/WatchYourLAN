@@ -16,8 +16,8 @@ type Conf struct {
 	ArpStrs  []string
 	Timeout  int
 	TrimHist int
-	HistInDB bool
 	ShoutURL string
+	Version  string
 	// PostgreSQL
 	UseDB     string
 	PGConnect string

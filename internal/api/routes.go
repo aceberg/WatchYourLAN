@@ -2,13 +2,6 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-
-	"github.com/aceberg/WatchYourLAN/internal/models"
-)
-
-var (
-	allHosts  []models.Host
-	histHosts []models.Host
 )
 
 // Routes - start API routes
@@ -23,7 +16,7 @@ func Routes(router *gin.Engine) {
 	router.GET("/api/notify_test", apiNotifyTest)     // api.go
 	router.GET("/api/port/:addr/:port", apiPort)      // api.go
 	router.GET("/api/status/*iface", apiStatus)       // api.go
-	// router.GET("/api/version", apiVersion)            // api.go
+	router.GET("/api/version", apiVersion)            // api.go
 
 	router.POST("/api/config/", saveConfigHandler)                // config.go
 	router.POST("/api/config_settings/", saveSettingsHandler)     // config.go
