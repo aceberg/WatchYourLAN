@@ -14,13 +14,22 @@ func Select(table string) (dbHosts []models.Host) {
 	return dbHosts
 }
 
-// SelectByID - get all hosts
+// SelectByID - get host by ID
 func SelectByID(id int) (host models.Host) {
 
 	tab := db.Table("now")
 	tab.First(&host, id)
 
 	return host
+}
+
+// SelectByMAC - get all hosts by MAC
+func SelectByMAC(mac string) (hosts []models.Host) {
+
+	tab := db.Table("history")
+	tab.Where("MAC = ?", mac).Find(&hosts)
+
+	return hosts
 }
 
 // Update - update or create host

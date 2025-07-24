@@ -33,15 +33,14 @@ func apiGetConfig(c *gin.Context) {
 
 func apiHistory(c *gin.Context) {
 	var hosts []models.Host
-	histHosts := gdb.Select("history")
 
 	mac := c.Param("mac")
 
 	if mac != "/" {
 		mac = mac[1:]
-		hosts = getHostsByMAC(mac, histHosts)
+		hosts = gdb.SelectByMAC(mac)
 	} else {
-		hosts = histHosts
+		hosts = gdb.Select("history")
 	}
 
 	c.IndentedJSON(http.StatusOK, hosts)
