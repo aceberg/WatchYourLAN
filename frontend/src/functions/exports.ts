@@ -27,7 +27,6 @@ export interface Conf {
 	ArpArgs:   string;
 	ArpStrs:   string[];
 	TrimHist:  number;
-	HistInDB:  boolean;
 	ShoutURL:  string;
 	UseDB:     string;
 	PGConnect: string;
@@ -68,7 +67,6 @@ export const emptyConf:Conf = {
 	ArpArgs: "",
 	ArpStrs: [],
 	TrimHist: 48,
-	HistInDB: false,
 	ShoutURL: "",
 	UseDB: "",
 	PGConnect: "",

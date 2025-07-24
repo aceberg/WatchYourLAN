@@ -14,39 +14,50 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/portscan"
 )
 
-func apiAll(c *gin.Context) {
+func getAllHosts(c *gin.Context) {
 
 	allHosts := gdb.Select("now")
 
 	c.IndentedJSON(http.StatusOK, allHosts)
 }
 
-func apiVersion(c *gin.Context) {
+func getVersion(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, conf.AppConfig.Version)
 }
 
-func apiGetConfig(c *gin.Context) {
+func getConfig(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, conf.AppConfig)
 }
 
-func apiHistory(c *gin.Context) {
-	var hosts []models.Host
+func getHistory(c *gin.Context) {
 
-	mac := c.Param("mac")
-
-	if mac != "/" {
-		mac = mac[1:]
-		hosts = gdb.SelectByMAC(mac)
-	} else {
-		hosts = gdb.Select("history")
-	}
+	hosts := gdb.Select("history")
 
 	c.IndentedJSON(http.StatusOK, hosts)
 }
 
-func apiHost(c *gin.Context) {
+func getHistoryByMAC(c *gin.Context) {
+
+	mac := c.Param("mac")
+
+	hosts := gdb.SelectLatest(mac, 200)
+
+	c.IndentedJSON(http.StatusOK, hosts)
+}
+
+func getHistoryByDate(c *gin.Context) {
+
+	mac := c.Param("mac")
+	date := c.Param("date")
+
+	hosts := gdb.SelectByDate(mac, date)
+
+	c.IndentedJSON(http.StatusOK, hosts)
+}
+
+func getHost(c *gin.Context) {
 
 	idStr := c.Param("id")
 
@@ -56,7 +67,7 @@ func apiHost(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, host)
 }
 
-func apiHostDel(c *gin.Context) {
+func delHost(c *gin.Context) {
 
 	idStr := c.Param("id")
 	host := getHostByID(idStr) // functions.go
@@ -67,7 +78,7 @@ func apiHostDel(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, "OK")
 }
 
-func apiPort(c *gin.Context) {
+func getPortState(c *gin.Context) {
 
 	addr := c.Param("addr")
 	port := c.Param("port")
@@ -76,7 +87,7 @@ func apiPort(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, state)
 }
 
-func apiEdit(c *gin.Context) {
+func editHost(c *gin.Context) {
 
 	idStr := c.Param("id")
 	name := c.Param("name")
@@ -95,14 +106,14 @@ func apiEdit(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, "OK")
 }
 
-func apiNotifyTest(c *gin.Context) {
+func notifyTest(c *gin.Context) {
 
 	notify.Test()
 
 	c.Status(http.StatusOK)
 }
 
-func apiStatus(c *gin.Context) {
+func getStatus(c *gin.Context) {
 	var status models.Stat
 	var searchHosts []models.Host
 

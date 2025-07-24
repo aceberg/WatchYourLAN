@@ -49,17 +49,6 @@ function Scan() {
               <td><input name="trim" type="number" class="form-control" value={appConfig().TrimHist}></input></td>
             </tr>
             <tr>
-              <td>Store History in DB</td>
-              <td>
-                <div class="form-check form-switch">
-                {appConfig().HistInDB
-                  ? <input class="form-check-input" type="checkbox" name="histdb" checked></input>
-                  : <input class="form-check-input" type="checkbox" name="histdb"></input>
-                }
-                </div>
-              </td>
-            </tr>
-            <tr>
               <td>Use DB</td>
               <td><select name="usedb" class="form-select">
                 <Show

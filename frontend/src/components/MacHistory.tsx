@@ -9,11 +9,11 @@ function MacHistory(_props: any) {
   let interval: number;
 
   onMount(async () => {
-    const newHistory = await getHistoryForMac(_props.mac);
+    const newHistory = await getHistoryForMac(_props.mac, _props.date);
     setHist(newHistory);
     interval = setInterval(async () => {
       // console.log("Upd Hist", new Date());
-      const newHistory = await getHistoryForMac(_props.mac);
+      const newHistory = await getHistoryForMac(_props.mac, _props.date);
       setHist(newHistory);
     }, 60000); // 60000 ms = 1 minute
   });

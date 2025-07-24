@@ -42,7 +42,7 @@ function History() {
                 <a href={"http://"+host.IP}>{host.IP}</a>
               </td>
               <td>
-                <MacHistory mac={host.Mac}></MacHistory>
+                <MacHistory mac={host.Mac} date=""></MacHistory>
               </td>
             </tr>
             }</For>

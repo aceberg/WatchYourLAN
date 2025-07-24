@@ -67,3 +67,10 @@ export const apiGetHistory = async (mac:string) => {
 
   return hosts;
 };
+
+export const apiGetHistoryByDate = async (mac:string, date: string) => {
+  const url = apiPath+'/api/history/'+mac+'/'+date;
+  const hosts = await (await fetch(url)).json();
+
+  return hosts;
+};

@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 - Moved to `github.com/nicholas-fedor/shoutrrr` [#197](https://github.com/aceberg/WatchYourLAN/pull/197)
 - Removed `HIST_IN_DB` config option. Now history is always stored in `DB`
 
+### Fixed
+- Memory leak bug [#149](https://github.com/aceberg/WatchYourLAN/pull/149)
+
 ## [v2.1.2] - 2025-03-30
 ### Fixed
 - Edit names bug
