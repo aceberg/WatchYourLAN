@@ -3,6 +3,7 @@ package api
 import (
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 
@@ -41,8 +42,10 @@ func getHistory(c *gin.Context) {
 func getHistoryByMAC(c *gin.Context) {
 
 	mac := c.Param("mac")
+	numStr := c.Query("num")
+	num, _ := strconv.Atoi(numStr)
 
-	hosts := gdb.SelectLatest(mac, 200)
+	hosts := gdb.SelectLatest(mac, num)
 
 	c.IndentedJSON(http.StatusOK, hosts)
 }

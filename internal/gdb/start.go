@@ -11,6 +11,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
@@ -34,7 +35,13 @@ func Start() {
 			Colorful:                  true,
 		},
 	)
-	gormConf := &gorm.Config{Logger: newLogger}
+	gormConf := &gorm.Config{
+		Logger: newLogger,
+		NamingStrategy: schema.NamingStrategy{
+			NoLowerCase: true,
+			// So upper case Columns could work in both PostgreSQL and SQLite
+		},
+	}
 
 	// Choose DB and connect
 	if conf.AppConfig.UseDB == "postgres" {
@@ -55,10 +62,6 @@ func Start() {
 
 		db.Exec("PRAGMA journal_mode = wal;")
 		db.Exec("PRAGMA busy_timeout = 5000;")
-		// sqlDB, _ := db.DB()
-		// sqlDB.SetMaxOpenConns(1) // only one writer at a time
-		// sqlDB.SetMaxIdleConns(1)
-		// sqlDB.SetConnMaxLifetime(time.Minute * 1)
 	}
 
 	// Migrate the schema

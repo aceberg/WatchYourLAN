@@ -26,7 +26,7 @@ func SelectByID(id int) (host models.Host) {
 func SelectByMAC(mac string) (hosts []models.Host) {
 
 	tab := db.Table("history")
-	tab.Where("MAC = ?", mac).Find(&hosts)
+	tab.Where("\"MAC\" = ?", mac).Find(&hosts)
 
 	return hosts
 }
@@ -36,8 +36,8 @@ func SelectByDate(mac, date string) (hosts []models.Host) {
 
 	tab := db.Table("history")
 	tab.
-		Where("MAC = ?", mac).
-		Where("DATE LIKE ?", date+"%").
+		Where("\"MAC\" = ?", mac).
+		Where("\"DATE\" LIKE ?", date+"%").
 		Find(&hosts)
 
 	return hosts
@@ -48,8 +48,8 @@ func SelectLatest(mac string, number int) (hosts []models.Host) {
 
 	tab := db.Table("history")
 	tab.
-		Where("MAC = ?", mac).
-		Order("DATE DESC").
+		Where("\"MAC\" = ?", mac).
+		Order("\"DATE\" DESC").
 		Limit(number).
 		Find(&hosts)
 

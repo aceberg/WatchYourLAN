@@ -62,7 +62,7 @@ export const apiPortScan = async (ip:string, port:number) => {
 };
 
 export const apiGetHistory = async (mac:string) => {
-  const url = apiPath+'/api/history/'+mac;
+  const url = apiPath+'/api/history/'+mac+'/?num=200';
   const hosts = await (await fetch(url)).json();
 
   return hosts;

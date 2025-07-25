@@ -25,7 +25,7 @@ func Delete(table string, id int) {
 func DeleteOldHistory(date string) int64 {
 
 	tab := db.Table("history")
-	result := tab.Where("DATE < ?", date).Delete(&models.Host{})
+	result := tab.Where("\"DATE\" < ?", date).Delete(&models.Host{})
 	check.IfError(result.Error)
 
 	return result.RowsAffected
