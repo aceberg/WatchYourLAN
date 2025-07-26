@@ -6,9 +6,19 @@ Returns all hosts in `json`.
 
 
 ```http
-GET /api/history/*mac
+GET /api/history
 ```
-Returns all History. If `mac` is not empty, returns only history of a device with this `mac`.
+Returns all History. Not recommended, the output can be a lot.
+
+```http
+GET /api/history/:mac/:date
+```
+Returns only history of a device with this `mac` filtered by `date`. `date` format can be anything from `2` to `2025-07` to `2025-07-26`.
+
+```http
+GET /api/history/:mac?num=20
+```
+Returns only last 20 lines of history of a device with this `mac`.
 
 
 ```http

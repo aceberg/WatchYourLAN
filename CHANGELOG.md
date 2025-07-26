@@ -3,14 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [v2.1.3] - 2025-07-26
 ### Fixed
-- Memory leak bug [#149](https://github.com/aceberg/WatchYourLAN/pull/149)
-- Duplicated devices bug [##187](https://github.com/aceberg/WatchYourLAN/pull/#187) [##198](https://github.com/aceberg/WatchYourLAN/pull/#198)
+- Memory leak bug [#149](https://github.com/aceberg/WatchYourLAN/issues/149)
+- Duplicated devices bug [#187](https://github.com/aceberg/WatchYourLAN/issues/187) [#198](https://github.com/aceberg/WatchYourLAN/issues/198)
 
 ### Changed
 - **DEPRECATED:** `HIST_IN_DB` config option. Now history is always stored in `DB`
 - Upd to `go 1.24.5`
 - Moved `DB` handling to `GORM`
-- Moved to maintained `Shoutrrr`: [github.com/nicholas-fedor/shoutrrr](github.com/nicholas-fedor/shoutrrr) ([#197](https://github.com/aceberg/WatchYourLAN/pull/197))
+- Moved to maintained `Shoutrrr`: [github.com/nicholas-fedor/shoutrrr](https://github.com/nicholas-fedor/shoutrrr) ([#197](https://github.com/aceberg/WatchYourLAN/issues/197))
 
 ## [v2.1.2] - 2025-03-30
 ### Fixed
