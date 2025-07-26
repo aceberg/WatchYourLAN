@@ -17,7 +17,7 @@ import (
 
 func getAllHosts(c *gin.Context) {
 
-	allHosts := gdb.Select("now")
+	allHosts, _ := gdb.Select("now")
 
 	c.IndentedJSON(http.StatusOK, allHosts)
 }
@@ -34,7 +34,7 @@ func getConfig(c *gin.Context) {
 
 func getHistory(c *gin.Context) {
 
-	hosts := gdb.Select("history")
+	hosts, _ := gdb.Select("history")
 
 	c.IndentedJSON(http.StatusOK, hosts)
 }
@@ -120,7 +120,7 @@ func getStatus(c *gin.Context) {
 	var status models.Stat
 	var searchHosts []models.Host
 
-	allHosts := gdb.Select("now")
+	allHosts, _ := gdb.Select("now")
 
 	iface := c.Param("iface")
 	iface = iface[1:]

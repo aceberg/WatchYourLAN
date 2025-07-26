@@ -1,13 +1,14 @@
 package api
 
 import (
-	"log/slog"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 
 	"github.com/aceberg/WatchYourLAN/internal/conf"
+	"github.com/aceberg/WatchYourLAN/internal/gdb"
+	"github.com/aceberg/WatchYourLAN/internal/routines"
 )
 
 func saveConfigHandler(c *gin.Context) {
@@ -21,8 +22,6 @@ func saveConfigHandler(c *gin.Context) {
 
 	conf.Write(conf.AppConfig)
 
-	slog.Info("Writing new config to " + conf.AppConfig.ConfPath)
-
 	c.Redirect(http.StatusFound, c.Request.Referer())
 }
 
@@ -32,8 +31,14 @@ func saveSettingsHandler(c *gin.Context) {
 	conf.AppConfig.ArpArgs = c.PostForm("arpargs")
 	conf.AppConfig.Ifaces = c.PostForm("ifaces")
 
-	conf.AppConfig.UseDB = c.PostForm("usedb")
-	conf.AppConfig.PGConnect = c.PostForm("pgconnect")
+	useDB := c.PostForm("usedb")
+	pgConnect := c.PostForm("pgconnect")
+
+	if useDB != conf.AppConfig.UseDB || pgConnect != conf.AppConfig.PGConnect {
+		conf.AppConfig.UseDB = c.PostForm("usedb")
+		conf.AppConfig.PGConnect = c.PostForm("pgconnect")
+		gdb.Connect()
+	}
 
 	timeout := c.PostForm("timeout")
 	trimHist := c.PostForm("trim")
@@ -50,11 +55,7 @@ func saveSettingsHandler(c *gin.Context) {
 
 	conf.Write(conf.AppConfig)
 
-	slog.Debug("ARP_STRS", "", conf.AppConfig.ArpArgs)
-	slog.Info("Writing new config to " + conf.AppConfig.ConfPath)
-
-	// TODO:
-	// updateRoutines() // routines-upd.go
+	routines.ScanRestart()
 
 	c.Redirect(http.StatusFound, c.Request.Referer())
 }
@@ -65,23 +66,13 @@ func saveInfluxHandler(c *gin.Context) {
 	conf.AppConfig.InfluxToken = c.PostForm("token")
 	conf.AppConfig.InfluxOrg = c.PostForm("org")
 	conf.AppConfig.InfluxBucket = c.PostForm("bucket")
+
 	enable := c.PostForm("enable")
 	skip := c.PostForm("skip")
-
-	if enable == "on" {
-		conf.AppConfig.InfluxEnable = true
-	} else {
-		conf.AppConfig.InfluxEnable = false
-	}
-	if skip == "on" {
-		conf.AppConfig.InfluxSkipTLS = true
-	} else {
-		conf.AppConfig.InfluxSkipTLS = false
-	}
+	conf.AppConfig.InfluxEnable = enable == "on"
+	conf.AppConfig.InfluxSkipTLS = skip == "on"
 
 	conf.Write(conf.AppConfig)
-
-	slog.Info("Writing new config to " + conf.AppConfig.ConfPath)
 
 	c.Redirect(http.StatusFound, c.Request.Referer())
 }
@@ -92,8 +83,6 @@ func savePrometheusHandler(c *gin.Context) {
 	conf.AppConfig.PrometheusEnable = enable == "on"
 
 	conf.Write(conf.AppConfig)
-
-	slog.Info("Writing new config to " + conf.AppConfig.ConfPath)
 
 	c.Redirect(http.StatusFound, c.Request.Referer())
 }

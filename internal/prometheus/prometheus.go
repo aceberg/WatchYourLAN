@@ -4,18 +4,20 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+
+	"github.com/aceberg/WatchYourLAN/internal/conf"
+	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
 // Handler - display Prometheus metrics
-func Handler(enabled bool) func(c *gin.Context) {
+func Handler() func(c *gin.Context) {
 	h := promhttp.Handler()
 	return func(c *gin.Context) {
-		if !enabled {
+		if !conf.AppConfig.PrometheusEnable {
 			c.AbortWithStatus(http.StatusNotFound)
 			return
 		}

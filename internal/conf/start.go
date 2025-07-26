@@ -8,8 +8,8 @@ import (
 // AppConfig - app config
 var AppConfig models.Conf
 
-// Generate - initial config
-func Generate(dirPath, nodePath string) {
+// Start - initial config
+func Start(dirPath, nodePath string) {
 
 	confPath := dirPath + "/config_v2.yaml"
 	check.Path(confPath)

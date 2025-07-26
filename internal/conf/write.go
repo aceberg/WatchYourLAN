@@ -1,6 +1,8 @@
 package conf
 
 import (
+	"log/slog"
+
 	"github.com/spf13/viper"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
@@ -9,6 +11,8 @@ import (
 
 // Write - write config to file
 func Write(config models.Conf) {
+
+	slog.Info("Writing new config to " + config.ConfPath)
 
 	viper.SetConfigFile(config.ConfPath)
 	viper.SetConfigType("yaml")

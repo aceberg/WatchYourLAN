@@ -15,7 +15,7 @@ func ScanRestart() {
 
 	close(quitScan)
 
-	slog.Debug("Restarting scan routine")
+	slog.Info("Restarting scan routine")
 	setLogLevel()
 
 	quitScan = make(chan bool)
@@ -25,18 +25,16 @@ func ScanRestart() {
 func setLogLevel() {
 	var level slog.Level
 
+	slog.Info("Log level: " + conf.AppConfig.LogLevel)
+
 	switch conf.AppConfig.LogLevel {
 	case "debug":
-		slog.Info("Log level=DEBUG")
 		level = slog.LevelDebug
 	case "info":
-		slog.Info("Log level=INFO")
 		level = slog.LevelInfo
 	case "warn":
-		slog.Info("Log level=WARN")
 		level = slog.LevelWarn
 	case "error":
-		slog.Info("Log level=ERROR")
 		level = slog.LevelError
 	default:
 		slog.Error("Invalid log level. Setting default level INFO")

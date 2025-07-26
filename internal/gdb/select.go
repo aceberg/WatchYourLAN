@@ -1,16 +1,17 @@
 package gdb
 
 import (
+	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
 // Select - get all hosts
-func Select(table string) (dbHosts []models.Host) {
+func Select(table string) (dbHosts []models.Host, ok bool) {
 
 	tab := db.Table(table)
-	tab.Find(&dbHosts)
+	err := tab.Find(&dbHosts).Error
 
-	return dbHosts
+	return dbHosts, !check.IfError(err)
 }
 
 // SelectByID - get host by ID
@@ -31,7 +32,7 @@ func SelectByMAC(mac string) (hosts []models.Host) {
 	return hosts
 }
 
-// SelectByDate - get all hosts by MAC
+// SelectByDate - get all hosts by MAC and DATE
 func SelectByDate(mac, date string) (hosts []models.Host) {
 
 	tab := db.Table("history")

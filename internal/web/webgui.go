@@ -25,19 +25,24 @@ var pubFS embed.FS
 
 // Gui - start web server
 func Gui() {
+	const (
+		colorCyan  = "\033[36m"
+		colorReset = "\033[0m"
+	)
 
 	file, err := pubFS.ReadFile("public/version")
 	check.IfError(err)
 	conf.AppConfig.Version = string(file)[8:]
 
-	slog.Info("Config dir", "path", conf.AppConfig.DirPath)
-
 	address := conf.AppConfig.Host + ":" + conf.AppConfig.Port
 
-	slog.Info("=================================== ")
-	slog.Info("Version: " + conf.AppConfig.Version)
-	slog.Info("Web GUI at http://" + address)
-	slog.Info("=================================== ")
+	slog.Info(colorCyan + "\n=================================== " +
+		"\n  WatchYourLAN Version: " + conf.AppConfig.Version +
+		"\n  Config dir: " + conf.AppConfig.DirPath +
+		"\n  Default DB: " + conf.AppConfig.UseDB +
+		"\n  Log level: " + conf.AppConfig.LogLevel +
+		"\n  Web GUI: http://" + address +
+		"\n=================================== " + colorReset)
 
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
@@ -52,7 +57,7 @@ func Gui() {
 	router.GET("/config", indexHandler)    // index.go
 	router.GET("/history", indexHandler)   // index.go
 	router.GET("/host/*any", indexHandler) // index.go
-	router.GET("/metrics", prometheus.Handler(conf.AppConfig.PrometheusEnable))
+	router.GET("/metrics", prometheus.Handler())
 
 	api.Routes(router)
 

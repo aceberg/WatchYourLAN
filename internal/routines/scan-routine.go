@@ -47,7 +47,11 @@ func startScan(quit chan bool) {
 
 func compareHosts(foundHostsMap map[string]models.Host) {
 
-	allHosts := gdb.Select("now")
+	allHosts, ok := gdb.Select("now")
+	if !ok {
+		return
+	}
+
 	for _, aHost := range allHosts {
 
 		fHost, exists := foundHostsMap[aHost.Mac]

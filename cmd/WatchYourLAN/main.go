@@ -29,8 +29,8 @@ func main() {
 	// 	http.ListenAndServe("localhost:8085", nil)
 	// }()
 
-	// Generate AppConfig
-	conf.Generate(*dirPtr, *nodePtr)
+	// Make AppConfig
+	conf.Start(*dirPtr, *nodePtr)
 
 	gdb.Start()
 
