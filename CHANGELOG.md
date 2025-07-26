@@ -1,9 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [v2.1.3] - 2025-0
+## [v2.1.3] - 2025-07-26
 ### Fixed
 - Memory leak bug [#149](https://github.com/aceberg/WatchYourLAN/pull/149)
+- Duplicated devices bug [##187](https://github.com/aceberg/WatchYourLAN/pull/#187) [##198](https://github.com/aceberg/WatchYourLAN/pull/#198)
 
 ### Changed
 - **DEPRECATED:** `HIST_IN_DB` config option. Now history is always stored in `DB`
