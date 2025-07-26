@@ -104,7 +104,7 @@ Configuration can be done through config file, GUI or environment variables. Var
 | ARP_STRS ARP_STRS_JOINED | See [docs/VLAN_ARP_SCAN.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md). | |
 | LOG_LEVEL | Log level: `debug`, `info`, `warn` or `error` | info |
 | TRIM_HIST | Remove history after (hours) | 48 |
-| HIST_IN_DB | Store History in DB - if `false`, the History will be stored only in memory and will be lost on app restart. Though, it will keep the app DB smaller (InfluxDB or Prometheus is recommended for long-term History storage) | false |
+| HIST_IN_DB | DEPRECATED since 2.1.3. Now History is always stored in DB. Use TRIM_HIST to reduce DB size |  |
 | USE_DB | Either `sqlite` or `postgres` | sqlite |
 | PG_CONNECT | Address to connect to PostgreSQL. (Example: `postgres://username:password@192.168.0.1:5432/dbname?sslmode=disable`). Full list of URL parameters [here](https://pkg.go.dev/github.com/lib/pq#hdr-Connection_String_Parameters) | |
 
@@ -139,7 +139,6 @@ Config file name is `config_v2.yaml`. Example:
 ```yaml
 arp_args: ""
 color: dark
-hist_in_db: false
 host: 0.0.0.0
 ifaces: enp4s0
 influx_addr: ""
