@@ -6,9 +6,9 @@
 [![Docker](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml/badge.svg)](https://github.com/aceberg/WatchYourLAN/actions/workflows/main-docker-all.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/aceberg/WatchYourLAN)](https://goreportcard.com/report/github.com/aceberg/WatchYourLAN)
 [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/watchyourlan)](https://hub.docker.com/r/aceberg/watchyourlan)
-[![GitHub Discussions](https://img.shields.io/github/discussions/aceberg/WatchYourLAN)](https://github.com/aceberg/WatchYourLAN/discussions)
+[![GitHub Discussions](https://img.shields.io/github/discussions/aceberg/WatchYourLAN)](https://github.com/aceberg/WatchYourLAN/discussions)   
 
-
+<a href="https://trendshift.io/repositories/11642" target="_blank"><img src="https://trendshift.io/api/badge/repositories/11642" alt="aceberg%2FWatchYourLAN | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 Lightweight network IP scanner with web GUI. Features:
 - Send notification when new host is found
