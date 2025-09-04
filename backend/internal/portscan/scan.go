@@ -13,13 +13,12 @@ func IsOpen(host, port string) bool {
 	target := fmt.Sprintf("%s:%s", host, port)
 
 	conn, err := net.DialTimeout("tcp", target, timeout)
-	if err != nil {
-		return false
-	}
 
-	if conn != nil {
-		conn.Close()
-		return true
+	if err == nil {
+		err = conn.Close()
+		if err == nil {
+			return true
+		}
 	}
 
 	return false
