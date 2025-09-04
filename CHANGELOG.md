@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v2.1.4] - 2025-09
+### Added
+- Wake-on-LAN [#135](https://github.com/aceberg/WatchYourLAN/issues/135), [#196](https://github.com/aceberg/WatchYourLAN/issues/196)
+
+### Fixed
+- Names not fully saved while editing with GUI
+
 ## [v2.1.3] - 2025-07-26
 ### Fixed
 - Memory leak bug [#149](https://github.com/aceberg/WatchYourLAN/issues/149)
