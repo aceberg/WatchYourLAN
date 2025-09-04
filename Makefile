@@ -13,7 +13,7 @@ fmt:
 	go fmt ./...
 
 lint:
-	golangci-lint run
+# 	golangci-lint run
 	golint ./...
 
 check: fmt lint

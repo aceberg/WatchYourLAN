@@ -1,15 +1,22 @@
-import { apiDelHost, apiEditHost } from "../../functions/api";
+import { apiDelHost, apiEditHost, apiWOL } from "../../functions/api";
 import { getHosts } from "../../functions/atstart";
+
+import { debounce } from "@solid-primitives/scheduled"; 
 
 function HostCard(_props: any) {
 
   let name:string = "";
 
+  const debouncedApi = debounce((val: string) => {
+      apiEditHost(_props.host.ID, val, "");
+
+      getHosts();
+    }, 300);
+
   const handleInput = async (n: string) => {
     
     name = n;
-    await apiEditHost(_props.host.ID, name, '');
-    getHosts();
+    debouncedApi(n);
   };
 
   const handleToggle = async () => {
@@ -26,6 +33,11 @@ function HostCard(_props: any) {
     
     await apiDelHost(_props.host.ID);
     window.location.href = '/';
+  };
+
+  const handleWOL = async () => {
+    
+    await apiWOL(_props.host.Mac);
   };
 
   return (
@@ -89,7 +101,10 @@ function HostCard(_props: any) {
             <td>Online</td>
             <td>{_props.host.Now == 1
                   ? <i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>
-                  : <i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>
+                  : <>
+                    <i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="button" onClick={handleWOL} class="btn btn-outline-success">Wake-on-LAN</button></>
             }</td>
           </tr>
           </tbody>

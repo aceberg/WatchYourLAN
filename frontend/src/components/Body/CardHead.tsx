@@ -25,9 +25,9 @@ function CardHead() {
         <Search></Search>
         <Show
           when={editNames()}
-          fallback={<button class="btn btn-outline-primary" title="Click to edit names" onClick={[handleEditNames, true]}>Edit names</button>}
+          fallback={<button class="btn btn-outline-primary" title="Toggle edit" onClick={[handleEditNames, true]}>Edit</button>}
         >
-          <button class="btn btn-primary" onClick={[handleEditNames, false]}>Edit names</button>
+          <button class="btn btn-primary" title="Toggle edit" onClick={[handleEditNames, false]}>Edit</button>
         </Show>
         </div>
       </div>

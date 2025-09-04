@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/linde12/gowol"
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/conf"
@@ -151,4 +152,19 @@ func getStatus(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, status)
+}
+
+func sendWOL(c *gin.Context) {
+
+	mac := c.Param("mac")
+
+	packet, err := gowol.NewMagicPacket(mac)
+
+	if !check.IfError(err) {
+		err = packet.Send("255.255.255.255")
+
+		slog.Info("Wake-on-LAN: " + mac)
+	}
+
+	c.IndentedJSON(http.StatusOK, !check.IfError(err))
 }

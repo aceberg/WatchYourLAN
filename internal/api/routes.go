@@ -19,6 +19,7 @@ func Routes(router *gin.Engine) {
 	router.GET("/api/port/:addr/:port", getPortState)       // api.go
 	router.GET("/api/status/*iface", getStatus)             // api.go
 	router.GET("/api/version", getVersion)                  // api.go
+	router.GET("/api/wol/:mac", sendWOL)                    // api.go
 
 	router.POST("/api/config/", saveConfigHandler)                // config.go
 	router.POST("/api/config_settings/", saveSettingsHandler)     // config.go

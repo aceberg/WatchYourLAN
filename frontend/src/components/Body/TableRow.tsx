@@ -2,6 +2,8 @@ import { createSignal, Show } from "solid-js";
 import { editNames } from "../../functions/exports";
 import { apiEditHost } from "../../functions/api";
 
+import { debounce } from "@solid-primitives/scheduled"; 
+
 function TableRow(_props: any) {
 
   const [name, setName] = createSignal(_props.host.Name);
@@ -14,12 +16,16 @@ function TableRow(_props: any) {
   let known:boolean;
   _props.host.Known === 1 ? known = true : known = false;
 
+  const debouncedApi = debounce((val: string) => {
+    apiEditHost(_props.host.ID, val, "");
+  }, 300);
+
   const handleInput = async (n: string) => {
     setName(n);
-    await apiEditHost(_props.host.ID, name(), '');
+    debouncedApi(n);
   };
   const handleToggle = async () => {
-    await apiEditHost(_props.host.ID, name(), 'toggle');
+    await apiEditHost(_props.host.ID, name(), "toggle");
   };
 
   return (

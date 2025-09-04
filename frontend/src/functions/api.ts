@@ -74,3 +74,11 @@ export const apiGetHistoryByDate = async (mac:string, date: string) => {
 
   return hosts;
 };
+
+export const apiWOL = async (mac:string) => {
+
+  const url = apiPath+'/api/wol/'+mac;
+  const res = await (await fetch(url)).json();
+
+  return res;
+};
