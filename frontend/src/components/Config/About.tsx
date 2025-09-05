@@ -18,16 +18,44 @@ function About() {
         About (<a href={link()} target="_blank">{version()}</a>)
       </div>
       <div class="card-body">
-        <p>● After changing <b>Host</b> or <b>Port</b> the app must be restarted</p>
-        <p>● <b>Shoutrrr URL</b> provides notifications to Discord, Email, Gotify, Telegram and other services. <a href="https://nicholas-fedor.github.io/shoutrrr/" target="_blank">Link to documentation</a></p>
-        <p>● <b>Interfaces</b> - one or more, space separated</p>
-        <p>● <b>Timeout (seconds)</b> - time between scans</p>
-        <p>● <b>Args for arp-scan</b> - pass your own arguments to <code>arp-scan</code>. Enable <b>debug</b> log level to see resulting command. (Example: <code>-r 1</code>). See <a href="https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md" target="_blank">docs</a> for more.</p>
-        <p>● <b>Arp Strings</b> - can setup scans for <code>vlans</code>, <code>docker0</code> and etcetera. See <a href="https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md" target="_blank">docs</a> for more.</p>
-        <p>● <b>Trim History</b> - remove history after (hours)</p>
-        <p>● <b>Store History in DB</b> - DEPRECATED. Now History is always stored in DB. Use <b>Trim History</b> to reduce DB size</p>
-        <p>● <b>PG Connect URL</b> - address to connect to PostgreSQL DB. (Example: <code>postgres://username:password@192.168.0.1:5432/dbname?sslmode=disable</code>). Full list of URL parameters <a href="https://pkg.go.dev/github.com/lib/pq#hdr-Connection_String_Parameters" target="_blank">here</a></p>
-        <p>● If you find this app useful, please, <a href="https://github.com/aceberg#donate" target="_blank">donate</a></p>
+        <table class="table table-striped"><tbody>
+          <tr>
+            <td><b>Swagger API docs</b></td>
+            <td><a href="/swagger/index.html" target="_blank">/swagger/index.html</a></td>
+          </tr>
+          <tr>
+            <td><b>Local node-bootstrap URL</b></td>
+            <td>local themes and fonts (optional). If empty, the app will pull everything from <code>cdn</code></td>
+          </tr>
+          <tr>
+            <td><b>Shoutrrr URL</b></td>
+            <td>provides notifications to Discord, Email, Gotify, Telegram and other services. <a href="https://shoutrrr.nickfedor.com/services/overview/" target="_blank">Link to documentation</a></td>
+          </tr>
+          <tr>
+            <td><b>Interfaces</b></td>
+            <td>one or more, space separated</td>
+          </tr>
+          <tr>
+            <td><b>Timeout (seconds)</b></td>
+            <td>time between scans</td>
+          </tr>
+          <tr>
+            <td><b>Args for arp-scan</b></td>
+            <td>pass your own arguments to <code>arp-scan</code>. Enable <b>debug</b> log level to see resulting command. (Example: <code>-r 1</code>). See <a href="https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md" target="_blank">docs</a> for more</td>
+          </tr>
+          <tr>
+            <td><b>Arp Strings</b></td>
+            <td>can setup scans for <code>vlans</code>, <code>docker0</code> and etcetera. See <a href="https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md" target="_blank">docs</a> for more</td>
+          </tr>
+          <tr>
+            <td><b>Trim History</b></td>
+            <td>remove history after (hours)</td>
+          </tr>
+          <tr>
+            <td><b>PG Connect URL</b></td>
+            <td>address to connect to PostgreSQL DB. (Example: <code>postgres://username:password@192.168.0.1:5432/dbname?sslmode=disable</code>). Full list of URL parameters <a href="https://pkg.go.dev/github.com/lib/pq#hdr-Connection_String_Parameters" target="_blank">here</a></td>
+          </tr>
+        </tbody></table>
       </div>
     </div>
   )

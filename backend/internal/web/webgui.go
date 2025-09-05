@@ -42,7 +42,6 @@ func Gui() {
 		"\n  Default DB: " + conf.AppConfig.UseDB +
 		"\n  Log level: " + conf.AppConfig.LogLevel +
 		"\n  Web GUI: http://" + address +
-		"\n  Swagger UI: http://" + address + "/swagger/index.html" +
 		"\n=================================== " + colorReset)
 
 	gin.SetMode(gin.ReleaseMode)
