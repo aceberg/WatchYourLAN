@@ -6,10 +6,10 @@ COPY --from=xx / /
 
 WORKDIR /src
 
-COPY go.mod go.sum ./
+COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 
-COPY . .
+COPY backend/ .
 
 ARG TARGETPLATFORM
 RUN CGO_ENABLED=0 xx-go build -ldflags='-w -s' -o /WatchYourLAN ./cmd/WatchYourLAN

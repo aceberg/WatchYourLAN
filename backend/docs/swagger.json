@@ -1,0 +1,538 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Lightweight network IP scanner written in Go",
+        "title": "WatchYourLAN API",
+        "contact": {
+            "url": "https://github.com/aceberg/WatchYourLAN"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "0.1"
+    },
+    "basePath": "/api/",
+    "paths": {
+        "/all": {
+            "get": {
+                "description": "Retrieve all hosts from the database",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "hosts"
+                ],
+                "summary": "Get all hosts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Host"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/config": {
+            "get": {
+                "description": "Returns the current configuration used by the app",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Get application configuration",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Conf"
+                        }
+                    }
+                }
+            }
+        },
+        "/edit/{id}/{name}/{known}": {
+            "get": {
+                "description": "Update a host's name and optionally toggle its \"known\" status",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "hosts"
+                ],
+                "summary": "Edit host",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Host ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "New name for the host",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pass 'toggle' to flip the known/unknown status",
+                        "name": "known",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/history": {
+            "get": {
+                "description": "Retrieve the complete history of all hosts. Not recommended, the output can be a lot",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "history"
+                ],
+                "summary": "Get full history",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Host"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/history/{mac}": {
+            "get": {
+                "description": "Retrieve the latest history entries for a specific host by MAC address",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "history"
+                ],
+                "summary": "Get history by MAC",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "MAC address of the host",
+                        "name": "mac",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of history entries to return",
+                        "name": "num",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Host"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/history/{mac}/{date}": {
+            "get": {
+                "description": "Retrieve history for a specific host on a given date\nThe date format is flexible and can be:\n- Year only: `2025`\n- Year + month: `2025-09`\n- Full date: `2025-09-06`\n- Full timestamp: `2025-09-06 00:58:26`",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "history"
+                ],
+                "summary": "Get history by date",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "MAC address of the host",
+                        "name": "mac",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Date filter (supports YYYY, YYYY-MM, YYYY-MM-DD, YYYY-MM-DD HH:mm:ss)",
+                        "name": "date",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Host"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/host/del/{id}": {
+            "get": {
+                "description": "Remove a host from the database by its unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "hosts"
+                ],
+                "summary": "Delete host",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Host ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/host/{id}": {
+            "get": {
+                "description": "Retrieve detailed information about a host by its unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "hosts"
+                ],
+                "summary": "Get host by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Host ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Host"
+                        }
+                    }
+                }
+            }
+        },
+        "/notify_test": {
+            "get": {
+                "description": "Trigger a test notification to verify notification settings",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Send test notification",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/port/{addr}/{port}": {
+            "get": {
+                "description": "Check whether a given TCP port on an address is open or closed",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "network"
+                ],
+                "summary": "Check port state",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "IP address or hostname",
+                        "name": "addr",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Port number",
+                        "name": "port",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "true if open, false if closed",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "/status/{iface}": {
+            "get": {
+                "description": "Retrieve summary statistics of hosts, optionally filtered by interface",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Get network status",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Interface name (omit for all interfaces)",
+                        "name": "iface",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Stat"
+                        }
+                    }
+                }
+            }
+        },
+        "/version": {
+            "get": {
+                "description": "Returns the current running version of the application",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Get application version",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/wol/{mac}": {
+            "get": {
+                "description": "Send a magic packet to wake up a host by its MAC address",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "network"
+                ],
+                "summary": "Send Wake-on-LAN packet",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "MAC address of the host",
+                        "name": "mac",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "true if sent successfully",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Conf": {
+            "type": "object",
+            "properties": {
+                "arpArgs": {
+                    "type": "string"
+                },
+                "arpStrs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "color": {
+                    "type": "string"
+                },
+                "confPath": {
+                    "type": "string"
+                },
+                "dbpath": {
+                    "type": "string"
+                },
+                "dirPath": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "ifaces": {
+                    "type": "string"
+                },
+                "influxAddr": {
+                    "type": "string"
+                },
+                "influxBucket": {
+                    "type": "string"
+                },
+                "influxEnable": {
+                    "description": "InfluxDB",
+                    "type": "boolean"
+                },
+                "influxOrg": {
+                    "type": "string"
+                },
+                "influxSkipTLS": {
+                    "type": "boolean"
+                },
+                "influxToken": {
+                    "type": "string"
+                },
+                "logLevel": {
+                    "type": "string"
+                },
+                "nodePath": {
+                    "type": "string"
+                },
+                "pgconnect": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "string"
+                },
+                "prometheusEnable": {
+                    "description": "Prometheus",
+                    "type": "boolean"
+                },
+                "shoutURL": {
+                    "type": "string"
+                },
+                "theme": {
+                    "type": "string"
+                },
+                "timeout": {
+                    "type": "integer"
+                },
+                "trimHist": {
+                    "type": "integer"
+                },
+                "useDB": {
+                    "description": "PostgreSQL",
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Host": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "dns": {
+                    "type": "string"
+                },
+                "hw": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "iface": {
+                    "type": "string"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "known": {
+                    "type": "integer"
+                },
+                "mac": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "now": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Stat": {
+            "type": "object",
+            "properties": {
+                "known": {
+                    "type": "integer"
+                },
+                "offline": {
+                    "type": "integer"
+                },
+                "online": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "unknown": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

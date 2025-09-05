@@ -19,4 +19,4 @@ lint:
 check: fmt lint
 
 swag:
-	swag init --parseInternal --dir cmd/WatchYourLAN
+	swag init -g main.go --dir cmd/WatchYourLAN,internal/api,internal/models

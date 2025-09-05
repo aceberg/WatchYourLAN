@@ -2,27 +2,38 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // Routes - start API routes
 func Routes(router *gin.Engine) {
 
-	router.GET("/api/all", getAllHosts)                     // api.go
-	router.GET("/api/config", getConfig)                    // api.go
-	router.GET("/api/edit/:id/:name/*known", editHost)      // api.go
-	router.GET("/api/history", getHistory)                  // api.go
-	router.GET("/api/history/:mac", getHistoryByMAC)        // api.go
-	router.GET("/api/history/:mac/:date", getHistoryByDate) // api.go
-	router.GET("/api/host/:id", getHost)                    // api.go
-	router.GET("/api/host/del/:id", delHost)                // api.go
-	router.GET("/api/notify_test", notifyTest)              // api.go
-	router.GET("/api/port/:addr/:port", getPortState)       // api.go
-	router.GET("/api/status/*iface", getStatus)             // api.go
-	router.GET("/api/version", getVersion)                  // api.go
-	router.GET("/api/wol/:mac", sendWOL)                    // api.go
+	r0 := router.Group("/api")
+	{
+		r0.GET("/all", getAllHosts)                // api-hosts.go
+		r0.GET("/edit/:id/:name/*known", editHost) // api-hosts.go
+		r0.GET("/host/:id", getHost)               // api-hosts.go
+		r0.GET("/host/del/:id", delHost)           // api-hosts.go
 
-	router.POST("/api/config/", saveConfigHandler)                // config.go
-	router.POST("/api/config_settings/", saveSettingsHandler)     // config.go
-	router.POST("/api/config_influx/", saveInfluxHandler)         // config.go
-	router.POST("/api/config_prometheus/", savePrometheusHandler) // config.go
+		r0.GET("/config", getConfig)        // api-system.go
+		r0.GET("/notify_test", notifyTest)  // api-system.go
+		r0.GET("/status/*iface", getStatus) // api-system.go
+		r0.GET("/version", getVersion)      // api-system.go
+
+		r0.GET("/history", getHistory)                  // api-history.go
+		r0.GET("/history/:mac", getHistoryByMAC)        // api-history.go
+		r0.GET("/history/:mac/:date", getHistoryByDate) // api-history.go
+
+		r0.GET("/port/:addr/:port", getPortState) // api-network.go
+		r0.GET("/wol/:mac", sendWOL)              // api-network.go
+
+		r0.POST("/config/", saveConfigHandler)                // config.go
+		r0.POST("/config_settings/", saveSettingsHandler)     // config.go
+		r0.POST("/config_influx/", saveInfluxHandler)         // config.go
+		r0.POST("/config_prometheus/", savePrometheusHandler) // config.go
+	}
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

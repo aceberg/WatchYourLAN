@@ -1,0 +1,363 @@
+basePath: /api/
+definitions:
+  models.Conf:
+    properties:
+      arpArgs:
+        type: string
+      arpStrs:
+        items:
+          type: string
+        type: array
+      color:
+        type: string
+      confPath:
+        type: string
+      dbpath:
+        type: string
+      dirPath:
+        type: string
+      host:
+        type: string
+      ifaces:
+        type: string
+      influxAddr:
+        type: string
+      influxBucket:
+        type: string
+      influxEnable:
+        description: InfluxDB
+        type: boolean
+      influxOrg:
+        type: string
+      influxSkipTLS:
+        type: boolean
+      influxToken:
+        type: string
+      logLevel:
+        type: string
+      nodePath:
+        type: string
+      pgconnect:
+        type: string
+      port:
+        type: string
+      prometheusEnable:
+        description: Prometheus
+        type: boolean
+      shoutURL:
+        type: string
+      theme:
+        type: string
+      timeout:
+        type: integer
+      trimHist:
+        type: integer
+      useDB:
+        description: PostgreSQL
+        type: string
+      version:
+        type: string
+    type: object
+  models.Host:
+    properties:
+      date:
+        type: string
+      dns:
+        type: string
+      hw:
+        type: string
+      id:
+        type: integer
+      iface:
+        type: string
+      ip:
+        type: string
+      known:
+        type: integer
+      mac:
+        type: string
+      name:
+        type: string
+      now:
+        type: integer
+    type: object
+  models.Stat:
+    properties:
+      known:
+        type: integer
+      offline:
+        type: integer
+      online:
+        type: integer
+      total:
+        type: integer
+      unknown:
+        type: integer
+    type: object
+info:
+  contact:
+    url: https://github.com/aceberg/WatchYourLAN
+  description: Lightweight network IP scanner written in Go
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: WatchYourLAN API
+  version: "0.1"
+paths:
+  /all:
+    get:
+      description: Retrieve all hosts from the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Host'
+            type: array
+      summary: Get all hosts
+      tags:
+      - hosts
+  /config:
+    get:
+      description: Returns the current configuration used by the app
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Conf'
+      summary: Get application configuration
+      tags:
+      - system
+  /edit/{id}/{name}/{known}:
+    get:
+      description: Update a host's name and optionally toggle its "known" status
+      parameters:
+      - description: Host ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New name for the host
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: Pass 'toggle' to flip the known/unknown status
+        in: path
+        name: known
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Edit host
+      tags:
+      - hosts
+  /history:
+    get:
+      description: Retrieve the complete history of all hosts. Not recommended, the
+        output can be a lot
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Host'
+            type: array
+      summary: Get full history
+      tags:
+      - history
+  /history/{mac}:
+    get:
+      description: Retrieve the latest history entries for a specific host by MAC
+        address
+      parameters:
+      - description: MAC address of the host
+        in: path
+        name: mac
+        required: true
+        type: string
+      - description: Number of history entries to return
+        in: query
+        name: num
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Host'
+            type: array
+      summary: Get history by MAC
+      tags:
+      - history
+  /history/{mac}/{date}:
+    get:
+      description: |-
+        Retrieve history for a specific host on a given date
+        The date format is flexible and can be:
+        - Year only: `2025`
+        - Year + month: `2025-09`
+        - Full date: `2025-09-06`
+        - Full timestamp: `2025-09-06 00:58:26`
+      parameters:
+      - description: MAC address of the host
+        in: path
+        name: mac
+        required: true
+        type: string
+      - description: Date filter (supports YYYY, YYYY-MM, YYYY-MM-DD, YYYY-MM-DD HH:mm:ss)
+        in: path
+        name: date
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Host'
+            type: array
+      summary: Get history by date
+      tags:
+      - history
+  /host/{id}:
+    get:
+      description: Retrieve detailed information about a host by its unique ID
+      parameters:
+      - description: Host ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Host'
+      summary: Get host by ID
+      tags:
+      - hosts
+  /host/del/{id}:
+    get:
+      description: Remove a host from the database by its unique ID
+      parameters:
+      - description: Host ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete host
+      tags:
+      - hosts
+  /notify_test:
+    get:
+      description: Trigger a test notification to verify notification settings
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Send test notification
+      tags:
+      - system
+  /port/{addr}/{port}:
+    get:
+      description: Check whether a given TCP port on an address is open or closed
+      parameters:
+      - description: IP address or hostname
+        in: path
+        name: addr
+        required: true
+        type: string
+      - description: Port number
+        in: path
+        name: port
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: true if open, false if closed
+          schema:
+            type: boolean
+      summary: Check port state
+      tags:
+      - network
+  /status/{iface}:
+    get:
+      description: Retrieve summary statistics of hosts, optionally filtered by interface
+      parameters:
+      - description: Interface name (omit for all interfaces)
+        in: path
+        name: iface
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Stat'
+      summary: Get network status
+      tags:
+      - system
+  /version:
+    get:
+      description: Returns the current running version of the application
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get application version
+      tags:
+      - system
+  /wol/{mac}:
+    get:
+      description: Send a magic packet to wake up a host by its MAC address
+      parameters:
+      - description: MAC address of the host
+        in: path
+        name: mac
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: true if sent successfully
+          schema:
+            type: boolean
+      summary: Send Wake-on-LAN packet
+      tags:
+      - network
+swagger: "2.0"

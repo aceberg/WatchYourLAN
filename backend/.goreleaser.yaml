@@ -54,8 +54,6 @@ nfpms:
 archives:
   - files:
     - LICENSE
-    - README.md
-    - CHANGELOG.md
     - src: ./configs/watchyourlan.service
       dst: watchyourlan.service
     - src: ./configs/install.sh
