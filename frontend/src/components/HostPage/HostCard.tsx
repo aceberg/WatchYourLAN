@@ -1,5 +1,4 @@
 import { apiDelHost, apiEditHost, apiWOL } from "../../functions/api";
-import { getHosts } from "../../functions/atstart";
 
 import { debounce } from "@solid-primitives/scheduled"; 
 
@@ -7,10 +6,8 @@ function HostCard(_props: any) {
 
   let name:string = "";
 
-  const debouncedApi = debounce((val: string) => {
-      apiEditHost(_props.host.ID, val, "");
-
-      getHosts();
+  const debouncedApi = debounce(async (val: string) => {
+      await apiEditHost(_props.host.ID, val, "");
     }, 300);
 
   const handleInput = async (n: string) => {
@@ -26,7 +23,6 @@ function HostCard(_props: any) {
     }
 
     await apiEditHost(_props.host.ID, name, 'toggle');
-    getHosts();
   };
 
   const handleDel = async () => {

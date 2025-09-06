@@ -71,7 +71,7 @@ function Scan() {
             </tr>
             <tr>
               <td><button type="submit" class="btn btn-primary">Save</button></td>
-              <td></td>
+              <td class="text-muted">*Pressing <b>Save</b> button will trigger rescan</td>
             </tr>
             </tbody></table>
         </form>

@@ -17,7 +17,7 @@ function About() {
       <div class="card-header">
         About (<a href={link()} target="_blank">{version()}</a>)
       </div>
-      <div class="card-body">
+      <div class="card-body table-responsive">
         <table class="table table-striped"><tbody>
           <tr>
             <td><b>Swagger API docs</b></td>

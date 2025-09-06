@@ -8,6 +8,7 @@ import (
 
 	"github.com/aceberg/WatchYourLAN/internal/check"
 	"github.com/aceberg/WatchYourLAN/internal/gdb"
+	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
 // getAllHosts godoc
@@ -51,6 +52,42 @@ func delHost(c *gin.Context) {
 	gdb.Delete("now", host.ID)
 	slog.Info("Deleting from DB", "host", host)
 	c.IndentedJSON(http.StatusOK, "OK")
+}
+
+// addHost godoc
+// @Summary      Add host manually
+// @Description  Add host by MAC, with optional Name, IP, Hardware
+// @Description  Returns `models.Host` with this MAC form DB, either just added or existing
+// @Tags         hosts
+// @Produce      json
+// @Param        mac   path      string  true   "Host MAC"
+// @Param        name  query     string  false  "Name"
+// @Param        ip    query     string  false  "IP"
+// @Param        hw    query     string  false  "Hardware"
+// @Success      200  {object}  models.Host
+// @Router       /host/add/{mac} [get]
+func addHost(c *gin.Context) {
+
+	mac := c.Param("mac")
+	hosts := gdb.SelectByMAC("now", mac)
+
+	if len(hosts) > 0 {
+		slog.Warn("Host with this MAC already exists", "host", hosts[0])
+	} else {
+		var host models.Host
+
+		host.Mac = mac
+		host.Name = c.Query("name")
+		host.IP = c.Query("ip")
+		host.Hw = c.Query("hw")
+
+		gdb.Update("now", host)
+		hosts = gdb.SelectByMAC("now", mac)
+
+		slog.Info("Added host to DB", "host", hosts[0])
+	}
+
+	c.IndentedJSON(http.StatusOK, hosts[0])
 }
 
 // editHost godoc

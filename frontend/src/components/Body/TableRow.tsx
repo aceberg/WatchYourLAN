@@ -16,8 +16,8 @@ function TableRow(_props: any) {
   let known:boolean;
   _props.host.Known === 1 ? known = true : known = false;
 
-  const debouncedApi = debounce((val: string) => {
-    apiEditHost(_props.host.ID, val, "");
+  const debouncedApi = debounce(async (val: string) => {
+    await apiEditHost(_props.host.ID, val, "");
   }, 300);
 
   const handleInput = async (n: string) => {

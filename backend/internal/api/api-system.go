@@ -9,6 +9,7 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/gdb"
 	"github.com/aceberg/WatchYourLAN/internal/models"
 	"github.com/aceberg/WatchYourLAN/internal/notify"
+	"github.com/aceberg/WatchYourLAN/internal/routines"
 )
 
 // getVersion godoc
@@ -20,6 +21,18 @@ import (
 // @Router       /version [get]
 func getVersion(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, conf.AppConfig.Version)
+}
+
+// triggerRescan godoc
+// @Summary      Rescan all interfaces now
+// @Description  Manually trigger rescan
+// @Tags         system
+// @Produce      json
+// @Success      200  {string}  string  "OK"
+// @Router       /rescan [get]
+func triggerRescan(c *gin.Context) {
+	routines.ScanRestart()
+	c.Status(http.StatusOK)
 }
 
 // getConfig godoc

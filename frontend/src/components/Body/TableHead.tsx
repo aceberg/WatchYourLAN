@@ -36,7 +36,7 @@ function TableHead() {
             title={"Sort by " + key}
           ></i></th>
         }</For>
-        <th style="width: 2em;"></th>
+        <th style="width: 2em;" title="Edit"><i class="bi bi-pencil-fill"></i></th>
       </tr>
     </thead>
   )

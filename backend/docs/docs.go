@@ -207,6 +207,53 @@ const docTemplate = `{
                 }
             }
         },
+        "/host/add/{mac}": {
+            "get": {
+                "description": "Add host by MAC, with optional Name, IP, Hardware\nReturns ` + "`" + `models.Host` + "`" + ` with this MAC form DB, either just added or existing",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "hosts"
+                ],
+                "summary": "Add host manually",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Host MAC",
+                        "name": "mac",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "IP",
+                        "name": "ip",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Hardware",
+                        "name": "hw",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Host"
+                        }
+                    }
+                }
+            }
+        },
         "/host/del/{id}": {
             "get": {
                 "description": "Remove a host from the database by its unique ID",
@@ -316,6 +363,26 @@ const docTemplate = `{
                         "description": "true if open, false if closed",
                         "schema": {
                             "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "/rescan": {
+            "get": {
+                "description": "Manually trigger rescan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Rescan all interfaces now",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }

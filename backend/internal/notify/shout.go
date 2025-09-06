@@ -17,7 +17,6 @@ func Unknown(host models.Host) {
 	msg := fmt.Sprintf("Unknown host found. Name: '%s', IP: '%s', MAC: '%s', Hw: '%s', Iface: '%s'", host.DNS, host.IP, host.Mac, host.Hw, host.Iface)
 
 	slog.Warn(msg)
-
 	shout(msg)
 }
 
@@ -25,6 +24,7 @@ func Unknown(host models.Host) {
 func Test() {
 
 	msg := "test notification"
+	slog.Info("Sending " + msg)
 	shout(msg)
 }
 

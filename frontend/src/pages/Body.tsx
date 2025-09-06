@@ -1,12 +1,17 @@
-import { For } from "solid-js";
+import { For, onMount } from "solid-js";
 
 import { allHosts } from "../functions/exports";
 
 import TableRow from "../components/Body/TableRow";
 import TableHead from "../components/Body/TableHead";
 import CardHead from "../components/Body/CardHead";
+import { getHosts } from "../functions/atstart";
 
 function Body() {
+
+  onMount(() => {
+    getHosts();
+  });
 
   return (
     <div class="card border-primary">

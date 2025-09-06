@@ -24,9 +24,9 @@ func SelectByID(id int) (host models.Host) {
 }
 
 // SelectByMAC - get all hosts by MAC
-func SelectByMAC(mac string) (hosts []models.Host) {
+func SelectByMAC(table, mac string) (hosts []models.Host) {
 
-	tab := db.Table("history")
+	tab := db.Table(table)
 	tab.Where("\"MAC\" = ?", mac).Find(&hosts)
 
 	return hosts

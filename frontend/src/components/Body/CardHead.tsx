@@ -38,7 +38,7 @@ function CardHead() {
           when={editNames()}
           fallback={<button class="btn btn-outline-primary" title="Toggle edit" onClick={[handleEditNames, true]}>Edit</button>}
         >
-          <button type="button" onClick={handleDel} class="btn btn-outline-danger">Delete selected</button>
+          <button type="button" onClick={handleDel} title="Delete selected hosts" class="btn btn-outline-danger">Delete selected</button>
           <button class="btn btn-primary" title="Toggle edit" onClick={[handleEditNames, false]}>Edit</button>
         </Show>
         </div>

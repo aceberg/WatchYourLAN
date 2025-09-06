@@ -254,6 +254,39 @@ paths:
       summary: Get host by ID
       tags:
       - hosts
+  /host/add/{mac}:
+    get:
+      description: |-
+        Add host by MAC, with optional Name, IP, Hardware
+        Returns `models.Host` with this MAC form DB, either just added or existing
+      parameters:
+      - description: Host MAC
+        in: path
+        name: mac
+        required: true
+        type: string
+      - description: Name
+        in: query
+        name: name
+        type: string
+      - description: IP
+        in: query
+        name: ip
+        type: string
+      - description: Hardware
+        in: query
+        name: hw
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Host'
+      summary: Add host manually
+      tags:
+      - hosts
   /host/del/{id}:
     get:
       description: Remove a host from the database by its unique ID
@@ -310,6 +343,19 @@ paths:
       summary: Check port state
       tags:
       - network
+  /rescan:
+    get:
+      description: Manually trigger rescan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Rescan all interfaces now
+      tags:
+      - system
   /status/{iface}:
     get:
       description: Retrieve summary statistics of hosts, optionally filtered by interface
