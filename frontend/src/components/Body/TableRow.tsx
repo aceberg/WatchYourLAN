@@ -1,5 +1,5 @@
 import { createSignal, Show } from "solid-js";
-import { editNames } from "../../functions/exports";
+import { editNames, selectedIDs, setSelectedIDs } from "../../functions/exports";
 import { apiEditHost } from "../../functions/api";
 
 import { debounce } from "@solid-primitives/scheduled"; 
@@ -28,6 +28,17 @@ function TableRow(_props: any) {
     await apiEditHost(_props.host.ID, name(), "toggle");
   };
 
+  const handleCheck = (checked: boolean) => {
+    const id = _props.host.ID;
+    setSelectedIDs(prev => {
+      if (checked) {
+        return prev.includes(id) ? prev : [...prev, id];
+      } else {
+        return prev.filter(item => item !== id);
+      }
+    });
+  };
+
   return (
     <tr>
       <td class="opacity-50">{_props.index}.</td>
@@ -53,9 +64,20 @@ function TableRow(_props: any) {
       </td>
       <td>{now}</td>
       <td>
-        <a href={"/host/" + _props.host.ID}>
-          <i class="bi bi-three-dots-vertical my-btn p-2" title="More"></i>
-        </a>
+        <Show
+          when={editNames()}
+          fallback={
+          <a href={"/host/" + _props.host.ID}>
+            <i class="bi bi-three-dots-vertical my-btn p-2" title="More"></i>
+          </a>}
+        >
+          <input
+            type="checkbox"
+            class="form-check-input"
+            checked={selectedIDs().includes(_props.host.ID)}
+            onChange={e => handleCheck((e.target as HTMLInputElement).checked)}
+          />
+        </Show>
       </td>
     </tr>
   )

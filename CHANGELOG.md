@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [v2.1.4] - 2025-09
 ### Added
 - Swagger API docs
+- Delete selected hosts
 - Wake-on-LAN [#135](https://github.com/aceberg/WatchYourLAN/issues/135), [#196](https://github.com/aceberg/WatchYourLAN/issues/196)
 
 ### Fixed

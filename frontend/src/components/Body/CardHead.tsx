@@ -1,8 +1,9 @@
 import { Show } from "solid-js";
-import { editNames, setEditNames } from "../../functions/exports";
+import { editNames, selectedIDs, setEditNames } from "../../functions/exports";
 import Filter from "../Filter";
 import Search from "../Search";
 import { getHosts } from "../../functions/atstart";
+import { apiDelHost } from "../../functions/api";
 
 function CardHead() {
 
@@ -11,6 +12,16 @@ function CardHead() {
       getHosts();
     }
     setEditNames(toggle);
+  };
+
+  const handleDel = async () => {
+    const ids = selectedIDs();
+    
+    for (let id of ids) {
+      await apiDelHost(id);
+    }
+    
+    window.location.href = '/';
   };
 
   return (
@@ -27,6 +38,7 @@ function CardHead() {
           when={editNames()}
           fallback={<button class="btn btn-outline-primary" title="Toggle edit" onClick={[handleEditNames, true]}>Edit</button>}
         >
+          <button type="button" onClick={handleDel} class="btn btn-outline-danger">Delete selected</button>
           <button class="btn btn-primary" title="Toggle edit" onClick={[handleEditNames, false]}>Edit</button>
         </Show>
         </div>
