@@ -8,7 +8,7 @@ on:
 jobs:
   generate:
     name: Create release-artifacts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout the repository
         uses: actions/checkout@master
@@ -21,7 +21,7 @@ jobs:
       - uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
-          version: '~> v2'
+          version: latest
           args: release --clean
           workdir: backend
         env:

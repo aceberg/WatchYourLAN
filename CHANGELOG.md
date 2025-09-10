@@ -1,12 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [v2.1.4] - 2025-09
+## [v2.1.4] - 2025-09-10
 ### Added
-- Swagger API docs
-- Add host from API
-- Trigger rescan from API
-- Delete selected hosts
+- Swagger API docs (`/swagger/index.html`)
+- Add host from API [#72](https://github.com/aceberg/WatchYourLAN/issues/72)
+- Trigger rescan from API or by pressing `Save` on `Config/Scan settings` [#74](https://github.com/aceberg/WatchYourLAN/issues/74)
+- Delete selected hosts [#195](https://github.com/aceberg/WatchYourLAN/issues/195)
 - Wake-on-LAN [#135](https://github.com/aceberg/WatchYourLAN/issues/135), [#196](https://github.com/aceberg/WatchYourLAN/issues/196)
 
 ## [v2.1.3] - 2025-07-26
