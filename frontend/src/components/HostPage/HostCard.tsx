@@ -97,11 +97,11 @@ function HostCard(_props: any) {
             <td>Online</td>
             <td>{_props.host.Now == 1
                   ? <i class="bi bi-check-circle-fill" style="color:var(--bs-success);"></i>
-                  : <>
-                    <i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>
-                    &nbsp;&nbsp;&nbsp;
-                    <button type="button" onClick={handleWOL} class="btn btn-outline-success">Wake-on-LAN</button></>
-            }</td>
+                  : <i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>
+                }
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" onClick={handleWOL} class="btn btn-outline-success">Wake-on-LAN</button>
+            </td>
           </tr>
           </tbody>
         </table>

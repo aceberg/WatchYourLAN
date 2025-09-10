@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Swagger API docs
 - Add host from API
+- Trigger rescan from API
 - Delete selected hosts
 - Wake-on-LAN [#135](https://github.com/aceberg/WatchYourLAN/issues/135), [#196](https://github.com/aceberg/WatchYourLAN/issues/196)
 
