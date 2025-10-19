@@ -38,36 +38,45 @@ func read(path string) (config models.Conf) {
 
 	viper.AutomaticEnv() // Get ENVIRONMENT variables
 
-	config.Host = viper.Get("HOST").(string)
-	config.Port = viper.Get("PORT").(string)
-	config.Theme = viper.Get("THEME").(string)
-	config.Color = viper.Get("COLOR").(string)
-	config.NodePath = viper.Get("NODEPATH").(string)
-	config.LogLevel = viper.Get("LOG_LEVEL").(string)
-	config.ArpArgs = viper.Get("ARP_ARGS").(string)
+	config.Host = stripQuotes(viper.GetString("HOST"))
+	config.Port = stripQuotes(viper.GetString("PORT"))
+	config.Theme = stripQuotes(viper.GetString("THEME"))
+	config.Color = stripQuotes(viper.GetString("COLOR"))
+	config.NodePath = stripQuotes(viper.GetString("NODEPATH"))
+	config.LogLevel = stripQuotes(viper.GetString("LOG_LEVEL"))
+	config.ArpArgs = stripQuotes(viper.GetString("ARP_ARGS"))
 	config.ArpStrs = viper.GetStringSlice("ARP_STRS")
-	config.Ifaces = viper.Get("IFACES").(string)
+	config.Ifaces = stripQuotes(viper.GetString("IFACES"))
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.TrimHist = viper.GetInt("TRIM_HIST")
-	config.ShoutURL = viper.Get("SHOUTRRR_URL").(string)
+	config.ShoutURL = stripQuotes(viper.GetString("SHOUTRRR_URL"))
 
-	config.UseDB = viper.Get("USE_DB").(string)
-	config.PGConnect = viper.Get("PG_CONNECT").(string)
+	config.UseDB = stripQuotes(viper.GetString("USE_DB"))
+	config.PGConnect = stripQuotes(viper.GetString("PG_CONNECT"))
 
 	config.InfluxEnable = viper.GetBool("INFLUX_ENABLE")
 	config.InfluxSkipTLS = viper.GetBool("INFLUX_SKIP_TLS")
-	config.InfluxAddr, _ = viper.Get("INFLUX_ADDR").(string)
-	config.InfluxToken, _ = viper.Get("INFLUX_TOKEN").(string)
-	config.InfluxOrg, _ = viper.Get("INFLUX_ORG").(string)
-	config.InfluxBucket, _ = viper.Get("INFLUX_BUCKET").(string)
+	config.InfluxAddr = stripQuotes(viper.GetString("INFLUX_ADDR"))
+	config.InfluxToken = stripQuotes(viper.GetString("INFLUX_TOKEN"))
+	config.InfluxOrg = stripQuotes(viper.GetString("INFLUX_ORG"))
+	config.InfluxBucket = stripQuotes(viper.GetString("INFLUX_BUCKET"))
 
 	config.PrometheusEnable = viper.GetBool("PROMETHEUS_ENABLE")
 
-	joined := viper.Get("ARP_STRS_JOINED").(string)
+	joined := stripQuotes(viper.GetString("ARP_STRS_JOINED"))
 	// slog.Info("ARP_STRS_JOINED: " + joined)
 
 	if joined != "" {
-		config.ArpStrs = strings.Split(joined, ",")
+		splitStrs := strings.Split(joined, ",")
+		config.ArpStrs = make([]string, len(splitStrs))
+		for i, str := range splitStrs {
+			config.ArpStrs[i] = stripQuotes(strings.TrimSpace(str))
+		}
+	}
+
+	// Also clean quotes from ArpStrs if they were set directly
+	for i, str := range config.ArpStrs {
+		config.ArpStrs[i] = stripQuotes(str)
 	}
 
 	return config
