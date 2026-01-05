@@ -9,7 +9,7 @@ services:
   wyl:
     image: aceberg/watchyourlan           # dockerhub
     # image: ghcr.io/aceberg/watchyourlan # or github
-    network_mode: "host"      
+    network_mode: "host"
     restart: unless-stopped
     # uncomment those if you are using local node-bootstrap:
     # command: "-n http://YOUR_IP:8850"   # put your server IP or DNS name here
@@ -22,6 +22,7 @@ services:
       IFACES: "enp4s0 wlxf4ec3892dd51"  # required: 1 or more interface
       # HOST: "0.0.0.0"                   # optional, default: 0.0.0.0
       # PORT: "8840"                      # optional, default: 8840
+      # BASE_PATH: ""                     # optional, default: "" (empty)
       # TIMEOUT: "120"                    # optional, time in seconds, default: 120
       # SHOUTRRR_URL: ""                  # optional, set url to notify
       # THEME: "sand"                     # optional

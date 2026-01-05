@@ -3,6 +3,7 @@ package api
 import (
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 
@@ -19,6 +20,9 @@ func saveConfigHandler(c *gin.Context) {
 	conf.AppConfig.Color = c.PostForm("color")
 	conf.AppConfig.NodePath = c.PostForm("node")
 	conf.AppConfig.ShoutURL = c.PostForm("shout")
+
+	basePath := c.PostForm("basepath")
+	conf.AppConfig.BasePath = strings.TrimRight(basePath, "/")
 
 	conf.Write(conf.AppConfig)
 

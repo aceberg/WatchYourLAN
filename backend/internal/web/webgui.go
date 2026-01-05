@@ -41,7 +41,7 @@ func Gui() {
 		"\n  Config dir: " + conf.AppConfig.DirPath +
 		"\n  Default DB: " + conf.AppConfig.UseDB +
 		"\n  Log level: " + conf.AppConfig.LogLevel +
-		"\n  Web GUI: http://" + address +
+		"\n  Web GUI: http://" + address + "/" + conf.AppConfig.BasePath +
 		"\n=================================== " + colorReset)
 
 	gin.SetMode(gin.ReleaseMode)
@@ -51,15 +51,21 @@ func Gui() {
 	templ := template.Must(template.New("").ParseFS(templFS, "templates/*"))
 	router.SetHTMLTemplate(templ) // templates
 
-	router.StaticFS("/fs/", http.FS(pubFS)) // public
+	var routerGroup gin.IRouter = router
 
-	router.GET("/", indexHandler)          // index.go
-	router.GET("/config", indexHandler)    // index.go
-	router.GET("/history", indexHandler)   // index.go
-	router.GET("/host/*any", indexHandler) // index.go
-	router.GET("/metrics", prometheus.Handler())
+	if conf.AppConfig.BasePath != "" {
+		routerGroup = router.Group(conf.AppConfig.BasePath)
+	}
 
-	api.Routes(router)
+    routerGroup.StaticFS("/fs/", http.FS(pubFS))
+
+	routerGroup.GET("/", indexHandler)
+	routerGroup.GET("/config", indexHandler)
+	routerGroup.GET("/history", indexHandler)
+	routerGroup.GET("/host/*any", indexHandler)
+	routerGroup.GET("/metrics", prometheus.Handler())
+
+	api.Routes(routerGroup)
 
 	err = router.Run(address)
 	check.IfError(err)

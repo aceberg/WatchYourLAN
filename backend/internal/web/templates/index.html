@@ -5,11 +5,17 @@
   <title>WatchYourLAN</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Template data injection -->
+  <script>
+    window.appConfig = {
+      basePath: "{{ .BasePath }}",
+    };
+  </script>
   <!--Favicon-->
-  <link rel="icon" type="image/x-icon" href="/fs/public/favicon.png">
+  <link rel="icon" type="image/x-icon" href="{{ .BasePath }}/fs/public/favicon.png">
   <!-- JS & CSS -->
-  <script type="module" crossorigin src="/fs/public/assets/index.js"></script>
-  <link rel="stylesheet" crossorigin href="/fs/public/assets/index.css">
+  <script type="module" crossorigin src="{{ .BasePath }}/fs/public/assets/index.js"></script>
+  <link rel="stylesheet" crossorigin href="{{ .BasePath }}/fs/public/assets/index.css">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

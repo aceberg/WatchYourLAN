@@ -19,6 +19,7 @@ func Write(config models.Conf) {
 
 	viper.Set("HOST", config.Host)
 	viper.Set("PORT", config.Port)
+	viper.Set("BASE_PATH", "") // Can be set only with ENV
 	viper.Set("THEME", config.Theme)
 	viper.Set("COLOR", config.Color)
 	viper.Set("NODEPATH", config.NodePath)

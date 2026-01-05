@@ -13,6 +13,7 @@ func read(path string) (config models.Conf) {
 
 	viper.SetDefault("HOST", "0.0.0.0")
 	viper.SetDefault("PORT", "8840")
+	viper.SetDefault("BASE_PATH", "")
 	viper.SetDefault("THEME", "sand")
 	viper.SetDefault("COLOR", "dark")
 	viper.SetDefault("NODEPATH", "")
@@ -40,6 +41,7 @@ func read(path string) (config models.Conf) {
 
 	config.Host = viper.Get("HOST").(string)
 	config.Port = viper.Get("PORT").(string)
+	config.BasePath = strings.Trim(viper.GetString("BASE_PATH"), "/")
 	config.Theme = viper.Get("THEME").(string)
 	config.Color = viper.Get("COLOR").(string)
 	config.NodePath = viper.Get("NODEPATH").(string)

@@ -8,7 +8,7 @@ import (
 )
 
 // Routes - start API routes
-func Routes(router *gin.Engine) {
+func Routes(router gin.IRouter) {
 
 	r0 := router.Group("/api")
 	{

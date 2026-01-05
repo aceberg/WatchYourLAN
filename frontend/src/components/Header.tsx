@@ -6,13 +6,13 @@ function Header() {
 
   const [themePath, setThemePath] = createSignal('');
   const [iconsPath, setIconsPath] = createSignal('');
-  
+
   const setCurrentTheme = async () => {
     setAppConfig(await apiGetConfig());
 
     const theme = appConfig().Theme?appConfig().Theme:"sand";
     const color = appConfig().Color?appConfig().Color:"dark";
-    
+
     if (appConfig().NodePath == '') {
       setThemePath("https://cdn.jsdelivr.net/npm/aceberg-bootswatch-fork@v5.3.3-2/dist/"+theme+"/bootstrap.min.css");
       setIconsPath("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css");
@@ -35,17 +35,17 @@ function Header() {
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
       <div class="container-lg">
         <a class="navbar-brand" href="/">
-          <img src="/fs/public/favicon.png" style="width: 2em"/>
+          <img src={window.appConfig?.basePath + "/fs/public/favicon.png"} style="width: 2em"/>
         </a>
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" href="/" title="Home">Home</a>
+            <a class="nav-link active" href={window.appConfig?.basePath + "/"} title="Home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/config/" title="Config">Config</a>
+            <a class="nav-link active" href={window.appConfig?.basePath + "/config/"} title="Config">Config</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/history/" title="History">History</a>
+            <a class="nav-link active" href={window.appConfig?.basePath + "/history/"} title="History">History</a>
           </li>
         </ul>
         <ul class="navbar-nav">

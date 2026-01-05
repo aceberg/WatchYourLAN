@@ -22,7 +22,7 @@ function App() {
     <div class="container-lg">
       <div class="row">
         <div class="col-md mt-4 mb-4">
-          <Router>
+          <Router base={window.appConfig?.basePath || ""}>
             <Route path="/" component={Body}/>
             <Route path="/config" component={Config}/>
             <Route path="/history" component={History}/>

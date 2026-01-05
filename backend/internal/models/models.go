@@ -4,6 +4,7 @@ package models
 type Conf struct {
 	Host     string
 	Port     string
+	BasePath string
 	Theme    string
 	Color    string
 	DirPath  string
