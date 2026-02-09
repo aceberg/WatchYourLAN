@@ -208,6 +208,7 @@ Moved to [docs/API.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/AP
 - [ArchLinux (AUR)](https://aur.archlinux.org/packages/watch-your-lan) by `gilcu3`
 - [Python API client](https://github.com/drwahl/py-watchyourlanclient) by [drwahl](https://github.com/drwahl)
 - [Umbrel](https://apps.umbrel.com/app/watch-your-lan) by [Jasper](https://github.com/ceramicwhite)
+- [wyl-teams-monitor](https://github.com/LeonMTN05/wyl-teams-monitor): Notifications for Microsoft Teams by [LeonMTN05](https://github.com/LeonMTN05)
 - [YunoHost](https://apps.yunohost.org/app/watchyourlan)
 </details> 
 
