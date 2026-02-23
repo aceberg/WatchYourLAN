@@ -37,6 +37,14 @@ function Influx() {
                   <td><input name="bucket" type="text" class="form-control" value={appConfig().InfluxBucket}></input></td>
                 </tr>
                 <tr>
+                  <td>Network Name</td>
+                  <td><input name="network_name" type="text" class="form-control" value={appConfig().InfluxNetworkName}></input></td>
+                </tr>
+                <tr>
+                  <td>Device Location</td>
+                  <td><input name="device_location" type="text" class="form-control" value={appConfig().InfluxDeviceLocation}></input></td>
+                </tr>
+                <tr>
                   <td>Skip TLS verify</td>
                   <td>
                     <div class="form-check form-switch">

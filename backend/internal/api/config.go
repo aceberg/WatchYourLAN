@@ -66,6 +66,8 @@ func saveInfluxHandler(c *gin.Context) {
 	conf.AppConfig.InfluxToken = c.PostForm("token")
 	conf.AppConfig.InfluxOrg = c.PostForm("org")
 	conf.AppConfig.InfluxBucket = c.PostForm("bucket")
+	conf.AppConfig.InfluxNetworkName = c.PostForm("network_name")
+	conf.AppConfig.InfluxDeviceLocation = c.PostForm("device_location")
 
 	enable := c.PostForm("enable")
 	skip := c.PostForm("skip")

@@ -40,6 +40,8 @@ func Write(config models.Conf) {
 	viper.Set("influx_token", config.InfluxToken)
 	viper.Set("influx_org", config.InfluxOrg)
 	viper.Set("influx_bucket", config.InfluxBucket)
+	viper.Set("influx_network_name", config.InfluxNetworkName)
+	viper.Set("influx_device_location", config.InfluxDeviceLocation)
 
 	viper.Set("PROMETHEUS_ENABLE", config.PrometheusEnable)
 

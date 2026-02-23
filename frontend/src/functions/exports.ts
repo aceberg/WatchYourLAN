@@ -36,6 +36,8 @@ export interface Conf {
 	InfluxToken:   string;
 	InfluxOrg:     string;
 	InfluxBucket:  string;
+	InfluxNetworkName: string;
+	InfluxDeviceLocation: string;
 	InfluxSkipTLS: boolean;
 	// Prometheus
 	PrometheusEnable: boolean;
@@ -75,6 +77,8 @@ export const emptyConf:Conf = {
 	InfluxToken:   "",
 	InfluxOrg:     "",
 	InfluxBucket:  "",
+	InfluxNetworkName: "",
+	InfluxDeviceLocation: "",
 	InfluxSkipTLS: false,
 	PrometheusEnable: false,
 };

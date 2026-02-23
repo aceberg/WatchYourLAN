@@ -27,6 +27,8 @@ type Conf struct {
 	InfluxToken   string
 	InfluxOrg     string
 	InfluxBucket  string
+	InfluxNetworkName   string
+	InfluxDeviceLocation string
 	InfluxSkipTLS bool
 	// Prometheus
 	PrometheusEnable bool

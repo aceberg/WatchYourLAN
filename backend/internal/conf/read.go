@@ -28,6 +28,8 @@ func read(path string) (config models.Conf) {
 	viper.SetDefault("PG_CONNECT", "")
 
 	viper.SetDefault("INFLUX_ENABLE", false)
+	viper.SetDefault("INFLUX_NETWORK_NAME", "")
+	viper.SetDefault("INFLUX_DEVICE_LOCATION", "")
 
 	viper.SetDefault("PROMETHEUS_ENABLE", false)
 
@@ -60,6 +62,8 @@ func read(path string) (config models.Conf) {
 	config.InfluxToken, _ = viper.Get("INFLUX_TOKEN").(string)
 	config.InfluxOrg, _ = viper.Get("INFLUX_ORG").(string)
 	config.InfluxBucket, _ = viper.Get("INFLUX_BUCKET").(string)
+	config.InfluxNetworkName, _ = viper.Get("INFLUX_NETWORK_NAME").(string)
+	config.InfluxDeviceLocation, _ = viper.Get("INFLUX_DEVICE_LOCATION").(string)
 
 	config.PrometheusEnable = viper.GetBool("PROMETHEUS_ENABLE")
 

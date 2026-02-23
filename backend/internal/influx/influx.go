@@ -13,6 +13,14 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
+func tagValueEscaped(value string) string {
+	value = strings.ReplaceAll(value, " ", "\\ ")
+	value = strings.ReplaceAll(value, ",", "\\,")
+	value = strings.ReplaceAll(value, "=", "\\=")
+
+	return value
+}
+
 // Add - write data to InfluxDB2
 func Add(appConfig models.Conf, oneHist models.Host) {
 	var ctx context.Context
@@ -29,15 +37,16 @@ func Add(appConfig models.Conf, oneHist models.Host) {
 	if ping {
 		writeAPI := client.WriteAPIBlocking(appConfig.InfluxOrg, appConfig.InfluxBucket)
 
-		// Escape special characters in strings
-		oneHist.Name = strings.ReplaceAll(oneHist.Name, " ", "\\ ")
-		oneHist.Name = strings.ReplaceAll(oneHist.Name, ",", "\\,")
-		oneHist.Name = strings.ReplaceAll(oneHist.Name, "=", "\\=")
+		// Escape special characters in tag values
+		oneHist.Name = tagValueEscaped(oneHist.Name)
 		if oneHist.Name == "" {
 			oneHist.Name = "unknown"
 		}
 
-		line := fmt.Sprintf("WatchYourLAN,IP=%s,iface=%s,name=%s,mac=%s,known=%d state=%d", oneHist.IP, oneHist.Iface, oneHist.Name, oneHist.Mac, oneHist.Known, oneHist.Now)
+		networkName := tagValueEscaped(appConfig.InfluxNetworkName)
+		deviceLocation := tagValueEscaped(appConfig.InfluxDeviceLocation)
+
+		line := fmt.Sprintf("WatchYourLAN,IP=%s,iface=%s,name=%s,mac=%s,known=%d,network_name=%s,device_location=%s state=%d", oneHist.IP, oneHist.Iface, oneHist.Name, oneHist.Mac, oneHist.Known, networkName, deviceLocation, oneHist.Now)
 		// slog.Debug("Writing to InfluxDB", "line", line)
 
 		err = writeAPI.WriteRecord(context.Background(), line)
