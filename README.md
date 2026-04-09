@@ -209,6 +209,7 @@ Moved to [docs/API.md](https://github.com/aceberg/WatchYourLAN/blob/main/docs/AP
 - [Python API client](https://github.com/drwahl/py-watchyourlanclient) by [drwahl](https://github.com/drwahl)
 - [Umbrel](https://apps.umbrel.com/app/watch-your-lan) by [Jasper](https://github.com/ceramicwhite)
 - [YunoHost](https://apps.yunohost.org/app/watchyourlan)
+- [WYL Teams Monitor](https://github.com/LeonMTN05/wyl-teams-monitor) by [LeonMTN05](https://github.com/LeonMTN05) — Sends ONLINE/OFFLINE notifications to a Microsoft Teams channel via Incoming Webhook
 </details> 
 
 ## Thanks
