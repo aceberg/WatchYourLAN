@@ -11,9 +11,12 @@
   "dependencies": {
     "@solid-primitives/scheduled": "^1.5.2",
     "@solidjs/router": "^0.15.3",
+    "aceberg-bootswatch-fork": "5.3.3-2",
+    "bootstrap-icons": "1.11.3",
     "solid-js": "^1.9.5"
   },
   "devDependencies": {
+    "@types/node": "22.13.10",
     "typescript": "~5.7.2",
     "vite": "^6.2.0",
     "vite-plugin-solid": "^2.11.2"

@@ -25,14 +25,14 @@ func getVersion(c *gin.Context) {
 
 // triggerRescan godoc
 // @Summary      Rescan all interfaces now
-// @Description  Manually trigger rescan
+// @Description  Manually trigger rescan and wait until the DB is updated
 // @Tags         system
 // @Produce      json
 // @Success      200  {string}  string  "OK"
 // @Router       /rescan [get]
 func triggerRescan(c *gin.Context) {
-	routines.ScanRestart()
-	c.Status(http.StatusOK)
+	routines.ScanNow()
+	c.IndentedJSON(http.StatusOK, "OK")
 }
 
 // getConfig godoc

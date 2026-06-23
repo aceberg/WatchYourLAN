@@ -7,6 +7,25 @@ import { debounce } from "@solid-primitives/scheduled";
 function TableRow(_props: any) {
 
   const [name, setName] = createSignal(_props.host.Name);
+
+  const displayName = () => {
+    const currentName = name().trim();
+    if (currentName !== "") {
+      return currentName;
+    }
+
+    const hardware = (_props.host.Hw || "").trim();
+    if (hardware !== "" && !hardware.startsWith("(Unknown")) {
+      return hardware;
+    }
+
+    const mac = (_props.host.Mac || "").trim();
+    if (mac !== "") {
+      return "Unknown " + mac.slice(-5);
+    }
+
+    return "Unknown";
+  };
   
   let now = <i class="bi bi-circle-fill" style="color:var(--bs-gray-500);"></i>;
   if (_props.host.Now == 1) {
@@ -45,7 +64,9 @@ function TableRow(_props: any) {
       <td>
         <Show
           when={editNames()}
-          fallback={name()}
+          fallback={
+            <span class={name().trim() === "" ? "text-muted" : ""}>{displayName()}</span>
+          }
         >
           <input type="text" class="form-control" value={name()}
             onInput={e => handleInput(e.target.value)}></input>

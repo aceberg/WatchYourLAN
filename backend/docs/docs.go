@@ -370,7 +370,7 @@ const docTemplate = `{
         },
         "/rescan": {
             "get": {
-                "description": "Manually trigger rescan",
+                "description": "Manually trigger rescan and wait until the DB is updated",
                 "produces": [
                     "application/json"
                 ],

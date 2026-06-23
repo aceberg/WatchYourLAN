@@ -1,37 +1,39 @@
-import { createSignal } from "solid-js";
+import { onMount } from "solid-js";
 import { appConfig, setAppConfig } from "../functions/exports";
 import { apiGetConfig } from "../functions/api";
 
 function Header() {
-
-  const [themePath, setThemePath] = createSignal('');
-  const [iconsPath, setIconsPath] = createSignal('');
   
   const setCurrentTheme = async () => {
     setAppConfig(await apiGetConfig());
 
     const theme = appConfig().Theme?appConfig().Theme:"sand";
     const color = appConfig().Color?appConfig().Color:"dark";
+    let themePath = "/fs/public/vendor/aceberg-bootswatch-fork/dist/"+theme+"/bootstrap.min.css";
+    let iconsPath = "/fs/public/vendor/bootstrap-icons/font/bootstrap-icons.min.css";
     
-    if (appConfig().NodePath == '') {
-      setThemePath("https://cdn.jsdelivr.net/npm/aceberg-bootswatch-fork@v5.3.3-2/dist/"+theme+"/bootstrap.min.css");
-      setIconsPath("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css");
-    } else {
-      setThemePath(appConfig().NodePath+"/node_modules/bootswatch/dist/"+theme+"/bootstrap.min.css");
-      setIconsPath(appConfig().NodePath+"/node_modules/bootstrap-icons/font/bootstrap-icons.css");
+    if (appConfig().NodePath != '') {
+      themePath = appConfig().NodePath+"/node_modules/bootswatch/dist/"+theme+"/bootstrap.min.css";
+      iconsPath = appConfig().NodePath+"/node_modules/bootstrap-icons/font/bootstrap-icons.css";
     }
+
+    const themeLink = document.getElementById("watchyourlan-theme-css") as HTMLLinkElement | null;
+    const iconsLink = document.getElementById("watchyourlan-icons-css") as HTMLLinkElement | null;
+    themeLink?.setAttribute("href", themePath);
+    iconsLink?.setAttribute("href", iconsPath);
 
     document.documentElement.setAttribute("data-bs-theme", color);
     color === "dark"
       ? document.documentElement.style.setProperty('--transparent-light', '#ffffff15')
       : document.documentElement.style.setProperty('--transparent-light', '#00000015');
   }
-  setCurrentTheme();
+
+  onMount(() => {
+    setCurrentTheme();
+  });
 
   return (
     <>
-    <link rel="stylesheet" href={iconsPath()}></link> {/* icons */}
-    <link rel="stylesheet" href={themePath()}></link> {/* theme */}
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
       <div class="container-lg">
         <a class="navbar-brand" href="/">
