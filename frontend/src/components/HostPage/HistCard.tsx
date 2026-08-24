@@ -17,22 +17,26 @@ function HistCard(_props: any) {
   };
 
   return (
-    <div class="card border-primary">
-      <div class="card-header">
-        <div class="input-group" style="width: fit-content;">
-          <span class="input-group-text">Host History for</span>
+    <div class="card wyl-panel host-history-panel">
+      <div class="card-header host-history-header">
+        <div>
+          <div class="host-panel-title">Presence history</div>
+          <div class="host-panel-subtitle">{_props.mac || "Waiting for host"}</div>
+        </div>
+        <label class="host-history-date-control">
+          <span>Presence date</span>
           <input
             type="date"
-            class="form-control"
+            class="form-control form-control-sm wyl-control host-date-input"
             value={today()}
             onInput={(e) => handleDate(e.currentTarget.value)}
           />
-        </div>
+        </label>
       </div>
-      <div class="card-body">
+      <div class="card-body host-history-body">
       {_props.mac !== "" && today() !== ""
       ? <MacHistory mac={_props.mac} date={today()}></MacHistory>
-      : <>Loading...</>
+      : <span class="host-loading">Loading...</span>
       }
       </div>
     </div>

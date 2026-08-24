@@ -1,7 +1,7 @@
-// @title WatchYourLAN API
+// @title LANventory API
 // @version 0.1
-// @description Lightweight network IP scanner written in Go
-// @contact.url   https://github.com/aceberg/WatchYourLAN
+// @description Local network inventory and monitoring application
+// @contact.url   https://github.com/godlev/WatchYourLAN2
 // @license.name  MIT
 // @license.url   https://opensource.org/licenses/MIT
 // @BasePath /api/

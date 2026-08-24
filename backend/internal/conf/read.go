@@ -1,6 +1,7 @@
 package conf
 
 import (
+	"log/slog"
 	"strings"
 
 	"github.com/spf13/viper"
@@ -49,6 +50,15 @@ func read(path string) (config models.Conf) {
 	config.Ifaces = viper.Get("IFACES").(string)
 	config.Timeout = viper.GetInt("TIMEOUT")
 	config.TrimHist = viper.GetInt("TRIM_HIST")
+	config.ConnectivityRetention = config.TrimHist
+	if viper.IsSet("CONNECTIVITY_RETENTION") {
+		connectivityRetention := viper.GetInt("CONNECTIVITY_RETENTION")
+		if connectivityRetention > 0 {
+			config.ConnectivityRetention = connectivityRetention
+		} else {
+			slog.Warn("Invalid CONNECTIVITY_RETENTION; falling back to TRIM_HIST", "value", connectivityRetention)
+		}
+	}
 	config.ShoutURL = viper.Get("SHOUTRRR_URL").(string)
 
 	config.UseDB = viper.Get("USE_DB").(string)

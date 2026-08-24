@@ -32,15 +32,16 @@ func Gui() {
 
 	file, err := pubFS.ReadFile("public/version")
 	check.IfError(err)
-	conf.AppConfig.Version = string(file)[8:]
+	conf.SetVersion(string(file)[8:])
 
-	address := conf.AppConfig.Host + ":" + conf.AppConfig.Port
+	config := conf.GetAppConfig()
+	address := config.Host + ":" + config.Port
 
 	slog.Info(colorCyan + "\n=================================== " +
-		"\n  WatchYourLAN Version: " + conf.AppConfig.Version +
-		"\n  Config dir: " + conf.AppConfig.DirPath +
-		"\n  Default DB: " + conf.AppConfig.UseDB +
-		"\n  Log level: " + conf.AppConfig.LogLevel +
+		"\n  LANventory Version: " + config.Version +
+		"\n  Config dir: " + config.DirPath +
+		"\n  Default DB: " + config.UseDB +
+		"\n  Log level: " + config.LogLevel +
 		"\n  Web GUI: http://" + address +
 		"\n=================================== " + colorReset)
 
@@ -56,6 +57,7 @@ func Gui() {
 	router.GET("/", indexHandler)          // index.go
 	router.GET("/config", indexHandler)    // index.go
 	router.GET("/history", indexHandler)   // index.go
+	router.GET("/activity", indexHandler)  // index.go
 	router.GET("/host/*any", indexHandler) // index.go
 	router.GET("/metrics", prometheus.Handler())
 

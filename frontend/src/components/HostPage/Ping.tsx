@@ -9,9 +9,13 @@ function Ping(_props: any) {
   const [endStr, setEnd] = createSignal("");
   const [curPort, setCurPort] = createSignal("");
   const [foundPorts, setFoundPorts] = createSignal<number[]>([]);
+  const [isStopped, setIsStopped] = createSignal(false);
+  const [isRunning, setIsRunning] = createSignal(false);
 
   const handleScan = async () => {
     stop = false;
+    setIsStopped(false);
+    setIsRunning(true);
     
     let begin = Number(beginStr());
     if (Number.isNaN(begin) || begin < 1 || begin > 65535) {
@@ -34,6 +38,7 @@ function Ping(_props: any) {
         setFoundPorts([...foundPorts(), i]);
       }
     }
+    setIsRunning(false);
   };
 
   const handleStop = () => {
@@ -42,30 +47,63 @@ function Ping(_props: any) {
       handleScan();
     } else {
       stop = true;
+      setIsStopped(true);
     }
   }
 
+  const scanStatus = () => {
+    if (isStopped()) {
+      return "Paused at port: " + curPort();
+    }
+
+    if (isRunning()) {
+      return "Scanning port: " + curPort();
+    }
+
+    return "Last scanned port: " + curPort();
+  };
+
   return (
-    <div class="card border-primary">
-      <div class="card-header">Port Scan</div>
-      <div class="card-body">
-        <form class="input-group">
-          <input type="text" class="form-control" placeholder="1"
-            onInput={e => setBegin(e.target.value)}></input>
-          <input type="text" class="form-control" placeholder="65535"
-            onInput={e => setEnd(e.target.value)}></input>
-          <button type="button" onClick={handleScan} class="btn btn-primary">Scan</button>
+    <div class="card wyl-panel host-panel">
+      <div class="card-header host-panel-header">
+        <div>
+          <div class="host-panel-title">Port scan</div>
+          <div class="host-panel-subtitle">{_props.IP || "Waiting for host"}</div>
+        </div>
+      </div>
+      <div class="card-body host-port-body">
+        <form class="host-port-controls">
+          <label class="host-port-field">
+            <span>Start port</span>
+            <input type="text" class="form-control form-control-sm wyl-control host-port-input" placeholder="1"
+              onInput={e => setBegin(e.target.value)}></input>
+          </label>
+          <label class="host-port-field">
+            <span>End port</span>
+            <input type="text" class="form-control form-control-sm wyl-control host-port-input" placeholder="65535"
+              onInput={e => setEnd(e.target.value)}></input>
+          </label>
+          <button type="button" onClick={handleScan} class="btn btn-sm wyl-button host-scan-button">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <span>Scan</span>
+          </button>
         </form>
         {curPort() != ""
-        ? <div class="d-flex justify-content-between mt-2">
-            <button type="button" onClick={handleStop} class="btn btn-warning">Stop/Continue</button>
-            <div>Scanning port: {curPort()}</div>
+        ? <div class="host-scan-state">
+            {isRunning() || isStopped()
+            ?
+            <button type="button" onClick={handleStop} class="btn btn-sm wyl-button host-stop-button">
+              {isStopped() ? "Continue" : "Stop"}
+            </button>
+            : <></>
+            }
+            <div class="host-scan-status">{scanStatus()}</div>
           </div>
         : <></>
         }
-        <div class="mt-2">
+        <div class="host-found-ports">
         <For each={foundPorts()}>{(port) =>
-          <a class="me-4" href={"http://" + _props.IP + ":" + port} target="_blank">{port}</a>
+          <a class="host-port-chip" href={"http://" + _props.IP + ":" + port} target="_blank" rel="noreferrer">{port}</a>
         }</For>
         </div>
       </div>

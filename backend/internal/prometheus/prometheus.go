@@ -17,7 +17,7 @@ import (
 func Handler() func(c *gin.Context) {
 	h := promhttp.Handler()
 	return func(c *gin.Context) {
-		if !conf.AppConfig.PrometheusEnable {
+		if !conf.GetAppConfig().PrometheusEnable {
 			c.AbortWithStatus(http.StatusNotFound)
 			return
 		}

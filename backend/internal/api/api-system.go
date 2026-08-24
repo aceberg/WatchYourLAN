@@ -20,7 +20,7 @@ import (
 // @Success      200  {string}  string
 // @Router       /version [get]
 func getVersion(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, conf.AppConfig.Version)
+	c.IndentedJSON(http.StatusOK, conf.GetAppConfig().Version)
 }
 
 // triggerRescan godoc
@@ -43,7 +43,7 @@ func triggerRescan(c *gin.Context) {
 // @Success      200  {object}  models.Conf
 // @Router       /config [get]
 func getConfig(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, conf.AppConfig)
+	c.IndentedJSON(http.StatusOK, toPublicConfig(conf.GetAppConfig()))
 }
 
 // notifyTest godoc

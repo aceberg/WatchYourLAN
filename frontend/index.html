@@ -2,9 +2,29 @@
 <html lang="en" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/fs/public/lanventory-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/fs/public/lanventory-16x16.png" />
+    <link rel="shortcut icon" href="/fs/public/lanventory.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/fs/public/lanventory-180x180.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WatchYourLAN</title>
+    <title>LANventory</title>
+    <script>
+      (function () {
+        try {
+          var theme = document.createElement("link");
+          theme.id = "wyl-theme-stylesheet";
+          theme.rel = "stylesheet";
+          theme.href = "/assets/themes/sand/bootstrap.min.css";
+          document.head.appendChild(theme);
+
+          var color = localStorage.getItem("watchyourlan-color-mode");
+          if (color === "dark" || color === "light") {
+            document.documentElement.setAttribute("data-bs-theme", color);
+            document.documentElement.style.setProperty("--transparent-light", color === "dark" ? "#ffffff15" : "#00000015");
+          }
+        } catch (error) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

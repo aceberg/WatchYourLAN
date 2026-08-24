@@ -1,17 +1,36 @@
+import { createSignal, Show } from "solid-js"
 import { apiPath } from "../../functions/api"
+import { saveErrorMessage, submitConfigForm } from "../../functions/configForms";
 import { appConfig } from "../../functions/exports"
 
 function Influx() {
+  const [status, setStatus] = createSignal("");
+  const [error, setError] = createSignal("");
+
+  const handleSubmit = async (event: SubmitEvent) => {
+    event.preventDefault();
+
+    const form = event.currentTarget as HTMLFormElement;
+    setStatus("");
+    setError("");
+
+    try {
+      await submitConfigForm(form);
+      setStatus("Saved");
+    } catch (saveError) {
+      setError(saveErrorMessage(saveError));
+    }
+  };
 
   return (
-    <div class="card border-primary">
+    <div class="card wyl-panel config-panel">
           <div class="card-header">InfluxDB2 config</div>
           <div class="card-body table-responsive">
-            <form action={apiPath + '/api/config_influx/'} method="post">
+            <form action={apiPath + '/api/config_influx/'} method="post" onSubmit={handleSubmit}>
               <table class="table table-borderless"><tbody>
                 <tr>
-                  <td>Enable</td>
-                  <td>
+                  <td class="config-field-label">Enable</td>
+                  <td class="config-field-value">
                     <div class="form-check form-switch">
                       {appConfig().InfluxEnable
                         ? <input class="form-check-input" type="checkbox" name="enable" checked></input>
@@ -21,24 +40,38 @@ function Influx() {
                   </td>
                 </tr>
                 <tr>
-                  <td>Address</td>
-                  <td><input name="addr" type="text" class="form-control" value={appConfig().InfluxAddr}></input></td>
+                  <td class="config-field-label">Address</td>
+                  <td class="config-field-value"><input name="addr" type="text" class="form-control" value={appConfig().InfluxAddr}></input></td>
                 </tr>
                 <tr>
-                  <td>Token</td>
-                  <td><input name="token" type="text" class="form-control" value={appConfig().InfluxToken}></input></td>
+                  <td class="config-field-label">Token</td>
+                  <td class="config-field-value">
+                    <input
+                      name="token"
+                      type="text"
+                      class="form-control"
+                      placeholder={appConfig().InfluxTokenConfigured ? "Configured - leave blank to keep current value" : ""}
+                    ></input>
+                    <Show when={appConfig().InfluxTokenConfigured}>
+                      <label class="form-check config-secret-clear">
+                        <input name="clear_influx_token" class="form-check-input" type="checkbox"></input>
+                        <span class="form-check-label">Clear stored InfluxDB token</span>
+                      </label>
+                    </Show>
+                    <div class="config-field-helper">Stored InfluxDB tokens are write-only and are not displayed after saving.</div>
+                  </td>
                 </tr>
                 <tr>
-                  <td>Org</td>
-                  <td><input name="org" type="text" class="form-control" value={appConfig().InfluxOrg}></input></td>
+                  <td class="config-field-label">Org</td>
+                  <td class="config-field-value"><input name="org" type="text" class="form-control" value={appConfig().InfluxOrg}></input></td>
                 </tr>
                 <tr>
-                  <td>Bucket</td>
-                  <td><input name="bucket" type="text" class="form-control" value={appConfig().InfluxBucket}></input></td>
+                  <td class="config-field-label">Bucket</td>
+                  <td class="config-field-value"><input name="bucket" type="text" class="form-control" value={appConfig().InfluxBucket}></input></td>
                 </tr>
                 <tr>
-                  <td>Skip TLS verify</td>
-                  <td>
+                  <td class="config-field-label">Skip TLS verify</td>
+                  <td class="config-field-value">
                     <div class="form-check form-switch">
                       {appConfig().InfluxSkipTLS
                         ? <input class="form-check-input" type="checkbox" name="skip" checked></input>
@@ -48,8 +81,13 @@ function Influx() {
                   </td>
                 </tr>
                 <tr>
-                  <td><button type="submit" class="btn btn-primary">Save</button></td>
-                  <td></td>
+                  <td class="config-action-cell">
+                    <button type="submit" class="btn btn-sm wyl-button">Save InfluxDB</button>
+                    <span class={"config-save-status" + (error() ? " config-save-error" : "")} role="status">
+                      {error() || status()}
+                    </span>
+                  </td>
+                  <td class="config-action-cell"></td>
                 </tr>
               </tbody></table>
             </form>

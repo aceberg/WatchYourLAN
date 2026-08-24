@@ -3,10 +3,14 @@ import { Host } from "./exports";
 
 export async function getHistoryForMac(mac: string, date: string) {
     let h:Host[] = [];
-    if (date === "") {
-        h = await apiGetHistory(mac);
-    } else {
-        h = await apiGetHistoryByDate(mac, date);
+    try {
+        if (date === "") {
+            h = await apiGetHistory(mac);
+        } else {
+            h = await apiGetHistoryByDate(mac, date);
+        }
+    } catch {
+        return [];
     }
     
     if (h != null) {

@@ -1,57 +1,53 @@
-import { bkpHosts, Host, setAllHosts } from "./exports";
+import { Host, setSortState, sortState, SortDirection } from "./exports";
+import { applyHostView } from "./hostView";
 
-let down = false;
-let oldField = '';
+const sortableFields = ["Name", "DeviceType", "Iface", "IP", "Mac", "Hw", "Date", "Known"];
 
 export function sortAtStart() {
-  const field = localStorage.getItem("sortField") as keyof Host;
-  down = JSON.parse(localStorage.getItem("sortDown") as string);
-  down = !down;
+  const field = normalizeField(localStorage.getItem("sortField"));
+  const direction = readStoredDirection();
 
-  sortByAnyField(field);
+  if (!field || !direction) {
+    clearSortState();
+    return;
+  }
+
+  setSortState({ field, direction });
 }
 
 export function sortByAnyField(field: keyof Host) {
+  const current = sortState();
 
-  if (field != oldField) {
-    oldField = field;
-    down = !down;
+  if (current.field !== field || current.direction === "") {
+    setSort(field, "ascending");
+  } else if (current.direction === "ascending") {
+    setSort(field, "descending");
   } else {
-    oldField = '';
-    down = !down;
+    clearSortState();
   }
 
-  localStorage.setItem("sortDown", down.toString());
+  applyHostView();
+}
+
+function setSort(field: keyof Host, direction: SortDirection) {
   localStorage.setItem("sortField", field);
-
-  let someArray = bkpHosts();
-  if (field == 'IP') {
-    someArray.sort((a, b) => sortIP(a, b, down));
-  } else {
-    someArray.sort((a, b) => byField(a, b, field, down));
-  }
-  
-  setAllHosts(someArray);
+  localStorage.setItem("sortDown", (direction === "ascending").toString());
+  setSortState({ field, direction });
 }
 
-function byField(a:Host, b:Host, fieldName: keyof Host, down:boolean){
-  if (a[fieldName] > b[fieldName]) {
-    return down ? 1 : -1;
-  } else {
-    return !down ? 1 : -1;
-  }
+function clearSortState() {
+  localStorage.removeItem("sortField");
+  localStorage.removeItem("sortDown");
+  setSortState({ field: "", direction: "" });
 }
 
-function sortIP(a:Host, b:Host, down: boolean) {
-  const num1 = numIP(a);
-  const num2 = numIP(b);
-  if (down) {
-    return num1-num2;
-  } else {
-    return num2-num1;
-  } 
+function normalizeField(field: string | null): keyof Host | "" {
+  return field && sortableFields.includes(field) ? field as keyof Host : "";
 }
 
-function numIP(a:Host) {
-  return Number(a.IP.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
+function readStoredDirection(): SortDirection | "" {
+  const stored = localStorage.getItem("sortDown");
+  if (stored === "true") return "ascending";
+  if (stored === "false") return "descending";
+  return "";
 }

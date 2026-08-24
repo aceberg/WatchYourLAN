@@ -1,59 +1,90 @@
-import { createSignal, onMount } from "solid-js";
+import { For, createSignal, onMount } from "solid-js";
 import { apiGetVersion } from "../../functions/api"
 
 function About() {
 
   const [version, setVersion] = createSignal('');
-  const [link, setLink] = createSignal('');
+  const forkHighlights = [
+    "Modern responsive interface",
+    "Fully local/offline UI assets",
+    "Dark and light color modes",
+    "Improved Home dashboard and filtering",
+    "Presence timeline",
+    "Persistent Events system",
+    "Unified Events explorer with filtering and grouping",
+    "Configurable Presence and Connectivity-event retention",
+    "Manual persistent Device Type classification",
+    "Host read/edit modes",
+    "Responsive Settings experience",
+  ];
 
   onMount(async () => {
     const v = await apiGetVersion();
     setVersion(v);
-    setLink("https://github.com/aceberg/WatchYourLAN/releases/tag/"+v);
   });
 
   return (
-    <div class="card border-primary">
+    <div class="card wyl-panel config-panel">
       <div class="card-header">
-        About (<a href={link()} target="_blank">{version()}</a>)
+        About
       </div>
       <div class="card-body table-responsive">
-        <table class="table table-striped"><tbody>
+        <table class="table config-info-table"><tbody>
           <tr>
-            <td><b>Swagger API docs</b></td>
-            <td><a href="/swagger/index.html" target="_blank">/swagger/index.html</a></td>
+            <td class="config-field-label"><b>Project</b></td>
+            <td class="config-field-value"><b>LANventory</b></td>
           </tr>
           <tr>
-            <td><b>Local node-bootstrap URL</b></td>
-            <td>local themes and fonts (optional). If empty, the app will pull everything from <code>cdn</code></td>
+            <td class="config-field-label"><b>Status</b></td>
+            <td class="config-field-value">In active development</td>
           </tr>
           <tr>
-            <td><b>Shoutrrr URL</b></td>
-            <td>provides notifications to Discord, Email, Gotify, Telegram and other services. <a href="https://shoutrrr.nickfedor.com/services/overview/" target="_blank">Link to documentation</a></td>
+            <td class="config-field-label config-field-label-top"><b>Development status</b></td>
+            <td class="config-field-value">LANventory is an actively developed fork of WatchYourLAN. Features, UI and behavior may continue to change while development is in progress.</td>
           </tr>
           <tr>
-            <td><b>Interfaces</b></td>
-            <td>one or more, space separated</td>
+            <td class="config-field-label"><b>Repository</b></td>
+            <td class="config-field-value"><a href="https://github.com/godlev/WatchYourLAN2" target="_blank" rel="noreferrer">godlev/WatchYourLAN2</a></td>
           </tr>
           <tr>
-            <td><b>Timeout (seconds)</b></td>
-            <td>time between scans</td>
+            <td class="config-field-label"><b>Upstream project</b></td>
+            <td class="config-field-value"><a href="https://github.com/aceberg/WatchYourLAN" target="_blank" rel="noreferrer">WatchYourLAN by aceberg</a></td>
           </tr>
           <tr>
-            <td><b>Args for arp-scan</b></td>
-            <td>pass your own arguments to <code>arp-scan</code>. Enable <b>debug</b> log level to see resulting command. (Example: <code>-r 1</code>). See <a href="https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md" target="_blank">docs</a> for more</td>
+            <td class="config-field-label"><b>Base / backend version</b></td>
+            <td class="config-field-value">
+              {version()}
+            </td>
           </tr>
           <tr>
-            <td><b>Arp Strings</b></td>
-            <td>can setup scans for <code>vlans</code>, <code>docker0</code> and etcetera. See <a href="https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md" target="_blank">docs</a> for more</td>
+            <td class="config-field-label config-field-label-top"><b>Fork highlights</b></td>
+            <td class="config-field-value">
+              <ul class="config-highlight-list">
+                <For each={forkHighlights}>{highlight =>
+                  <li>{highlight}</li>
+                }</For>
+              </ul>
+            </td>
           </tr>
           <tr>
-            <td><b>Trim History</b></td>
-            <td>remove history after (hours)</td>
+            <td class="config-field-label"><b>Swagger API docs</b></td>
+            <td class="config-field-value"><a href="/swagger/index.html" target="_blank" rel="noreferrer">/swagger/index.html</a></td>
           </tr>
           <tr>
-            <td><b>PG Connect URL</b></td>
-            <td>address to connect to PostgreSQL DB. (Example: <code>postgres://username:password@192.168.0.1:5432/dbname?sslmode=disable</code>). Full list of URL parameters <a href="https://pkg.go.dev/github.com/lib/pq#hdr-Connection_String_Parameters" target="_blank">here</a></td>
+            <td class="config-field-label"><b>Network docs</b></td>
+            <td class="config-field-value"><a href="https://github.com/aceberg/WatchYourLAN/blob/main/docs/VLAN_ARP_SCAN.md" target="_blank" rel="noreferrer">VLAN and ARP scan guide</a></td>
+          </tr>
+          <tr>
+            <td class="config-field-label config-field-label-top"><b>Upstream credit</b></td>
+            <td class="config-field-value">Based on <a href="https://github.com/aceberg/WatchYourLAN" target="_blank" rel="noreferrer">WatchYourLAN by aceberg</a>.</td>
+          </tr>
+          <tr>
+            <td class="config-field-label config-field-label-top"><b>Notifications</b></td>
+            <td class="config-field-value">Shoutrrr supports Discord, Email, Gotify, Telegram and other services. <a href="https://shoutrrr.nickfedor.com/services/overview/" target="_blank" rel="noreferrer">Service documentation</a></td>
+          </tr>
+          <tr>
+            <td class="config-field-label config-field-label-top"><b>PostgreSQL URL</b></td>
+            <td class="config-field-value">Connection string parameters are documented by <a href="https://pkg.go.dev/github.com/lib/pq#hdr-Connection_String_Parameters" target="_blank" rel="noreferrer">lib/pq</a>.</td>
           </tr>
         </tbody></table>
       </div>

@@ -1,6 +1,7 @@
 package arp
 
 import (
+	"context"
 	"log/slog"
 	"os/exec"
 	"strings"
@@ -10,37 +11,45 @@ import (
 	"github.com/aceberg/WatchYourLAN/internal/models"
 )
 
-var arpArgs string
+var scanCommandTimeout = 2 * time.Minute
+var commandRunner = runCommand
 
-func scanIface(iface string) string {
-	var cmd *exec.Cmd
+func scanIface(iface, scanArgs string) (string, bool) {
+	args := []string{"-glNx"}
+	args = append(args, strings.Fields(scanArgs)...)
+	args = append(args, "-I", iface)
 
-	if arpArgs != "" {
-		cmd = exec.Command("arp-scan", "-glNx", arpArgs, "-I", iface)
-	} else {
-		cmd = exec.Command("arp-scan", "-glNx", "-I", iface)
-	}
-	out, err := cmd.Output()
-	slog.Debug(cmd.String())
-
-	if check.IfError(err) {
-		return string("")
-	}
-	return string(out)
+	return commandRunner("arp-scan", args...)
 }
 
-func scanStr(str string) string {
+func scanStr(str string) (string, bool) {
 
-	args := strings.Split(str, " ")
-	cmd := exec.Command("arp-scan", args...)
+	args := strings.Fields(str)
+	if len(args) == 0 {
+		return "", true
+	}
+
+	return commandRunner("arp-scan", args...)
+}
+
+func runCommand(name string, args ...string) (string, bool) {
+	ctx, cancel := context.WithTimeout(context.Background(), scanCommandTimeout)
+	defer cancel()
+
+	cmd := exec.CommandContext(ctx, name, args...)
 
 	out, err := cmd.Output()
 	slog.Debug(cmd.String())
 
-	if check.IfError(err) {
-		return string("")
+	if ctx.Err() == context.DeadlineExceeded {
+		slog.Error("Command timed out", "cmd", cmd.String(), "timeout", scanCommandTimeout.String())
+		return string(""), false
 	}
-	return string(out)
+
+	if check.IfError(err) {
+		return string(""), false
+	}
+	return string(out), true
 }
 
 func parseOutput(text, iface string) []models.Host {
@@ -49,36 +58,53 @@ func parseOutput(text, iface string) []models.Host {
 	p := strings.Split(text, "\n")
 
 	for _, host := range p {
-		if host != "" {
-			var oneHost models.Host
-			p := strings.Split(host, "	")
-			oneHost.Iface = iface
-			oneHost.IP = p[0]
-			oneHost.Mac = p[1]
-			oneHost.Hw = p[2]
-			oneHost.Date = time.Now().Format("2006-01-02 15:04:05")
-			oneHost.Now = 1
-			foundHosts = append(foundHosts, oneHost)
+		host = strings.TrimSpace(host)
+		if host == "" {
+			continue
 		}
+
+		p := strings.Split(host, "	")
+		if len(p) < 3 {
+			slog.Warn("Ignoring malformed arp-scan row", "iface", iface, "row", host)
+			continue
+		}
+
+		var oneHost models.Host
+		oneHost.Iface = iface
+		oneHost.IP = strings.TrimSpace(p[0])
+		oneHost.Mac = strings.TrimSpace(p[1])
+		oneHost.Hw = strings.TrimSpace(strings.Join(p[2:], "	"))
+		if oneHost.IP == "" || oneHost.Mac == "" || oneHost.Hw == "" {
+			slog.Warn("Ignoring incomplete arp-scan row", "iface", iface, "row", host)
+			continue
+		}
+		oneHost.Date = time.Now().Format("2006-01-02 15:04:05")
+		oneHost.Now = 1
+		foundHosts = append(foundHosts, oneHost)
 	}
 
 	return foundHosts
 }
 
 // Scan all interfaces
-func Scan(ifaces, args string, strs []string) []models.Host {
+func Scan(ifaces, args string, strs []string) ([]models.Host, bool) {
 	var text string
 	var p []string
 	var foundHosts = []models.Host{}
-	arpArgs = args
+	scanOK := true
 
 	if ifaces != "" {
 
-		p = strings.Split(ifaces, " ")
+		p = strings.Fields(ifaces)
 
 		for _, iface := range p {
 			slog.Debug("Scanning interface " + iface)
-			text = scanIface(iface)
+			var ok bool
+			text, ok = scanIface(iface, args)
+			if !ok {
+				scanOK = false
+				continue
+			}
 			slog.Debug("Found IPs: \n" + text)
 
 			foundHosts = append(foundHosts, parseOutput(text, iface)...)
@@ -86,13 +112,23 @@ func Scan(ifaces, args string, strs []string) []models.Host {
 	}
 
 	for _, s := range strs {
+		s = strings.TrimSpace(s)
+		if s == "" {
+			continue
+		}
+
 		slog.Debug("Scanning string " + s)
-		text = scanStr(s)
+		var ok bool
+		text, ok = scanStr(s)
+		if !ok {
+			scanOK = false
+			continue
+		}
 		slog.Debug("Found IPs: \n" + text)
-		p = strings.Split(s, " ")
+		p = strings.Fields(s)
 
 		foundHosts = append(foundHosts, parseOutput(text, p[len(p)-1])...)
 	}
 
-	return foundHosts
+	return foundHosts, scanOK
 }

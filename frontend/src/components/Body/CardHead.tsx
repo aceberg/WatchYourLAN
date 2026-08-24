@@ -1,18 +1,10 @@
 import { Show } from "solid-js";
-import { editNames, selectedIDs, setEditNames } from "../../functions/exports";
+import { editNames, selectedIDs } from "../../functions/exports";
 import Filter from "../Filter";
 import Search from "../Search";
-import { getHosts } from "../../functions/atstart";
 import { apiDelHost } from "../../functions/api";
 
 function CardHead() {
-
-  const handleEditNames = (toggle: boolean) => {
-    if (!toggle) {
-      getHosts();
-    }
-    setEditNames(toggle);
-  };
 
   const handleDel = async () => {
     const ids = selectedIDs();
@@ -25,23 +17,18 @@ function CardHead() {
   };
 
   return (
-    <div class="row">
-      <div class="col-md mt-1 mb-1">
-        <div class="d-flex justify-left">
+    <div class="device-toolbar">
+      <div class="device-toolbar-filters">
         <Filter></Filter>
-        </div>
       </div>
-      <div class="col-md mt-1 mb-1">
-        <div class="d-flex justify-content-between">
+      <div class="device-toolbar-actions">
         <Search></Search>
-        <Show
-          when={editNames()}
-          fallback={<button class="btn btn-outline-primary" title="Toggle edit" onClick={[handleEditNames, true]}>Edit</button>}
-        >
-          <button type="button" onClick={handleDel} title="Delete selected hosts" class="btn btn-outline-danger">Delete selected</button>
-          <button class="btn btn-primary" title="Toggle edit" onClick={[handleEditNames, false]}>Edit</button>
+        <Show when={editNames() && selectedIDs().length > 0}>
+          <button type="button" onClick={handleDel} title="Delete selected hosts" class="btn btn-sm wyl-button device-delete-button">
+            <i class="bi bi-trash3-fill" aria-hidden="true"></i>
+            <span>DELETE ({selectedIDs().length})</span>
+          </button>
         </Show>
-        </div>
       </div>
     </div>
   )

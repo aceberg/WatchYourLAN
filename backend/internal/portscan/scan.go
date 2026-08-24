@@ -1,7 +1,6 @@
 package portscan
 
 import (
-	"fmt"
 	"net"
 	"time"
 )
@@ -10,7 +9,7 @@ import (
 func IsOpen(host, port string) bool {
 
 	timeout := 3 * time.Second
-	target := fmt.Sprintf("%s:%s", host, port)
+	target := targetAddress(host, port)
 
 	conn, err := net.DialTimeout("tcp", target, timeout)
 
@@ -22,4 +21,8 @@ func IsOpen(host, port string) bool {
 	}
 
 	return false
+}
+
+func targetAddress(host, port string) string {
+	return net.JoinHostPort(host, port)
 }

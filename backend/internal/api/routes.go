@@ -12,11 +12,16 @@ func Routes(router *gin.Engine) {
 
 	r0 := router.Group("/api")
 	{
-		r0.GET("/all", getAllHosts)                // api-hosts.go
+		r0.GET("/all", getAllHosts) // api-hosts.go
+		r0.GET("/activity/stats", getActivityStats)
+		r0.GET("/activity/devices", getActivityDevices)
+		r0.GET("/activity", getActivity)           // api-activity.go
 		r0.GET("/edit/:id/:name/*known", editHost) // api-hosts.go
-		r0.GET("/host/:id", getHost)               // api-hosts.go
-		r0.GET("/host/del/:id", delHost)           // api-hosts.go
-		r0.GET("/host/add/:mac", addHost)          // api-hosts.go
+		r0.GET("/host/:id/activity", getHostActivity)
+		r0.GET("/host/:id", getHost) // api-hosts.go
+		r0.PATCH("/host/:id/type", setHostDeviceType)
+		r0.GET("/host/del/:id", delHost)  // api-hosts.go
+		r0.GET("/host/add/:mac", addHost) // api-hosts.go
 
 		r0.GET("/config", getConfig)        // api-system.go
 		r0.GET("/notify_test", notifyTest)  // api-system.go
@@ -32,6 +37,8 @@ func Routes(router *gin.Engine) {
 		r0.GET("/wol/:mac", sendWOL)              // api-network.go
 
 		r0.POST("/config/", saveConfigHandler)                // config.go
+		r0.POST("/config/color", saveColorHandler)            // config.go
+		r0.POST("/config/retention", saveRetentionHandler)    // config.go
 		r0.POST("/config_settings/", saveSettingsHandler)     // config.go
 		r0.POST("/config_influx/", saveInfluxHandler)         // config.go
 		r0.POST("/config_prometheus/", savePrometheusHandler) // config.go

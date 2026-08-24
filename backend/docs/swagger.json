@@ -1,10 +1,10 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Lightweight network IP scanner written in Go",
-        "title": "WatchYourLAN API",
+        "description": "Local network inventory and monitoring application",
+        "title": "LANventory API",
         "contact": {
-            "url": "https://github.com/aceberg/WatchYourLAN"
+            "url": "https://github.com/godlev/WatchYourLAN2"
         },
         "license": {
             "name": "MIT",

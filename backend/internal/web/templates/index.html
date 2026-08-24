@@ -2,11 +2,31 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
-  <title>WatchYourLAN</title>
+  <title>LANventory</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--Favicon-->
-  <link rel="icon" type="image/x-icon" href="/fs/public/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/fs/public/lanventory-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/fs/public/lanventory-16x16.png">
+  <link rel="shortcut icon" href="/fs/public/lanventory.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/fs/public/lanventory-180x180.png">
+  <script>
+    (function () {
+      try {
+        var theme = document.createElement("link");
+        theme.id = "wyl-theme-stylesheet";
+        theme.rel = "stylesheet";
+        theme.href = "/fs/public/assets/themes/sand/bootstrap.min.css";
+        document.head.appendChild(theme);
+
+        var color = localStorage.getItem("watchyourlan-color-mode");
+        if (color === "dark" || color === "light") {
+          document.documentElement.setAttribute("data-bs-theme", color);
+          document.documentElement.style.setProperty("--transparent-light", color === "dark" ? "#ffffff15" : "#00000015");
+        }
+      } catch (error) {}
+    })();
+  </script>
   <!-- JS & CSS -->
   <script type="module" crossorigin src="/fs/public/assets/index.js"></script>
   <link rel="stylesheet" crossorigin href="/fs/public/assets/index.css">

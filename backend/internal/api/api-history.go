@@ -2,7 +2,6 @@ package api
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 
@@ -33,7 +32,12 @@ func getHistory(c *gin.Context) {
 func getHistoryByMAC(c *gin.Context) {
 	mac := c.Param("mac")
 	numStr := c.Query("num")
-	num, _ := strconv.Atoi(numStr)
+	num, err := parsePositiveInt(numStr)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "invalid num"})
+		return
+	}
+
 	hosts := gdb.SelectLatest(mac, num)
 	c.IndentedJSON(http.StatusOK, hosts)
 }

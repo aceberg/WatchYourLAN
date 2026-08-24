@@ -5,12 +5,24 @@ function HistShow(_props: any) {
   const handleSaveShow = (showStr: string) => {
     localStorage.setItem(_props.name, showStr);
 
-    setShow(+showStr);
-    show() == 0 ? setShow(200) : '';
+    const nextShow = Number(showStr);
+    setShow(nextShow > 0 && !isNaN(nextShow) ? nextShow : 200);
   };
 
   return (
-    <input class="form-control" onInput={e => handleSaveShow(e.target.value)} placeholder="Show elements" title="Nomber of elements to show" style="max-width: 10em;"></input>
+    <label class="history-samples-control">
+      <span>Presence samples per device</span>
+      <input
+        class="form-control form-control-sm history-show-input"
+        type="number"
+        min="1"
+        step="1"
+        value={show()}
+        onInput={e => handleSaveShow(e.target.value)}
+        placeholder="200"
+        title="Maximum number of timeline samples displayed for each device."
+      ></input>
+    </label>
   )
 }
 

@@ -1,11 +1,11 @@
 import { apiGetAllHosts } from "./api";
-import { allHosts, setAllHosts, setBkpHosts, setIfaces } from "./exports";
-import { filterAtStart, filterFunc } from "./filter";
+import { Host, setBkpHosts, setHostsLoadError, setIfaces } from "./exports";
+import { applyHostView } from "./hostView";
+import { filterAtStart } from "./filter";
 import { sortAtStart } from "./sort";
 
 export function runAtStart() {
   getHosts();
-  filterFunc("ID", 0); // reset filter
 
   setInterval(() => {
     getHosts();
@@ -13,25 +13,35 @@ export function runAtStart() {
 }
 
 export async function getHosts() {
-  const hosts = await apiGetAllHosts();
+  let hosts: Host[];
+  try {
+    hosts = await apiGetAllHosts();
+  } catch {
+    setHostsLoadError("Device data could not be refreshed. Showing the last loaded device list.");
+    return;
+  }
+
+  setHostsLoadError("");
 
   if (hosts !== null && hosts.length > 0) {
-    setAllHosts(hosts);
     setBkpHosts(hosts);
 
-    listIfaces();
+    listIfaces(hosts);
     sortAtStart();
     filterAtStart();
+    applyHostView();
   }
 }
 
-function listIfaces() {
+function listIfaces(hosts: Host[]) {
 
   let ifaces:string[] = [];
 
-  for (let host of allHosts) {
-    if (!ifaces.includes(host.Iface)) {
-      ifaces.push(host.Iface);
+  for (let host of hosts) {
+    const iface = host.Iface.trim();
+
+    if (iface !== "" && !ifaces.includes(iface)) {
+      ifaces.push(iface);
     }
   }
 
